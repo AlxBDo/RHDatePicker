@@ -1,0 +1,79 @@
+.birthdate-ctn {
+    display: flex;
+    justify-content: center;
+    max-width: 500px;
+    flex-wrap: wrap;
+    text-align: left;
+    font-size: large;
+    padding: 1% 5%;
+    align-items: center;
+    color: #302f2f;
+    margin-bottom: 5%;
+    width: 100%;
+    text-align: center;
+}
+.birthdate-ctn label, .birthdate-ctn input { width: 40%; }
+.birthdate-err {
+	color: red;
+	margin: 5% 0;
+	font-weight: bold;
+    width: 100%;
+    text-align: center; 
+    display: none;
+}
+.birthdate-err p {
+	margin: 5px 0;
+	font-size: smaller;
+	font-weight: normal;
+}
+.birthdate-ctn input {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    border: none;
+    padding: 3% 0;
+    box-shadow: none;
+    background-color: #302f2f;
+    border-radius: 10px;
+}
+
+#example1 {
+    max-width: 550px;
+    margin: auto;
+    border: 3px solid #75b74e;
+    border-radius: 5px;
+}
+#examples-ctn h1 {
+    color: #75b74e;
+    margin: 5% auto 10%;
+    width: 100%;
+    text-align: center;
+}
+#examples-ctn div:nth-of-type(2) {
+    width: 80%;
+    margin: auto;
+}
+
+h2 {
+    background-color: #75b74e;
+    color: white;
+    padding: 2% 5%;
+    text-align: left;
+    margin: 0 0 5%;
+}
+
+#test-weekday {
+	font-weight: bold;
+}
+  
+#weekday-ctn {
+    text-align: center;
+    margin: 5%;
+    font-size: larger;
+	color: #75b74e;
+    display: none
+}
+  
+
+  
