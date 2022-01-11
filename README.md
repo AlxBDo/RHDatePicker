@@ -4,7 +4,9 @@
 [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
 
 
-# RHDatePicker : secure and customizable date picker creator
+# RHDatePicker 
+
+A library of React components created using `create-react-app` to make secure and customizable date picker
 
 ![ScreenShot](https://alxbdo.github.io/RHDatePicker/src/img/DatePickerScreenshot.png)
 
@@ -30,18 +32,8 @@ Alexandre Bidaud
 
 
 
-### 3.2 Launching the project
+### 3.2 Installation
 
-- Clone it on your computer :
-
-    * github -> green code button -> clone -> copy link
-
-![ScreenShot](https://alxbdo.github.io/BidaudAlexandre_12_02112021/src/assets/clone_repo.jpg)
-
-    * In your terminal 
-``` git clone https://github.com/AlxBDo/RHDatePicker.git ```
-
-- `npm` installation : ``` npm install ```
-
-- Lunch the project : ``` npm start ```
+Run the following command:
+`npm i rh-date-picker`
 
