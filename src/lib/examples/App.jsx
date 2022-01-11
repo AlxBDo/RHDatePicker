@@ -3,23 +3,21 @@ import { DatePicker } from "..";
 import "./style.css"
 
 const App = () => {
-    const onChangeFunction = (e) => {
-        const inputValue = e.split("-")
-        if(
-            Number.isInteger(parseInt(inputValue[0])) 
-            && Number.isInteger(parseInt(inputValue[1]))
-            && Number.isInteger(parseInt(inputValue[2]))
-        ){
+
+    // contain event function param
+    const eventFunction = {
+        onChange: (e) => {
+            const inputValue = e.split("-")
             document.getElementById("weekday-ctn").style.display = "block"
             document.getElementById("test-weekday").textContent = new Intl.DateTimeFormat(
                 'en-US', {weekday: 'long'}).format(new Date(inputValue[0], inputValue[1]-1, inputValue[2]))
-        }
-    }
-    const eventFunction = {
-        onChange: onChangeFunction,
+        },
         onClick: () => document.getElementById("weekday-ctn").style.display = "none"
     }
+
+    // contain html class param
     const BDHtmlClass = {container: "birthdate-ctn", error: "birthdate-err"}
+    
     return (
         <div id="examples-ctn">
             <h1>Date Picker Component Example</h1>

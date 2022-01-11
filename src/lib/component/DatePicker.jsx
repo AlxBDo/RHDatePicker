@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 
+/**
+ * Provides input and param check methods
+ */
 const validation = {
 
     error: false,
@@ -10,7 +13,7 @@ const validation = {
         label: { max: 35, min: 4 }
     }, 
 
-    allowedType: { onChangeFunction: "function" },
+    allowedType: { eventFunction: "function" },
 
     clearError: () => {
         validation.error = false 
@@ -68,6 +71,9 @@ const validation = {
 
 };
  
+/**
+ * Provides error message to validation object
+ */
 const errorMessage = { 
 
     allowed: {
@@ -107,19 +113,12 @@ const errorMessage = {
 
 };
 
-const localFormat = {
-    de: "de-DE",
-    fr: 'fr-FR',
-    gb: 'en-GB',
-    us: 'en-US',
-    get : (country) => localFormat[country] ? localFormat[country] : localFormat.us
-};
-
 /**
  * Check and display input type date
- * @param {object} param
- * @param {string} param.inputId 
- * @param {string} param.label 
+ * @param {object} param - object containing attributes: inputId, label, evenFunction (optional) and htmlClass (optional)
+ * @example { inputId: "my-input-id", label: "My input id label", evenFunction: {}, htmlClass: {} }
+ * @param {string} param.inputId - accepts alphanumeric characters and hyphen
+ * @param {string} param.label - accepts alphanumeric characters, hyphen, space and apostrophe
  * @param {object} param.eventFunction - contains function to apply to events
  * @example { onBlur: onBlurFunction, onChange: onChangeFunction, onClick: onClickFunction }
  * @param {object} param.htmlClass - contains classes to apply to the container, to the input and to the error message
@@ -129,10 +128,11 @@ const localFormat = {
 const DatePicker = ({
     inputId, 
     label, 
-    eventFunction = false,
+    eventFunction = {},
     htmlClass = {}
 }) => {
 
+    // if id format is incorrect, define one
     if(!validation.checkId(inputId)){ inputId = "param" }
     validation.inputId = inputId
 
@@ -141,7 +141,7 @@ const DatePicker = ({
     },[inputId])
 
     return(
-        <div className={ htmlClass.container && (`${htmlClass.container}`)}>
+        <div className={ htmlClass.container && (`${htmlClass.container}`) }>
             { validation.checkLabel(label) && ( <label htmlFor={inputId}>{label}</label> ) }
             { inputId !== "param" && (
                 <input 

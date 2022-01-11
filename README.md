@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
+[![forthebadge](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzQuNjYiIGhlaWdodD0iMzUiIHZpZXdCb3g9IjAgMCAxMzQuNjYgMzUiPjxyZWN0IGNsYXNzPSJzdmdfX3JlY3QiIHg9IjAiIHk9IjAiIHdpZHRoPSI1NC43NjAwMDAwMDAwMDAwMDUiIGhlaWdodD0iMzUiIGZpbGw9IiMzMUM0RjMiLz48cmVjdCBjbGFzcz0ic3ZnX19yZWN0IiB4PSI1Mi43NjAwMDAwMDAwMDAwMDUiIHk9IjAiIHdpZHRoPSI4MS44OTk5OTk5OTk5OTk5OSIgaGVpZ2h0PSIzNSIgZmlsbD0iIzM4OUFENSIvPjxwYXRoIGNsYXNzPSJzdmdfX3RleHQiIGQ9Ik0xNC4wOCAxOS4xNkwxNC4wOCAxOS4xNkwxNC4wOCAxMy40N0wxNS41NiAxMy40N0wxNS41NiAxOS4xOFExNS41NiAyMC4wMyAxNS45OSAyMC40OFExNi40MyAyMC45MyAxNy4yNyAyMC45M0wxNy4yNyAyMC45M1ExOC45OCAyMC45MyAxOC45OCAxOS4xM0wxOC45OCAxOS4xM0wxOC45OCAxMy40N0wyMC40NiAxMy40N0wyMC40NiAxOS4xN1EyMC40NiAyMC41MyAxOS41OSAyMS4zMlExOC43MiAyMi4xMiAxNy4yNyAyMi4xMkwxNy4yNyAyMi4xMlExNS44MSAyMi4xMiAxNC45NCAyMS4zM1ExNC4wOCAyMC41NSAxNC4wOCAxOS4xNlpNMjQuNTkgMTkuNDJMMjQuNTkgMTkuNDJMMjYuMDggMTkuNDJRMjYuMDggMjAuMTUgMjYuNTYgMjAuNTVRMjcuMDQgMjAuOTUgMjcuOTMgMjAuOTVMMjcuOTMgMjAuOTVRMjguNzEgMjAuOTUgMjkuMTAgMjAuNjNRMjkuNDkgMjAuMzIgMjkuNDkgMTkuODBMMjkuNDkgMTkuODBRMjkuNDkgMTkuMjQgMjkuMDkgMTguOTRRMjguNzAgMTguNjMgMjcuNjYgMTguMzJRMjYuNjMgMTguMDEgMjYuMDIgMTcuNjNMMjYuMDIgMTcuNjNRMjQuODYgMTYuOTAgMjQuODYgMTUuNzJMMjQuODYgMTUuNzJRMjQuODYgMTQuNjkgMjUuNzAgMTQuMDJRMjYuNTQgMTMuMzUgMjcuODggMTMuMzVMMjcuODggMTMuMzVRMjguNzcgMTMuMzUgMjkuNDcgMTMuNjhRMzAuMTcgMTQuMDEgMzAuNTYgMTQuNjFRMzAuOTYgMTUuMjIgMzAuOTYgMTUuOTZMMzAuOTYgMTUuOTZMMjkuNDkgMTUuOTZRMjkuNDkgMTUuMjkgMjkuMDcgMTQuOTFRMjguNjUgMTQuNTQgMjcuODcgMTQuNTRMMjcuODcgMTQuNTRRMjcuMTQgMTQuNTQgMjYuNzQgMTQuODVRMjYuMzQgMTUuMTYgMjYuMzQgMTUuNzFMMjYuMzQgMTUuNzFRMjYuMzQgMTYuMTggMjYuNzcgMTYuNTBRMjcuMjEgMTYuODEgMjguMjAgMTcuMTBRMjkuMjAgMTcuNDAgMjkuODAgMTcuNzhRMzAuNDEgMTguMTYgMzAuNjkgMTguNjVRMzAuOTcgMTkuMTMgMzAuOTcgMTkuNzlMMzAuOTcgMTkuNzlRMzAuOTcgMjAuODYgMzAuMTUgMjEuNDlRMjkuMzMgMjIuMTIgMjcuOTMgMjIuMTJMMjcuOTMgMjIuMTJRMjcuMDEgMjIuMTIgMjYuMjMgMjEuNzdRMjUuNDYgMjEuNDMgMjUuMDIgMjAuODNRMjQuNTkgMjAuMjIgMjQuNTkgMTkuNDJaTTQwLjg0IDIyTDM1LjI2IDIyTDM1LjI2IDEzLjQ3TDQwLjgwIDEzLjQ3TDQwLjgwIDE0LjY2TDM2Ljc0IDE0LjY2TDM2Ljc0IDE3LjAyTDQwLjI0IDE3LjAyTDQwLjI0IDE4LjE5TDM2Ljc0IDE4LjE5TDM2Ljc0IDIwLjgyTDQwLjg0IDIwLjgyTDQwLjg0IDIyWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGNsYXNzPSJzdmdfX3RleHQiIGQ9Ik02OS4zMyAyMkw2Ni45NSAyMkw2Ni45NSAxMy42MEw3MC43OSAxMy42MFE3MS45MyAxMy42MCA3Mi43NyAxMy45OFE3My42MSAxNC4zNSA3NC4wNyAxNS4wNlE3NC41MiAxNS43NiA3NC41MiAxNi43MUw3NC41MiAxNi43MVE3NC41MiAxNy42MiA3NC4xMCAxOC4zMFE3My42NyAxOC45OCA3Mi44OCAxOS4zNkw3Mi44OCAxOS4zNkw3NC42OSAyMkw3Mi4xNSAyMkw3MC42MiAxOS43N0w2OS4zMyAxOS43N0w2OS4zMyAyMlpNNjkuMzMgMTUuNDdMNjkuMzMgMTcuOTNMNzAuNjUgMTcuOTNRNzEuMzggMTcuOTMgNzEuNzUgMTcuNjFRNzIuMTIgMTcuMjkgNzIuMTIgMTYuNzFMNzIuMTIgMTYuNzFRNzIuMTIgMTYuMTIgNzEuNzUgMTUuNzlRNzEuMzggMTUuNDcgNzAuNjUgMTUuNDdMNzAuNjUgMTUuNDdMNjkuMzMgMTUuNDdaTTg2LjA2IDIyTDc5LjMxIDIyTDc5LjMxIDEzLjYwTDg1LjkwIDEzLjYwTDg1LjkwIDE1LjQ0TDgxLjY3IDE1LjQ0TDgxLjY3IDE2Ljg1TDg1LjQwIDE2Ljg1TDg1LjQwIDE4LjYzTDgxLjY3IDE4LjYzTDgxLjY3IDIwLjE3TDg2LjA2IDIwLjE3TDg2LjA2IDIyWk05Mi4yOCAyMkw4OS44NSAyMkw5My41NiAxMy42MEw5NS45MCAxMy42MEw5OS42MiAyMkw5Ny4xNSAyMkw5Ni40OSAyMC4zN0w5Mi45NCAyMC4zN0w5Mi4yOCAyMlpNOTQuNzIgMTUuOTNMOTMuNjMgMTguNjFMOTUuNzkgMTguNjFMOTQuNzIgMTUuOTNaTTEwMy4zNSAxNy44MEwxMDMuMzUgMTcuODBRMTAzLjM1IDE2LjU0IDEwMy45NCAxNS41NFExMDQuNTQgMTQuNTUgMTA1LjU5IDEzLjk5UTEwNi42NSAxMy40MyAxMDcuOTYgMTMuNDNMMTA3Ljk2IDEzLjQzUTEwOS4xMiAxMy40MyAxMTAuMDQgMTMuODRRMTEwLjk2IDE0LjI1IDExMS41OCAxNS4wMkwxMTEuNTggMTUuMDJMMTEwLjA3IDE2LjM5UTEwOS4yNSAxNS40MCAxMDguMDkgMTUuNDBMMTA4LjA5IDE1LjQwUTEwNy40MCAxNS40MCAxMDYuODcgMTUuNzBRMTA2LjMzIDE2IDEwNi4wNCAxNi41NFExMDUuNzQgMTcuMDkgMTA1Ljc0IDE3LjgwTDEwNS43NCAxNy44MFExMDUuNzQgMTguNTEgMTA2LjA0IDE5LjA1UTEwNi4zMyAxOS42MCAxMDYuODcgMTkuOTBRMTA3LjQwIDIwLjIwIDEwOC4wOSAyMC4yMEwxMDguMDkgMjAuMjBRMTA5LjI1IDIwLjIwIDExMC4wNyAxOS4yMkwxMTAuMDcgMTkuMjJMMTExLjU4IDIwLjU4UTExMC45NyAyMS4zNSAxMTAuMDQgMjEuNzZRMTA5LjEyIDIyLjE3IDEwNy45NiAyMi4xN0wxMDcuOTYgMjIuMTdRMTA2LjY1IDIyLjE3IDEwNS41OSAyMS42MVExMDQuNTQgMjEuMDUgMTAzLjk0IDIwLjA1UTEwMy4zNSAxOS4wNiAxMDMuMzUgMTcuODBaTTExNy45MSAxNS40OEwxMTUuMzIgMTUuNDhMMTE1LjMyIDEzLjYwTDEyMi44NSAxMy42MEwxMjIuODUgMTUuNDhMMTIwLjI4IDE1LjQ4TDEyMC4yOCAyMkwxMTcuOTEgMjJMMTE3LjkxIDE1LjQ4WiIgZmlsbD0iI0ZGRkZGRiIgeD0iNjUuNzYiLz48L3N2Zz4=)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# RHDatePicker : secure and customizable date picker creator
 
-In the project directory, you can run:
+![ScreenShot](https://alxbdo.github.io/RHDatePicker/src/img/DatePickerScreenshot.png)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 1. Author
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Alexandre Bidaud
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 2. Technologies
 
-### `npm run build`
+- JS
+- CSS
+- React
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 3. Project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3.1 Prerequisites
 
-### `npm run eject`
+- [NodeJS (**version 12.18**)](https://nodejs.org/en/)
+- [React](https://reactjs.org/)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3.2 Launching the project
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Clone it on your computer :
 
-## Learn More
+    * github -> green code button -> clone -> copy link
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![ScreenShot](https://alxbdo.github.io/BidaudAlexandre_12_02112021/src/assets/clone_repo.jpg)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    * In your terminal 
+``` git clone https://github.com/AlxBDo/RHDatePicker.git ```
 
-### Code Splitting
+- `npm` installation : ``` npm install ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Lunch the project : ``` npm start ```
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
