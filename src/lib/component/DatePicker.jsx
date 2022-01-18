@@ -1,117 +1,8 @@
 import React, { useEffect } from "react";
 
-/**
- * Provides input and param check methods
- */
-const validation = {
+import { calendar, params, validation } from "./tools"
+import { CalendarBox, CalendarModal, CalendarOption, DatePickerContainer, DateSelect, DayTable} from "./style"
 
-    error: false,
-    inputId: undefined,
-
-    allowedLength: {
-        id: { max: 15, min: 2 }, 
-        label: { max: 35, min: 4 }
-    }, 
-
-    allowedType: { eventFunction: "function" },
-
-    clearError: () => {
-        validation.error = false 
-        validation.displayError()
-    },
-
-    dateInputRegExp: new RegExp(/^\d{4}-\d{2}-\d{2}$/),
-
-    displayError: () => { 
-        if(validation.error){
-            document.getElementById(`${validation.inputId}-err-msg`).style.display = "block"
-            document.getElementById(`${validation.inputId}-err-msg`).innerHTML = validation.getError()
-        } else {
-            document.getElementById(`${validation.inputId}-err-msg`).style.display = "none"
-        }
-    },
-
-    idRegExp: new RegExp("^[a-zA-Z0-9-]+$", "g"),
-
-    labelRegExp: new RegExp("^[a-zA-Z0-9 -/']+$", "g"),
-
-    checkId: (datePickerId) => validation.checkString(datePickerId, "id"),
-
-    checkEventFunction: (e, eventFunction, checkInputValue = true) => {
-        validation.clearError()
-        const value = e.target.value
-        if(checkInputValue){
-            if(!validation.dateInputRegExp.test(value)){
-                validation.error = { what: "date", why: "wrongFormat" }
-            }
-            if(typeof eventFunction !== "function"){
-                validation.error = { what: "eventFunction", why: "wrongType" }
-            }
-        }
-        !validation.error ? eventFunction(checkInputValue && value) : validation.displayError()
-    },
-
-    checkLabel: (datePickerLabel) => validation.checkString(datePickerLabel, "label"),
-
-    checkString: (string, stringName) => {
-        const stringLength = string.length
-        if(stringLength > validation.allowedLength[stringName].max){ 
-            validation.error = { what: stringName, why: "tooLong" } 
-        }
-        if(stringLength < validation.allowedLength[stringName].min){
-            validation.error = {  what: stringName, why: "tooShort" }
-        }
-        if(!validation[stringName+"RegExp"].test(string)){
-            validation.error = {  what: stringName, why: "wrongFormat" }
-        }
-        return !validation.error
-    },
-
-    getError: () => errorMessage.get(validation.error)
-
-};
- 
-/**
- * Provides error message to validation object
- */
-const errorMessage = { 
-
-    allowed: {
-
-        length: ({max, min}) => `Its length must be between ${min} and ${max} characters.`,
-
-        format: (what) => {
-            switch(what){
-                case "date":
-                    return "Date format must be : YYYY-MM-DD ."
-                case "id":
-                    return "Only alphanumeric characters are allowed."
-                case "label":
-                    return "Only alphanumeric characters, hyphen and apostrophe are allowed."
-                default: 
-                    return "Impossible to determinate good format !"
-            }
-        },
-
-        type: (expectedType) => `The expected type is ${expectedType}`
-
-    },
-
-    get: (errorObj) => errorObj.what + " " + errorMessage[errorObj.why](errorObj.what),
-
-    tooLong: (what) => `is too long ! 
-    <p>${errorMessage.allowed.length(validation.allowedLength[what])}</p>`,
-
-    tooShort: (what) => `is too short ! 
-    <p>${errorMessage.allowed.length(validation.allowedLength[what])}</p>`,
-
-    wrongFormat: (what) => `is in wrong format ! 
-    <p>${errorMessage.allowed.format(what)}</p>`,
-
-    wrongType: (what) => `is in wrong type ! 
-    <p>${errorMessage.allowed.type(validation.allowedType[what])}</p>` 
-
-};
 
 /**
  * Check and display input type date
@@ -132,37 +23,123 @@ const DatePicker = ({
     htmlClass = {}
 }) => {
 
-    // if id format is incorrect, define one
-    if(!validation.checkId(inputId)){ inputId = "param" }
-    validation.inputId = inputId
+    params.initComponentParams(inputId, label, eventFunction, htmlClass)
 
     useEffect(()=>{
-        if(inputId === "param"){ validation.displayError() }
-    },[inputId])
+        if(params.id.input === "param"){ validation.displayError() 
+        } else { calendar.display(true) }
+    },[inputId]) 
 
     return(
-        <div className={ htmlClass.container && (`${htmlClass.container}`) }>
-            { validation.checkLabel(label) && ( <label htmlFor={inputId}>{label}</label> ) }
-            { inputId !== "param" && (
+        <DatePickerContainer className={ `hrnet-dp-ctn ${params.htmlClass.container && params.htmlClass.container}` }>
+            { params.label && ( 
+                <label htmlFor={params.id.input}>{params.label}</label> ) 
+            }
+            { params.id.input !== "param" && (
                 <input 
                     type="date" 
-                    id={inputId} 
-                    name={inputId} 
+                    id={params.id.input} 
+                    name={params.id.input} 
                     pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" 
-                    className={ htmlClass.input && (`${htmlClass.input}`) }
-                    onChange={ (e) => { 
-                        eventFunction.onChange && validation.checkEventFunction(e, eventFunction.onChange) } }
-                    onClick={ (e) => { 
-                        eventFunction.onClick && validation.checkEventFunction(e, eventFunction.onClick, false) } }
-                    onBlur={ (e) => { 
-                        eventFunction.onBlur && validation.checkEventFunction(e, eventFunction.onBlur) } }
+                    className={ params.htmlClass.input && (`${params.htmlClass.input}`) }
+                    onChange={ (e) => { params.listen(e, "onChange") } }
+                    onClick={ (e) => { params.listen(e, "onClick") } }
+                    onBlur={ (e) => { params.listen(e, "onBlur") } }
                     required 
                 />
             ) }
-            <div id={`${inputId}-err-msg`} className={ htmlClass.error && `${htmlClass.error}` }>
-                { validation.error && validation.getError() }
-            </div>
-        </div>
+            <div 
+                id={`${params.id.input}-err-msg`} 
+                className={ `hrnet-dp-error ${params.htmlClass.error && params.htmlClass.error}` }
+            ></div>
+            <CalendarModal id={params.id.modal} className="hrnet-dp-modal">
+                <CalendarBox $name="option" onClick={calendar.onClickOptions}>
+                    <CalendarOption $name={`previous-month`} $type={"icon"} id={params.id.prevMonthBtn}></CalendarOption>
+                    <CalendarOption $name={"home"} $type={"icon"} id={params.id.todayBtn}></CalendarOption>
+                    <CalendarOption $name={`month`} $type={"select"} id={params.id.selectedMonth}></CalendarOption>
+                    <CalendarOption $name={"year"} $type={"select"} id={params.id.selectedYear}></CalendarOption>
+                    <CalendarOption $name={`next-month`} $type={"icon"} id={params.id.nextMonthBtn}></CalendarOption>
+                </CalendarBox>
+                <CalendarBox $name={`display`} id={params.id.calendarDisplayBox}>
+                    <DayTable>
+                        <thead>
+                                <tr>{calendar.days.map((day)=>(<th key={day}>{day}</th>))}</tr>
+                        </thead>
+                        <tbody onClick={calendar.onClickDays}>
+                            <tr>
+                                <td id={`${params.id.input}-d1`}></td>
+                                <td id={`${params.id.input}-d2`}></td>
+                                <td id={`${params.id.input}-d3`}></td>
+                                <td id={`${params.id.input}-d4`}></td>
+                                <td id={`${params.id.input}-d5`}></td>
+                                <td id={`${params.id.input}-d6`}></td>
+                                <td id={`${params.id.input}-d7`}></td>
+                            </tr>
+                            <tr>
+                                <td id={`${params.id.input}-d8`}></td>
+                                <td id={`${params.id.input}-d9`}></td>
+                                <td id={`${params.id.input}-d10`}></td>
+                                <td id={`${params.id.input}-d11`}></td>
+                                <td id={`${params.id.input}-d12`}></td>
+                                <td id={`${params.id.input}-d13`}></td>
+                                <td id={`${params.id.input}-d14`}></td>
+                            </tr>
+                            <tr>
+                                <td id={`${params.id.input}-d15`}></td>
+                                <td id={`${params.id.input}-d16`}></td>
+                                <td id={`${params.id.input}-d17`}></td>
+                                <td id={`${params.id.input}-d18`}></td>
+                                <td id={`${params.id.input}-d19`}></td>
+                                <td id={`${params.id.input}-d20`}></td>
+                                <td id={`${params.id.input}-d21`}></td>
+                            </tr>
+                            <tr>
+                                <td id={`${params.id.input}-d22`}></td>
+                                <td id={`${params.id.input}-d23`}></td>
+                                <td id={`${params.id.input}-d24`}></td>
+                                <td id={`${params.id.input}-d25`}></td>
+                                <td id={`${params.id.input}-d26`}></td>
+                                <td id={`${params.id.input}-d27`}></td>
+                                <td id={`${params.id.input}-d28`}></td>
+                            </tr>
+                            <tr>
+                                <td id={`${params.id.input}-d29`}></td>
+                                <td id={`${params.id.input}-d30`}></td>
+                                <td id={`${params.id.input}-d31`}></td>
+                                <td id={`${params.id.input}-d32`}></td>
+                                <td id={`${params.id.input}-d33`}></td>
+                                <td id={`${params.id.input}-d34`}></td>
+                                <td id={`${params.id.input}-d35`}></td>
+                            </tr>
+                            <tr>
+                                <td id={`${params.id.input}-d36`}></td>
+                                <td id={`${params.id.input}-d37`}></td>
+                                <td id={`${params.id.input}-d38`}></td>
+                                <td id={`${params.id.input}-d39`}></td>
+                                <td id={`${params.id.input}-d40`}></td>
+                                <td id={`${params.id.input}-d41`}></td>
+                                <td id={`${params.id.input}-d42`}></td>
+                            </tr>
+                        </tbody>
+                    </DayTable>
+                    <DateSelect $name={"month"} id={params.id.monthSelect} onClick={calendar.onClickSelect} >
+                        <span id={`${params.id.monthSelectOpt}0`}></span>
+                        <span id={`${params.id.monthSelectOpt}1`}></span>
+                        <span id={`${params.id.monthSelectOpt}2`}></span>
+                        <span id={`${params.id.monthSelectOpt}3`}></span>
+                        <span id={`${params.id.monthSelectOpt}4`}></span>
+                        <span id={`${params.id.monthSelectOpt}5`}></span>
+                        <span id={`${params.id.monthSelectOpt}6`}></span>
+                        <span id={`${params.id.monthSelectOpt}7`}></span>
+                        <span id={`${params.id.monthSelectOpt}8`}></span>
+                        <span id={`${params.id.monthSelectOpt}9`}></span>
+                        <span id={`${params.id.monthSelectOpt}10`}></span>
+                        <span id={`${params.id.monthSelectOpt}11`}></span>
+                    </DateSelect>
+                    <DateSelect $name={`year`} id={params.id.yearSelect} onClick={calendar.onClickSelect} ></DateSelect>
+                </CalendarBox>
+            </CalendarModal>
+        </DatePickerContainer>
     )
 
 };

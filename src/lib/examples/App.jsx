@@ -6,11 +6,15 @@ const App = () => {
 
     // contain event function param
     const eventFunction = {
-        onChange: (e) => {
-            const inputValue = e.split("-")
-            document.getElementById("weekday-ctn").style.display = "block"
-            document.getElementById("test-weekday").textContent = new Intl.DateTimeFormat(
-                'en-US', {weekday: 'long'}).format(new Date(inputValue[0], inputValue[1]-1, inputValue[2]))
+        onChange: (value) => {
+            let weekdayCtnDisplay = "none"
+            if(value){
+                weekdayCtnDisplay = "block"
+                const inputValue = value.split("-")
+                document.getElementById("test-weekday").textContent = new Intl.DateTimeFormat(
+                    'en-US', {weekday: 'long'}).format(new Date(inputValue[0], inputValue[1]-1, inputValue[2]))
+            }
+            document.getElementById("weekday-ctn").style.display = weekdayCtnDisplay
         },
         onClick: () => document.getElementById("weekday-ctn").style.display = "none"
     }
