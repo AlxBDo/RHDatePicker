@@ -1,4 +1,6 @@
-.birthdate-ctn {
+.clickable{ cursor: pointer }
+
+.example-ctn {
     display: flex;
     justify-content: center;
     max-width: 500px;
@@ -7,17 +9,16 @@
     font-size: large;
     padding: 1% 5%;
     align-items: center;
-    color: #302f2f;
     margin-bottom: 5%;
     width: 100%;
     text-align: center;
 }
-.birthdate-ctn label, .birthdate-ctn input { 
+.example-ctn label, .example-ctn input { 
     width: 40%; 
     min-width: 200px;
     padding: 3%
 }
-.birthdate-err {
+.example-err {
 	color: red;
 	margin: 5% 0;
 	font-weight: bold;
@@ -25,30 +26,28 @@
     text-align: center; 
     display: none;
 }
-.birthdate-err p {
+.example-err p {
 	margin: 5px 0;
 	font-size: smaller;
 	font-weight: normal;
 }
-.birthdate-ctn input {
+.example-ctn input {
     text-align: center;
     font-size: large;
     font-weight: bold;
-    color: white;
     border: none;
     padding: 3% 0;
     box-shadow: none;
-    background-color: #302f2f;
     border-radius: 10px;
 }
 
-#example1 {
+.example {
     max-width: 550px;
-    margin: auto;
+    margin: 5% auto;
     border: 3px solid #75b74e;
     border-radius: 5px;
 }
-#examples-ctn h1 {
+.examples-ctn h1 {
     color: #75b74e;
     margin: 5% auto 10%;
     width: 100%;

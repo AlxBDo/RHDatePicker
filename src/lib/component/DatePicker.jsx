@@ -1,8 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react" 
+import PropTypes from "prop-types"
+import { useDispatch, useSelector } from "react-redux"
 
-import { calendar, params, validation } from "./tools"
-import { CalendarBox, CalendarModal, CalendarOption, DatePickerContainer, DateSelect, DayTable} from "./style"
-
+import { datePickerParams } from "../utils/datePickerParams"
+import { validation } from "../utils/validation" 
+import { calendar } from "../utils/calendar"
+import { DatePickerContainer } from "../style"
+import Dialog from "./Dialog"
+import Error from "./Error"
+import Calendar from "./Calendar"
+import { selectError } from "../utils/selectors"
+import * as errorAction from "../features/error"
+import { selectParams } from "../utils/selectors"
+import * as paramsAction from "../features/params"
+import { selectSelectedDate } from "../utils/selectors" 
+import * as selectedDateAction from "../features/selectedDate"
 
 /**
  * Check and display input type date
@@ -16,132 +28,93 @@ import { CalendarBox, CalendarModal, CalendarOption, DatePickerContainer, DateSe
  * @example { container: "container-class", input: "input-class", error: "error-class" }
  * @returns {object}
  */
-const DatePicker = ({
-    inputId, 
-    label, 
-    eventFunction = {},
-    htmlClass = {}
-}) => {
+const DatePicker = (props) => {
 
-    params.initComponentParams(inputId, label, eventFunction, htmlClass)
+    const {
+        inputId, 
+        label,
+        eventFunction = {},
+        htmlClass = {}, 
+        valueFormat, 
+        colors
+    } = props
 
-    useEffect(()=>{
-        if(params.id.input === "param"){ validation.displayError() 
-        } else { calendar.display(true) }
-    },[inputId]) 
+    const baseId = validation.checkId(inputId, "paramError") ? inputId : "paramError"
+    datePickerParams.initComponentParams(baseId, label, eventFunction, htmlClass, valueFormat, colors)
+
+    const dispatch = useDispatch()
+    const params = useSelector(selectParams())
+    const selectedDate = useSelector(selectSelectedDate(baseId))
+    dispatch(errorAction.getErrors(baseId))
+    
+    if(baseId !== "paramError" && datePickerParams.label[baseId]){
+        if(!params.checked.includes(inputId)){ 
+            dispatch(paramsAction.init(inputId)) 
+            dispatch(paramsAction.setDisplay(datePickerParams.id[baseId].modal, false))
+        } 
+        if(selectedDate.status === "default" && !selectedDate.day) {
+            dispatch(selectedDateAction.init(baseId))
+        }
+    }
+
+    const eventFunctionHandler = {
+        paramsFunction : (e, eventName) => {
+            dispatch(errorAction.clear(baseId))
+            datePickerParams.listen(e, eventName, baseId)
+            dispatch(errorAction.getErrors(baseId))
+        }, 
+        blur: (e) => eventFunctionHandler.paramsFunction(e, "onBlur"), 
+        change: (e) => eventFunctionHandler.paramsFunction(e, "onChange"), 
+        click: (e) => {
+            e.preventDefault()
+            dispatch(paramsAction.updateDisplay(datePickerParams.id[baseId].modal, true))
+            eventFunctionHandler.paramsFunction(e, "onClick")
+            if(e.target.getAttribute("id") === baseId){ e.target.focus() }
+        }, 
+    }
 
     return(
-        <DatePickerContainer className={ `hrnet-dp-ctn ${params.htmlClass.container && params.htmlClass.container}` }>
-            { params.label && ( 
-                <label htmlFor={params.id.input}>{params.label}</label> ) 
-            }
-            { params.id.input !== "param" && (
-                <input 
-                    type="date" 
-                    id={params.id.input} 
-                    name={params.id.input} 
-                    pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" 
-                    className={ params.htmlClass.input && (`${params.htmlClass.input}`) }
-                    onChange={ (e) => { params.listen(e, "onChange") } }
-                    onClick={ (e) => { params.listen(e, "onClick") } }
-                    onBlur={ (e) => { params.listen(e, "onBlur") } }
-                    required 
-                />
+        <DatePickerContainer>
+            { (baseId !== "paramError" && datePickerParams.label[baseId]) && (
+                <div className={ datePickerParams.htmlClass[baseId].container && datePickerParams.htmlClass[baseId].container }>
+                    <label htmlFor={baseId}>{datePickerParams.label[baseId]}</label> 
+                    <input 
+                        type="text" 
+                        id={baseId} 
+                        name={baseId} 
+                        pattern={datePickerParams.format[baseId].pattern} 
+                        placeholder={datePickerParams.format[baseId].placeholder}
+                        className={ datePickerParams.htmlClass[baseId].input && (`${datePickerParams.htmlClass[baseId].input}`) }
+                        onChange={ eventFunctionHandler.change }
+                        onClick={ eventFunctionHandler.click }
+                        onBlur={ eventFunctionHandler.blur } 
+                        tabIndex={0}
+                        required 
+                    />
+                    <Calendar baseId={baseId} displayBox={params.display[datePickerParams.id[baseId].modal]} />
+                </div>
             ) }
-            <div 
-                id={`${params.id.input}-err-msg`} 
-                className={ `hrnet-dp-error ${params.htmlClass.error && params.htmlClass.error}` }
-            ></div>
-            <CalendarModal id={params.id.modal} className="hrnet-dp-modal">
-                <CalendarBox $name="option" onClick={calendar.onClickOptions}>
-                    <CalendarOption $name={`previous-month`} $type={"icon"} id={params.id.prevMonthBtn}></CalendarOption>
-                    <CalendarOption $name={"home"} $type={"icon"} id={params.id.todayBtn}></CalendarOption>
-                    <CalendarOption $name={`month`} $type={"select"} id={params.id.selectedMonth}></CalendarOption>
-                    <CalendarOption $name={"year"} $type={"select"} id={params.id.selectedYear}></CalendarOption>
-                    <CalendarOption $name={`next-month`} $type={"icon"} id={params.id.nextMonthBtn}></CalendarOption>
-                </CalendarBox>
-                <CalendarBox $name={`display`} id={params.id.calendarDisplayBox}>
-                    <DayTable>
-                        <thead>
-                                <tr>{calendar.days.map((day)=>(<th key={day}>{day}</th>))}</tr>
-                        </thead>
-                        <tbody onClick={calendar.onClickDays}>
-                            <tr>
-                                <td id={`${params.id.input}-d1`}></td>
-                                <td id={`${params.id.input}-d2`}></td>
-                                <td id={`${params.id.input}-d3`}></td>
-                                <td id={`${params.id.input}-d4`}></td>
-                                <td id={`${params.id.input}-d5`}></td>
-                                <td id={`${params.id.input}-d6`}></td>
-                                <td id={`${params.id.input}-d7`}></td>
-                            </tr>
-                            <tr>
-                                <td id={`${params.id.input}-d8`}></td>
-                                <td id={`${params.id.input}-d9`}></td>
-                                <td id={`${params.id.input}-d10`}></td>
-                                <td id={`${params.id.input}-d11`}></td>
-                                <td id={`${params.id.input}-d12`}></td>
-                                <td id={`${params.id.input}-d13`}></td>
-                                <td id={`${params.id.input}-d14`}></td>
-                            </tr>
-                            <tr>
-                                <td id={`${params.id.input}-d15`}></td>
-                                <td id={`${params.id.input}-d16`}></td>
-                                <td id={`${params.id.input}-d17`}></td>
-                                <td id={`${params.id.input}-d18`}></td>
-                                <td id={`${params.id.input}-d19`}></td>
-                                <td id={`${params.id.input}-d20`}></td>
-                                <td id={`${params.id.input}-d21`}></td>
-                            </tr>
-                            <tr>
-                                <td id={`${params.id.input}-d22`}></td>
-                                <td id={`${params.id.input}-d23`}></td>
-                                <td id={`${params.id.input}-d24`}></td>
-                                <td id={`${params.id.input}-d25`}></td>
-                                <td id={`${params.id.input}-d26`}></td>
-                                <td id={`${params.id.input}-d27`}></td>
-                                <td id={`${params.id.input}-d28`}></td>
-                            </tr>
-                            <tr>
-                                <td id={`${params.id.input}-d29`}></td>
-                                <td id={`${params.id.input}-d30`}></td>
-                                <td id={`${params.id.input}-d31`}></td>
-                                <td id={`${params.id.input}-d32`}></td>
-                                <td id={`${params.id.input}-d33`}></td>
-                                <td id={`${params.id.input}-d34`}></td>
-                                <td id={`${params.id.input}-d35`}></td>
-                            </tr>
-                            <tr>
-                                <td id={`${params.id.input}-d36`}></td>
-                                <td id={`${params.id.input}-d37`}></td>
-                                <td id={`${params.id.input}-d38`}></td>
-                                <td id={`${params.id.input}-d39`}></td>
-                                <td id={`${params.id.input}-d40`}></td>
-                                <td id={`${params.id.input}-d41`}></td>
-                                <td id={`${params.id.input}-d42`}></td>
-                            </tr>
-                        </tbody>
-                    </DayTable>
-                    <DateSelect $name={"month"} id={params.id.monthSelect} onClick={calendar.onClickSelect} >
-                        <span id={`${params.id.monthSelectOpt}0`}></span>
-                        <span id={`${params.id.monthSelectOpt}1`}></span>
-                        <span id={`${params.id.monthSelectOpt}2`}></span>
-                        <span id={`${params.id.monthSelectOpt}3`}></span>
-                        <span id={`${params.id.monthSelectOpt}4`}></span>
-                        <span id={`${params.id.monthSelectOpt}5`}></span>
-                        <span id={`${params.id.monthSelectOpt}6`}></span>
-                        <span id={`${params.id.monthSelectOpt}7`}></span>
-                        <span id={`${params.id.monthSelectOpt}8`}></span>
-                        <span id={`${params.id.monthSelectOpt}9`}></span>
-                        <span id={`${params.id.monthSelectOpt}10`}></span>
-                        <span id={`${params.id.monthSelectOpt}11`}></span>
-                    </DateSelect>
-                    <DateSelect $name={`year`} id={params.id.yearSelect} onClick={calendar.onClickSelect} ></DateSelect>
-                </CalendarBox>
-            </CalendarModal>
+            <Error 
+                dialogBoxId={baseId} 
+                htmlClass={datePickerParams.htmlClass[baseId].error && datePickerParams.htmlClass[baseId].error}
+            />
         </DatePickerContainer>
     )
 
-};
+}
 
-export default DatePicker;
+DatePicker.defaultProps = {
+    valueFormat: "number", 
+    colors: { dark: "#302f2f", light: "#f2f2ef"}
+}
+
+DatePicker.propTypes = {
+    inputId: PropTypes.string.isRequired, 
+    label: PropTypes.string.isRequired, 
+    eventFunction: PropTypes.object, 
+    htmlClass: PropTypes.object, 
+    valueFormat: PropTypes.string, 
+    colors: PropTypes.object
+}
+
+export default DatePicker
