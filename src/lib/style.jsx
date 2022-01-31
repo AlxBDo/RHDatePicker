@@ -4,6 +4,9 @@ import homeIcoDarkMode from "./assets/home-darkMode.png"
 import homeIcoLightMode from "./assets/home-lightMode.png" 
 import arrowIcoDarkMode from "./assets/arrow-darkMode.png" 
 import arrowIcoLightMode from "./assets/arrow-lightMode.png" 
+import moveIcoDarkMode from "./assets/move-darkMode.png"
+import moveIcoLightMode from "./assets/move-lightMode.png"
+import CalendarSelect from "./component/CalendarSelect";
 
 export const theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light"
 
@@ -31,7 +34,8 @@ export const style = {
 
     icons: {
         arrow: () => theme === "light" ? arrowIcoLightMode : arrowIcoDarkMode, 
-        home: () => theme === "light" ? homeIcoLightMode : homeIcoDarkMode
+        home: () => theme === "light" ? homeIcoLightMode : homeIcoDarkMode,
+        move: () => theme === "light" ? moveIcoLightMode : moveIcoDarkMode
     },
 
     page: {
@@ -61,8 +65,8 @@ export const AdviceBox = styled.p`
 `
 
 export const CalendarBox = styled.div`
-    display: flex;
     overflow: hidden;
+    display: flex;
     ${(props) => (
         props.$name === "option" ? `
         width: 100%;
@@ -72,7 +76,6 @@ export const CalendarBox = styled.div`
         padding-bottom: 10px;
         ` : (`
         height: 265px;
-        width: 1110px;
         `)
     )}
 `
@@ -132,6 +135,11 @@ export const CalendarOption = styled.span`
             width: 24px; 
             height: 24px;
             ${props.$name === "previous-month" && (`transform: rotate(180deg);`)}
+        `) : props.$type === "move-icon" ? (`
+            content: url(${style.icons.move() }); 
+            width: 25px; 
+            height: 25px;
+            ${props.$name === "less" && (`transform: rotate(180deg);`)}
         `) : (`
             padding: 5px 10px;
             ${clickable}
@@ -140,45 +148,108 @@ export const CalendarOption = styled.span`
     )}
 `
 
+export const CalendarSection = styled.section`
+    text-align: center;
+    display: flex;
+    flex-direction: ${(props) => ( props.$flexDirection || `column` )};
+    flex-wrap: ${(props) => ( props.$flexWrap || `nowrap` )};
+    overflow: hidden;
+    max-height: 320px;
+    &:first-of-type {
+        width: 270px;
+    }
+    div:not(.time-select) {
+        display: flex;
+        flex-direction: row;
+        .time-select {
+            flex-direction: column;
+            width: 30px
+        }
+    };
+    ${(props) => ( props.$name === "timeSection" && `
+        margin-left: 30px
+    `)}
+}
+`
+
 export const DatePickerContainer = styled.div`
     position: relative;
 `
 
-export const DateSelect = styled.div`
+export const DateSelect = styled.div`   
     display: flex;
-    margin: ${(props) => ( props.$name === "days" ? "0" : "0 0 0 45px" )};
-    width: 270px; 
+    margin: 0; 
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    ${(props) => (
-        `${
-            props.$name === "year" ? "overflow: auto" 
-            : props.$name === "days" && "flex-direction: column" 
-        };`
-    )}
-    span { 
-        margin: auto;
-        padding: 10px;
-        ${clickable}
-    }
-`
-
-export const DayTable = styled.table`
-    td:not(.empty-cell){
-        line-height: 35px;
-        width: 35px;
-        cursor: pointer;
-        &:hover{
-            background-color: ${style.color()};
-            color: ${style.backgroundColor()};
-            border-radius: 50px;
+    transition: all 250ms ease-in-out;
+    transform-origin: right;
+    &:not(.time-select) { 
+        width: 270px;
+        span {
+            margin: auto;
+            padding: 10px;
+            ${clickable}
+        }
+    };
+    &.time-select {
+        width: 60px;
+        span.selected-option {
+            font-size: xx-large;
+            border-top: 1px solid;
+            border-bottom: 1px solid;
+            font-weight: bold;
+            margin: 10px auto;
+            &:hover { cursor: s-resize;}
+        }
+        span:not(.selected-option) {
+            opacity: 0.25;
+            &:hover{
+                text-shadow: 2px 2px 2px black;
+                font-size: larger;
+                cursor: pointer;
+                opacity: 1;
+            }
+        }
+        span:not(:first-of-type, :nth-of-type(4), :nth-of-type(6), :last-of-type, .selected-option) { 
+            font-size: x-small; 
+            &:hover { margin: -6.5px auto; }
+        }
+        span:nth-of-type(4):hover, span:nth-of-type(6):hover {
+            margin: -2.5px auto;
         }
     }
+    ${(props) => {
+        switch(props.$name){
+            case "hours": 
+                return `
+                    flex-direction: column;
+                    &:after{
+                        content: ":";
+                        margin: 128px auto;
+                        font-size: xxx-large;
+                    }`
+            case "month": 
+                return null ;
+            case "time-select": 
+                return `
+                    flex-direction: column;
+                    span:not(:nth-of-type(4), :nth-of-type(6), .selected-option) {
+                    font-size: x-small;
+                }
+                `
+            case "year": 
+                return `overflow: auto;`
+            default: 
+                return `
+                    flex-direction: column;`;
+
+        }
+    }}
 `
 
 export const DialogBox = styled.div`
-    display: ${(props) => ( props.$isDisplay ? `block` : `none`)};
+    display: ${(props) => ( props.$isDisplay ? `flex` : `none`)};
     position: ${(props) => ( props.$isModal ? `absolute` : `relative`)};
     background-color: ${(props) => ( props.$backgroundColor )};
     color: ${(props) => (props.$color) };
@@ -187,9 +258,7 @@ export const DialogBox = styled.div`
     border-radius: 5px;
     box-shadow: 2px 2px 3px gray;
     margin-top: 10px;
-    flex-direction: column;
     padding: 25px;
-    width: 270px;
     overflow: hidden;
     z-index: 9;
     top: -125px;

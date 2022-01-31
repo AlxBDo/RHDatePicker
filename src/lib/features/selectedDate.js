@@ -3,11 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import { currentDate, getLimitYear, transformToNumber } from "../utils/date";
 import { validation } from "../utils/validation";
 
+const defaultTime = { hour: 12, minute: transformToNumber(0) }
 
-function setInitialDraft(draft, dateId) {
-    draft[dateId] = {
+function setInitialDateState(draft, id, type) { 
+    let timeAttributes = type === "time" ? defaultTime 
+                    : type === "date" ? currentDate : {...currentDate, ...defaultTime}
+    if( type.indexOf("Period") > 0 ){ timeAttributes = { start: timeAttributes, end: timeAttributes }}
+    draft.dates[id] = {
         status: "default", 
-        ...currentDate
+        type,
+        ...timeAttributes
     }
 }
 
@@ -21,11 +26,11 @@ const { actions, reducer } = createSlice({
     initialState, 
     reducers: {
         init: {
-            prepare: (id) => ({
-                payload: {id}
+            prepare: (id, type) => ({
+                payload: {id, type}
             }),
             reducer: (draft, action) => {
-                draft.dates[action.payload.id] = { status: "default", ...currentDate }
+                setInitialDateState(draft, action.payload.id, action.payload.type)
                 draft.status = draft.status === "empty" ? 1 : draft.status+1
                 return
             }
@@ -54,6 +59,32 @@ const { actions, reducer } = createSlice({
                 const inputId = action.payload.inputId
                 if(day < 1 && day > 31){ return }
                 draft.dates[inputId].day = transformToNumber(day) 
+                if(draft.dates[inputId].status !== "selected"){ draft.dates[inputId].status = "selected"}
+                return
+            }
+        },
+        setHour: {
+            prepare: (hour, inputId) => ({
+                payload: {hour, inputId}
+            }),
+            reducer: (draft, action) => {
+                const hour = parseInt(action.payload.hour)
+                const inputId = action.payload.inputId
+                if(hour < 0 && hour >= 24){ return }
+                draft.dates[inputId].hour = transformToNumber(hour) 
+                if(draft.dates[inputId].status !== "selected"){ draft.dates[inputId].status = "selected"}
+                return
+            }
+        },
+        setMinute: {
+            prepare: (minute, inputId) => ({
+                payload: {minute, inputId}
+            }),
+            reducer: (draft, action) => {
+                const minute = parseInt(action.payload.minute)
+                const inputId = action.payload.inputId
+                if(minute < 0 && minute > 59){ return }
+                draft.dates[inputId].minute = transformToNumber(minute) 
                 if(draft.dates[inputId].status !== "selected"){ draft.dates[inputId].status = "selected"}
                 return
             }
@@ -87,6 +118,6 @@ const { actions, reducer } = createSlice({
     }
 })
 
-export const { init, set, setDay, setMonth, setYear } = actions
+export const { init, set, setDay, setHour, setMinute, setMonth, setYear } = actions
 
 export default reducer

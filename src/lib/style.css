@@ -1,5 +1,15 @@
 .clickable{ cursor: pointer }
 
+.date-ctn div:not(.show){
+    padding: 0;
+    overflow:hidden;
+    opacity: 0;
+    transform: scaleX(0);
+    margin: 0 -130px;
+    transform-origin: left;
+}
+  
+
 .example-ctn {
     display: flex;
     justify-content: center;
@@ -47,6 +57,14 @@
     border: 3px solid #75b74e;
     border-radius: 5px;
 }
+  
+.example p {
+    text-align: center;
+    margin: 5%;
+    font-size: larger;
+	color: #75b74e;
+}
+
 .examples-ctn h1 {
     color: #75b74e;
     margin: 5% auto 10%;
@@ -62,17 +80,9 @@ h2 {
     margin: 0 0 5%;
 }
 
-#test-weekday {
-	font-weight: bold;
-}
+#test-weekday { font-weight: bold; }
   
-#weekday-ctn {
-    text-align: center;
-    margin: 5%;
-    font-size: larger;
-	color: #75b74e;
-    display: none
-}
+#weekday-ctn { display: none }
   
 
   

@@ -28,9 +28,8 @@ const App = () => {
     // contain event function param
     const onBlurFunction = {
         onBlur: (value) => {
-            if(value){
-                document.getElementById("string-date").textContent = value
-            }
+            if(value){ document.getElementById("string-date").textContent = value
+            } else { document.getElementById("string-date").textContent = "" }
         } 
     }
 
@@ -47,15 +46,16 @@ const App = () => {
                     label={"Please indicate your birthdate"} 
                     eventFunction={eventFunction} 
                     htmlClass={BDHtmlClass} 
+                    type={"date"}
                     valueFormat={"array"}
                 />
                 <p id="weekday-ctn">You were born on a <span id="test-weekday"></span></p>
             </div>
             <div id="example2" className="example" >
-                <h2>Choose a date and get it to string format</h2>
+                <h2>Choose a date and time to get it to string format</h2>
                 <DatePicker 
                     inputId={"string-date-ipt"} 
-                    label={"Please indicate your birthdate"} 
+                    label={"Choose date and time"} 
                     eventFunction={onBlurFunction} 
                     htmlClass={BDHtmlClass} 
                     valueFormat={"string"}

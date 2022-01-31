@@ -29,10 +29,15 @@ function Error(props){
                 switch(what){
                     case "date":
                         return `Date must consist of numbers separated by hyphens : ${datePickerParams.format[dialogBoxId].placeholder} .`
+                    case "dateTime":
+                        return `Date and time must be separeted by a space and consist of numbers separated by hyphens (for date) 
+                        or double point (for time) : ${datePickerParams.format[dialogBoxId].placeholder} .`
                     case "id":
                         return "Only alphanumeric characters are allowed."
                     case "label":
                         return "Only alphanumeric characters, hyphen and apostrophe are allowed."
+                    case "time":
+                        return `Time must consist of numbers separated by double point : ${datePickerParams.format[dialogBoxId].placeholder} .`
                     default: 
                         return "Impossible to determinate good format !"
                 }

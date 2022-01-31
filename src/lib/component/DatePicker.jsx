@@ -36,11 +36,12 @@ const DatePicker = (props) => {
         eventFunction = {},
         htmlClass = {}, 
         valueFormat, 
-        colors
+        colors, 
+        type
     } = props
 
     const baseId = validation.checkId(inputId, "paramError") ? inputId : "paramError"
-    datePickerParams.initComponentParams(baseId, label, eventFunction, htmlClass, valueFormat, colors)
+    datePickerParams.initComponentParams(baseId, label, eventFunction, htmlClass, valueFormat, type, colors)
 
     const dispatch = useDispatch()
     const params = useSelector(selectParams())
@@ -53,7 +54,7 @@ const DatePicker = (props) => {
             dispatch(paramsAction.setDisplay(datePickerParams.id[baseId].modal, false))
         } 
         if(selectedDate.status === "default" && !selectedDate.day) {
-            dispatch(selectedDateAction.init(baseId))
+            dispatch(selectedDateAction.init(baseId, type))
         }
     }
 
@@ -72,7 +73,7 @@ const DatePicker = (props) => {
             if(e.target.getAttribute("id") === baseId){ e.target.focus() }
         }, 
     }
-
+    
     return(
         <DatePickerContainer>
             { (baseId !== "paramError" && datePickerParams.label[baseId]) && (
@@ -91,7 +92,7 @@ const DatePicker = (props) => {
                         tabIndex={0}
                         required 
                     />
-                    <Calendar baseId={baseId} displayBox={params.display[datePickerParams.id[baseId].modal]} />
+                    <Calendar baseId={baseId} displayBox={params.display[datePickerParams.id[baseId].modal]} type={type} />
                 </div>
             ) }
             <Error 
@@ -105,7 +106,8 @@ const DatePicker = (props) => {
 
 DatePicker.defaultProps = {
     valueFormat: "number", 
-    colors: { dark: "#302f2f", light: "#f2f2ef"}
+    colors: { dark: "#302f2f", light: "#f2f2ef"},
+    type: "dateTime"
 }
 
 DatePicker.propTypes = {
@@ -114,7 +116,8 @@ DatePicker.propTypes = {
     eventFunction: PropTypes.object, 
     htmlClass: PropTypes.object, 
     valueFormat: PropTypes.string, 
-    colors: PropTypes.object
+    colors: PropTypes.object,
+    type: PropTypes.string
 }
 
 export default DatePicker

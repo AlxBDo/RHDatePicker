@@ -19,14 +19,16 @@ export const datePickerParams = {
         execute: (baseId, value, eventFunctionName) => {
             validation.clearError()
             const valueLength = value.length
-            if(eventFunctionName === "onChange" && valueLength < 10){
-                value && validation.checkInputValue(value, baseId)
+            const type = datePickerParams.format[baseId].type
+            const expectedLenght = validation.allowedLength[type].min
+            if(eventFunctionName === "onChange" && valueLength < expectedLenght){
+                value && validation.checkInputValue(value, baseId, type)
                 value = false
-            } else if(valueLength === 10 || (eventFunctionName === "onBlur" && valueLength > 0)){
+            } else if(valueLength >= expectedLenght || (eventFunctionName === "onBlur" && valueLength > 0)){
                 value = datePickerParams.format[baseId].output !== "number"
-                    ? datePickerParams.format[baseId].output(validation.checkInputValue(value, baseId, true)) 
-                    : validation.checkInputValue(value, baseId, true)
-            }
+                    ? datePickerParams.format[baseId].output(validation.checkInputValue(value, baseId, type, true)) 
+                    : validation.checkInputValue(value, baseId, type, true)
+            } else { value = false }
             datePickerParams.eventFunction[baseId][eventFunctionName] 
             && datePickerParams.eventFunction[baseId][eventFunctionName](value)
         }
@@ -45,12 +47,12 @@ export const datePickerParams = {
      * @param {object} eventFunction 
      * @param {object} htmlClass 
      */
-    initComponentParams: (inputId, label, eventFunction, htmlClass, dateFormat, calendarColor = false) => {
+    initComponentParams: (inputId, label, eventFunction, htmlClass, dateFormat, type, calendarColor = false) => {
         datePickerParams.initIdHtml(inputId) 
         datePickerParams.setLabel(inputId, label)
         datePickerParams.setEventFunction(inputId, eventFunction) 
         datePickerParams.setHtmlClass(inputId, htmlClass)
-        datePickerParams.format[inputId] = validation.formats.get(dateFormat) 
+        datePickerParams.format[inputId] = { type, ...validation.formats.get(type, dateFormat)}
         if(!style.colors.dark){
             style.setColors(
                 validation.checkColor(calendarColor.dark, inputId), 
@@ -67,6 +69,10 @@ export const datePickerParams = {
             baseId, 
             {
                 calendarDisplayBox: baseId + "-display-box",
+                daySelect: baseId + "-day-select",
+                hoursSelect: baseId + "-hours-select",
+                minutesDecSelect: baseId + "-minutesdec-select",
+                minutesUniSelect: baseId + "-minutesuni-select",
                 modal: baseId + "-calendar-modal",
                 monthSelect: baseId + "-month-select",
                 monthSelectOpt: baseId + "-month-opt-",
