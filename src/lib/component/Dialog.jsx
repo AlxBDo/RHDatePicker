@@ -4,13 +4,14 @@ import PropTypes from "prop-types"
 import { DialogBox } from "../style"
 
 function Dialog(props){
-    const { children, dialogBoxId, htmlClass, displayBox, isModal, color, backgroundColor } = props
+    const { children, dialogBoxId, htmlClass, displayBox, isModal, color, backgroundColor, name } = props
     return(
         <DialogBox 
             id={dialogBoxId && dialogBoxId} 
+            className={htmlClass && htmlClass} 
             $backgroundColor={backgroundColor}
             $color={color}
-            $htmlClass={htmlClass && htmlClass} 
+            $name={name && name} 
             $isDisplay={displayBox} 
             $isModal={isModal} 
         >

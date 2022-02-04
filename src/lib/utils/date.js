@@ -9,6 +9,11 @@ export const currentDate = {
     year: date.getFullYear()
 }
 
+export const currentTime = {
+    hour: transformToNumber(date.getHours()), 
+    minute: transformToNumber(date.getMinutes()) 
+}
+
 export const datePattern = [
     "[0-9]{4}-[0-9]{2}-[0-9]{2}", 
     "[0-9]{2}-[0-9]{2}-[0-9]{4}", 

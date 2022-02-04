@@ -19,7 +19,9 @@ export const datePickerParams = {
         execute: (baseId, value, eventFunctionName) => {
             validation.clearError()
             const valueLength = value.length
-            const type = datePickerParams.format[baseId].type
+            const type = datePickerParams.format[baseId].type.indexOf("date") >= 0 
+                        ? datePickerParams.format[baseId].type.indexOf("ime") >= 0 
+                        ? "dateTime" : "date" : "time"
             const expectedLenght = validation.allowedLength[type].min
             if(eventFunctionName === "onChange" && valueLength < expectedLenght){
                 value && validation.checkInputValue(value, baseId, type)
@@ -36,6 +38,10 @@ export const datePickerParams = {
 
     format: {},
 
+    getTimeSelectId: (baseId, selectName, startOrEnd = false) => {
+        return datePickerParams.id[baseId][`${selectName}${startOrEnd ? startOrEnd.substring(0,1).toUpperCase() + startOrEnd.substring(1) : ""}Select`]
+    },
+
     htmlClass: {},
 
     label: {},
@@ -48,7 +54,7 @@ export const datePickerParams = {
      * @param {object} htmlClass 
      */
     initComponentParams: (inputId, label, eventFunction, htmlClass, dateFormat, type, calendarColor = false) => {
-        datePickerParams.initIdHtml(inputId) 
+        datePickerParams.initIdHtml(inputId, type.indexOf("Period") > 0 ? true : false) 
         datePickerParams.setLabel(inputId, label)
         datePickerParams.setEventFunction(inputId, eventFunction) 
         datePickerParams.setHtmlClass(inputId, htmlClass)
@@ -64,15 +70,24 @@ export const datePickerParams = {
     /**
      * initializes the html ids necessary for the operation of the component
      */
-    initIdHtml: (baseId) => {
+    initIdHtml: (baseId, isPeriod) => {
+        const timeId = isPeriod ? {
+            hoursStartSelect: baseId + "-start-hours-select",
+            minutesDecStartSelect: baseId + "-start-minutesdec-select",
+            minutesUniStartSelect: baseId + "-start-minutesuni-select",
+            hoursEndSelect: baseId + "-end-hours-select",
+            minutesDecEndSelect: baseId + "-end-minutesdec-select",
+            minutesUniEndSelect: baseId + "-end-minutesuni-select"
+        } : {
+            hoursSelect: baseId + "-hours-select",
+            minutesDecSelect: baseId + "-minutesdec-select",
+            minutesUniSelect: baseId + "-minutesuni-select"
+        }
         datePickerParams.addId(
             baseId, 
             {
                 calendarDisplayBox: baseId + "-display-box",
                 daySelect: baseId + "-day-select",
-                hoursSelect: baseId + "-hours-select",
-                minutesDecSelect: baseId + "-minutesdec-select",
-                minutesUniSelect: baseId + "-minutesuni-select",
                 modal: baseId + "-calendar-modal",
                 monthSelect: baseId + "-month-select",
                 monthSelectOpt: baseId + "-month-opt-",
@@ -81,7 +96,8 @@ export const datePickerParams = {
                 selectedMonth: baseId + "-selected-month",
                 selectedYear: baseId + "-selected-year",
                 yearSelect: baseId + "-year-select",
-                todayBtn: baseId + "-today"
+                todayBtn: baseId + "-today", 
+                ...timeId
             }
         )
     },

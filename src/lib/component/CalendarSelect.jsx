@@ -44,8 +44,8 @@ function getSelectItemId(name){
 function moveDateSelectList(moreOrLess, id, list, maxValue, minValue = 0){
     updateDateSelectList(id, list, maxValue, minValue, 
         moreOrLess === "more" 
-        ? parseInt(document.querySelector(`div#${id} .selected-option`).textContent) - 2 
-        :  parseInt(document.querySelector(`div#${id} .selected-option`).textContent) - 4
+        ? parseInt(document.querySelector(`div#${id} .selected-option`).textContent) - (parseInt(list.length / 2)-1) 
+        :  parseInt(document.querySelector(`div#${id} .selected-option`).textContent) - (parseInt(list.length / 2)+1)
     )
 }
 
@@ -70,7 +70,10 @@ function CalendarSelect(props){
     const { baseId, className, list, maxValue, minValue, name, onClickFunction, selectedValue, spanOnClickFunction } = props
     const elementId = datePickerParams.id[baseId][`${name}Select`]
 
-    const updateDateSelectOnClickSpan = (e) => updateDateSelectList(elementId, list, maxValue, minValue, parseInt(e.target.textContent)-3)
+    const updateDateSelectOnClickSpan = (e) => {
+        e.stopPropagation()
+        updateDateSelectList(elementId, list, maxValue, minValue, parseInt(e.target.textContent) - parseInt(list.length / 2))
+    }
 
     return typeof list[0] === "object" ? (
         <CalendarBox $name="option" onClick={onClickFunction}>
@@ -86,10 +89,11 @@ function CalendarSelect(props){
         >
             { spanOnClickFunction && ( 
                 <CalendarOption 
-                    $name={`more`} 
+                    id={`${elementId}-less-btn`} 
+                    $name={`less`} 
                     $type={"move-icon"} 
-                    onClick={() => moveDateSelectList("more", elementId, list, maxValue, minValue)}
-                /> 
+                    onClick={() => moveDateSelectList("less", elementId, list, maxValue, minValue)}
+                />
             )}
             { list.map((item, index) => getSpan(
                 getSpanValue(Number.isInteger(item) ? item + index : item, maxValue, minValue), 
@@ -99,9 +103,10 @@ function CalendarSelect(props){
             )) }
             { spanOnClickFunction && ( 
                 <CalendarOption 
-                    $name={`less`} 
+                    id={`${elementId}-more-btn`} 
+                    $name={`more`} 
                     $type={"move-icon"} 
-                    onClick={() => moveDateSelectList("less", elementId, list, maxValue, minValue)}
+                    onClick={() => moveDateSelectList("more", elementId, list, maxValue, minValue)}
                 /> 
             )}
         </DateSelect>

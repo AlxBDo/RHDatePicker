@@ -62,6 +62,16 @@ const App = () => {
                 />
                 <p id="string-date"></p>
             </div>
+            <div id="example3" className="example" >
+                <h2>Choose the dates of your next vacation</h2>
+                <DatePicker 
+                    inputId={"holidays-period-ipt"} 
+                    label={"Choose end and start date of your next vacation"} 
+                    htmlClass={BDHtmlClass} 
+                    type={"dateTimePeriod"}
+                />
+                <p id="string-date"></p>
+            </div>
         </TimeSelectorPage>
     )
 };

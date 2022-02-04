@@ -1,4 +1,7 @@
-.clickable{ cursor: pointer }
+* { 
+    margin: 0;
+    padding: 0;
+ }
 
 .date-ctn div:not(.show){
     padding: 0;

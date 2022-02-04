@@ -42,7 +42,7 @@ const DatePicker = (props) => {
 
     const baseId = validation.checkId(inputId, "paramError") ? inputId : "paramError"
     datePickerParams.initComponentParams(baseId, label, eventFunction, htmlClass, valueFormat, type, colors)
-
+    const period = type.indexOf("Period") > 0 ? true : false
     const dispatch = useDispatch()
     const params = useSelector(selectParams())
     const selectedDate = useSelector(selectSelectedDate(baseId))
@@ -79,20 +79,37 @@ const DatePicker = (props) => {
             { (baseId !== "paramError" && datePickerParams.label[baseId]) && (
                 <div className={ datePickerParams.htmlClass[baseId].container && datePickerParams.htmlClass[baseId].container }>
                     <label htmlFor={baseId}>{datePickerParams.label[baseId]}</label> 
-                    <input 
-                        type="text" 
-                        id={baseId} 
-                        name={baseId} 
-                        pattern={datePickerParams.format[baseId].pattern} 
-                        placeholder={datePickerParams.format[baseId].placeholder}
-                        className={ datePickerParams.htmlClass[baseId].input && (`${datePickerParams.htmlClass[baseId].input}`) }
-                        onChange={ eventFunctionHandler.change }
-                        onClick={ eventFunctionHandler.click }
-                        onBlur={ eventFunctionHandler.blur } 
-                        tabIndex={0}
-                        required 
-                    />
-                    <Calendar baseId={baseId} displayBox={params.display[datePickerParams.id[baseId].modal]} type={type} />
+                    <div>
+                        <input 
+                            type="text" 
+                            id={baseId} 
+                            name={baseId} 
+                            pattern={datePickerParams.format[baseId].pattern} 
+                            placeholder={datePickerParams.format[baseId].placeholder}
+                            className={ datePickerParams.htmlClass[baseId].input && (`${datePickerParams.htmlClass[baseId].input}`) }
+                            onChange={ eventFunctionHandler.change }
+                            onClick={ eventFunctionHandler.click }
+                            onBlur={ eventFunctionHandler.blur } 
+                            tabIndex={0}
+                            required 
+                        />
+                        <Calendar baseId={baseId} displayBox={params.display[datePickerParams.id[baseId].modal]} type={type} />
+                        { period && (
+                            <input 
+                                type="text" 
+                                id={`${baseId}-end`} 
+                                name={`${baseId}-end`} 
+                                pattern={datePickerParams.format[baseId].pattern} 
+                                placeholder={datePickerParams.format[baseId].placeholder}
+                                className={ datePickerParams.htmlClass[baseId].input && (`${datePickerParams.htmlClass[baseId].input}`) }
+                                onChange={ eventFunctionHandler.change }
+                                onClick={ eventFunctionHandler.click }
+                                onBlur={ eventFunctionHandler.blur } 
+                                tabIndex={0}
+                                required 
+                            />
+                        ) }
+                    </div>
                 </div>
             ) }
             <Error 

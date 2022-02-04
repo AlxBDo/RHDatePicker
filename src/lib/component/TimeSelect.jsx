@@ -4,9 +4,9 @@ import CalendarSelect from "./CalendarSelect";
 
 function TimeSelect(props){
 
-    const { baseId, maxValue, minValue, name, onClickFunction, selectedValue } = props
-    const list = Array(7).fill(selectedValue - 3)
-
+    const { baseId, maxValue, minValue, name, onClickFunction, reduceSize, selectedValue } = props
+    const list = reduceSize ? Array(3).fill(selectedValue - 1) : Array(7).fill(selectedValue - 3)
+    
     return(
         <CalendarSelect 
             baseId={baseId} 
@@ -26,6 +26,7 @@ function TimeSelect(props){
 TimeSelect.defaultProps = {
     maxValue: 9,
     minValue: 0,
+    reduceSize: false,
     selectedValue: 0
 }
 

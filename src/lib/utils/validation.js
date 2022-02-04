@@ -22,8 +22,8 @@ import { datePickerParams } from "./datePickerParams";
         color: { max: 23, min: 3 },
         date: { max: 10, min: 10 },
         dateTime: { max: 16, min: 16 },
-        id: { max: 15, min: 2 }, 
-        label: { max: 35, min: 4 },
+        id: { max: 25, min: 2 }, 
+        label: { max: 60, min: 4 },
         time: {max: 5, min: 5}
     }, 
 
@@ -115,6 +115,7 @@ import { datePickerParams } from "./datePickerParams";
                     default: break
                 }
             }
+            type = (type.substring(0, 4) === "time") ? "time" : type.indexOf("Time") > 0 ? "dateTime" : "date"
             return validation.formats.getObject(
                 outputFormat === "number" ? validation.formats.output[outputFormat] : validation.formats.output[outputFormat][type], 
                 validation.formats.pattern[type][langOpt], 
