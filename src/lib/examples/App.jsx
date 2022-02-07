@@ -47,7 +47,7 @@ const App = () => {
                     eventFunction={eventFunction} 
                     htmlClass={BDHtmlClass} 
                     type={"date"}
-                    valueFormat={"array"}
+                    valueFormat={"dateObject"}
                 />
                 <p id="weekday-ctn">You were born on a <span id="test-weekday"></span></p>
             </div>

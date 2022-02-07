@@ -1,12 +1,17 @@
 import { validation } from "./validation"
 import { style } from "../style"
 
+const getIsDefaultObject = (isDate, isDateTime, isPeriod, isTime) => { return { 
+    date: isDate, dateTime: isDateTime, period: isPeriod, time: isTime }}
+
 export const datePickerParams = {
 
     /**
      * store id
      */
     id : {},
+
+    is: {},
 
     /**
      * store a new id
@@ -54,11 +59,24 @@ export const datePickerParams = {
      * @param {object} htmlClass 
      */
     initComponentParams: (inputId, label, eventFunction, htmlClass, dateFormat, type, calendarColor = false) => {
-        datePickerParams.initIdHtml(inputId, type.indexOf("Period") > 0 ? true : false) 
+        if(!datePickerParams.is[inputId]){
+            const indexTime = type.indexOf("ime")
+            const isTime = indexTime > 0
+            const isDateTime = isTime && indexTime !== 1 ? true : false
+            datePickerParams.is[inputId] = getIsDefaultObject(
+                type.indexOf("date") === 0, 
+                isDateTime, 
+                type.indexOf("Period") > 3, 
+                isTime
+            )
+        }
+        datePickerParams.initIdHtml(inputId, datePickerParams.is[inputId].period) 
         datePickerParams.setLabel(inputId, label)
         datePickerParams.setEventFunction(inputId, eventFunction) 
         datePickerParams.setHtmlClass(inputId, htmlClass)
-        datePickerParams.format[inputId] = { type, ...validation.formats.get(type, dateFormat)}
+        datePickerParams.format[inputId] = { type, ...validation.formats.get(
+            datePickerParams.is[inputId].dateTime ? "dateTime" : datePickerParams.is[inputId].date ? "date" : "time", 
+            dateFormat)}
         if(!style.colors.dark){
             style.setColors(
                 validation.checkColor(calendarColor.dark, inputId), 

@@ -115,7 +115,6 @@ import { datePickerParams } from "./datePickerParams";
                     default: break
                 }
             }
-            type = (type.substring(0, 4) === "time") ? "time" : type.indexOf("Time") > 0 ? "dateTime" : "date"
             return validation.formats.getObject(
                 outputFormat === "number" ? validation.formats.output[outputFormat] : validation.formats.output[outputFormat][type], 
                 validation.formats.pattern[type][langOpt], 
@@ -128,7 +127,7 @@ import { datePickerParams } from "./datePickerParams";
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
             return time ? { hour: 'numeric', minute: 'numeric', ...options } : options
         },
-        lang: navigator.language,
+        lang: navigator.language.substring(0,2),
         output: {
             array: {
                 date: (date) => date && date.split(date.indexOf("-") > 0 ? "-" : "."), 
@@ -147,7 +146,11 @@ import { datePickerParams } from "./datePickerParams";
                     if(!date){ return false }
                     date = validation.formats.output.array[type](date)
                     return type === "time" ? { hour: date[0], minute: date[1] }
-                    : new Date(
+                    : type === "date" ? new Date(
+                        date[validation.formats.lang === "en" ? 0 : 2], 
+                        parseInt(date[1]) - 1, 
+                        date[validation.formats.lang === "en" ? 2 : 0]
+                    ) : new Date(
                         date[validation.formats.lang === "en" ? 0 : 2], 
                         parseInt(date[1]) - 1, 
                         date[validation.formats.lang === "en" ? 2 : 0], 

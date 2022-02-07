@@ -6,7 +6,6 @@ import arrowIcoDarkMode from "./assets/arrow-darkMode.png"
 import arrowIcoLightMode from "./assets/arrow-lightMode.png" 
 import moveIcoDarkMode from "./assets/move-darkMode.png"
 import moveIcoLightMode from "./assets/move-lightMode.png"
-import CalendarSelect from "./component/CalendarSelect";
 
 export const theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light"
 
@@ -156,15 +155,7 @@ export const CalendarSection = styled.section`
         display: flex;
         flex-direction: row;
     };
-    &:not(.time-period) div.time-separator{
-        margin-top: -7px;
-        margin-left: -7px;
-    };
     &.time-period{
-        justify-content: flex-start;
-        flex-direction: column;
-        max-width: 115px;
-        height: 320px;
         overflow: hidden;
         div:not(.time-select, .minutes-ctn) {
             height: 50%;
@@ -175,7 +166,7 @@ export const CalendarSection = styled.section`
             align-content: baseline;
         };
         div.time-separator {
-            margin-top: 10px;
+            margin-top: -15px;
             margin-left: 5px;
         }
         p {
@@ -195,13 +186,40 @@ export const CalendarSection = styled.section`
         };
     };
     ${(props) => ( props.$name === "timeSection" && `
-        margin-left: 30px
+        @media (max-width : 499px){
+            justify-content: center;
+        };
+        @media (min-width : 500px){
+            justify-content: flex-start;
+            flex-direction: column;
+            max-width: 115px;
+            height: 320px;
+            margin-left: 30px
+        };
+        &:not(.time-period) {
+            div.time-separator{
+                margin-top: -7px;
+                align-items: center;
+            }
+            div:not(.time-select) { height : 100%; }
+        };
     `)}
 }
 `
 
 export const DatePickerContainer = styled.div`
     position: relative;
+`
+
+export const DatePickerInput = styled.input`
+    text-align: center;
+    border: 1px solid;
+    padding: 5px;
+    margin: 1%;
+    border-radius: 3px;
+    background-color: ${style.backgroundColor()}; 
+    color: ${style.color()};
+    width: ${(props) =>  props.$long ? (`130px`) : (`95px`) }
 `
 
 export const DateSelect = styled.div`   
@@ -276,13 +294,14 @@ export const DateSelect = styled.div`
 `
 
 export const DialogBox = styled.div`
+    left: 0px;
+    right: 0px;
     display: ${(props) => ( props.$isDisplay ? `flex` : `none`)};
     position: ${(props) => ( props.$isModal ? `absolute` : `relative`)};
     background-color: ${(props) => ( props.$backgroundColor )};
     color: ${(props) => (props.$color) };
-    &.date-select { left: 22% ; }
-    &.date-time-select { left: 8%; }
-    ${(props) => props.$name === "hrnet-dp-modal" && (`
+    ${(props) => 
+        props.$name === "hrnet-dp-modal" && (`
         text-align: center;
         border-radius: 5px;
         box-shadow: 2px 2px 3px gray;
@@ -290,7 +309,22 @@ export const DialogBox = styled.div`
         overflow: hidden;
         z-index: 9;
         top: -125px;
-    `)}
+        width: 80%
+    `)};
+    ${(props) => props.$longSize ? (`
+        margin: 0 5%;
+        @media (max-width : 499px){
+            flex-direction: column;
+        }
+    `) : (`
+        max-width: 270px;
+        @media (min-width : 500px){
+            margin: 0 20%;
+        };
+        @media (max-width : 499px){
+            margin: 0 5%;
+        };
+    `)};
 `
 
 export const ErrorBox = styled.div`
@@ -305,4 +339,4 @@ export const TimeSelectorPage = styled.div`
     background-color: ${style.page.bgColor};
     color: ${style.page.color};
     padding: 2%;
-`
+` 

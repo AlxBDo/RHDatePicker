@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import { DialogBox } from "../style"
 
 function Dialog(props){
-    const { children, dialogBoxId, htmlClass, displayBox, isModal, color, backgroundColor, name } = props
+    const { children, dialogBoxId, htmlClass, displayBox, isModal, color, backgroundColor, name, longSize } = props
     return(
         <DialogBox 
             id={dialogBoxId && dialogBoxId} 
@@ -14,6 +14,7 @@ function Dialog(props){
             $name={name && name} 
             $isDisplay={displayBox} 
             $isModal={isModal} 
+            $longSize={longSize}
         >
             {children && children}
         </DialogBox>

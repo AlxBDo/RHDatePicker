@@ -10,6 +10,7 @@ import TimeSelect from "./TimeSelect"
 import { CalendarBox, CalendarList, CalendarListItem, CalendarOption, CalendarSection, DateSelect, style } from "../style"
 import { datePickerParams } from "../utils/datePickerParams"
 import { weekdays, months, getLimitYear, transformToNumber, currentDate } from "../utils/date";
+import { validation } from "../utils/validation";
 
 const deleteSelectedDay = () => document.querySelectorAll(".selected-day").forEach((element) => { element.classList.remove("selected-day") })
 
@@ -22,10 +23,10 @@ function Calendar(props){
     const dispatch = useDispatch() 
     const selected = { 
         changeIsEndDate: () => selected.isEndDate = !selected.isEndDate,
-        dayIsSelected: (day, month) => ((selected.isPeriod && (
+        dayIsSelected: (day, month) => ((datePickerParams.is[baseId].period && (
             ( (day >= selectedDate.start.day && month === selectedDate.start.month) || month > selectedDate.start.month ) 
             && (day <= selectedDate.end.day && month <= selectedDate.end.month)
-            )) || (!selected.isPeriod && selectedDate.day === day && selectedDate.month === month)) ? true : false,
+            )) || (!datePickerParams.is[baseId].period && selectedDate.day === day && selectedDate.month === month)) ? true : false,
         getHours: (typeDate = false) => typeDate === "start" ? selectedDate.start.hour ? parseInt(selectedDate.start.hour) : 12 
                                         : typeDate === "end" ? selectedDate.end.hour ? parseInt(selectedDate.end.hour) : 12 
                                         : selected.hour,
@@ -38,22 +39,13 @@ function Calendar(props){
             : minutes > 9 ? parseInt(String(minutes).substring(0, 1)) : 0
         },
         initDate: (selectedDate) => { 
-            if(selectedDate.type.indexOf("Period") > 0){
-                selected.isPeriod = true
+            if(datePickerParams.is[baseId].period){
+                datePickerParams.is[baseId].period = true
                 selected.nameSuffix = "End"
                 selected.typeDate = !selectedDate.start.day || !selected.isEndDate() ? "start" : "end" 
             } else { selected.typeDate = false }
-            const modalClass = ["time-select", "date-select", "date-time-select"]
-            let classNumber = -1
-            if(selectedDate.type.indexOf("date") >= 0){ 
-                selected.setDate(selectedDate.calendar) 
-                classNumber += 2
-            } 
-            if(selectedDate.type.indexOf("ime") > 0){ 
-                selected.setTime(selectedDate.calendar) 
-                classNumber++
-            }
-            selected.modalClass = modalClass[classNumber]
+            if(datePickerParams.is[baseId].date){ selected.setDate(selectedDate.calendar) } 
+            if(datePickerParams.is[baseId].time){ selected.setTime(selectedDate.calendar) }
         },
         isEndDate: () => selectedDate.status === "pending" ? true : false,
         nameSuffix: "",
@@ -67,8 +59,8 @@ function Calendar(props){
             selected.minute = time.minute ? parseInt(time.minute) : 0
         },
         setTypeDate: (selectedDate, value, typeValue) => { 
-            if(selectedDate.type.indexOf("Period") > 0){
-                selected.isPeriod = true
+            if(datePickerParams.is[baseId].period){
+                datePickerParams.is[baseId].period = true
                 const start = parseInt(`
                     ${typeValue === "year" ? value : selectedDate.start.year}${typeValue === "month" ? value : selectedDate.start.month}${typeValue === "day" ? value : selectedDate.start.day}
                 `)
@@ -117,7 +109,7 @@ function Calendar(props){
                             `div#${datePickerParams.getTimeSelectId(baseId, "minutesUni", selected.typeDate)} .selected-option`).textContent)
                         ) : name === "Hour" ? parseInt(document.querySelector(
                             `div#${datePickerParams.getTimeSelectId(baseId, "hours", selected.typeDate)} .selected-option`).textContent)  
-                        : parseInt(e.target.textContent) 
+                        : parseInt(e.target.textContent)
             if(Number.isInteger(value)){
                 dispatch(selectedDateAction[`setCalendar${name}`](value, baseId))
                 if(name === "Day"){ 
@@ -126,8 +118,7 @@ function Calendar(props){
                     dispatch(selectedDateAction.setYear(selected.year, baseId, selected.typeDate))
                     if(selected.typeDate !== "start"){ dispatch(paramsAction.updateDisplay(datePickerParams.id[baseId].modal, false)) }
                     let time = false 
-                    if(selectedDate.type.indexOf("ime") > 0){
-                        const selectName = `${selected.typeDate && selected.typeDate.substring(0,1).toUpperCase() + selected.typeDate.substring(1)}Select`
+                    if(datePickerParams.is[baseId].time){
                         const hour = parseInt(
                             document.querySelector(`div#${datePickerParams.getTimeSelectId(baseId, "hours", selected.typeDate)} .selected-option`).textContent)
                         if(transformToNumber(hour) !== selected.hour){ dispatch(selectedDateAction.setHour(hour, baseId, selected.typeDate)) }
@@ -135,11 +126,11 @@ function Calendar(props){
                                     + String(document.querySelector(`div#${datePickerParams.getTimeSelectId(baseId, "minutesUni", selected.typeDate)} .selected-option`).textContent)
                         if(transformToNumber(minutes) !== selectedDate.minute){ dispatch(selectedDateAction.setMinute(minutes, baseId, selected.typeDate)) }
                         time = transformToNumber(hour) + ":" + minutes
-                    }
+                    } 
                     const dateToVerify = click.getFormattedValue(value, time)
                     document.getElementById(selected.typeDate && selected.typeDate === "end" ? baseId+"-end" : baseId).value = dateToVerify
                     datePickerParams.eventFunction.execute(baseId, dateToVerify, "onBlur")
-                    if(selected.isPeriod){ selected.changeIsEndDate() }
+                    if(datePickerParams.is[baseId].period){ selected.changeIsEndDate() }
                 } else { click.show(datePickerParams.id[baseId].daySelect, baseId) }
             }
         },
@@ -148,7 +139,7 @@ function Calendar(props){
             const month = parseInt(selected.month)
             const year = selected.year
             let date = false
-            switch(navigator.language){
+            switch(validation.formats.lang){
                 case "de": 
                     date = day+"."+month+"."+year 
                     break 
@@ -227,11 +218,11 @@ function Calendar(props){
         <Dialog 
             dialogBoxId={datePickerParams.id[baseId].modal} 
             name="hrnet-dp-modal" 
-            htmlClass={selected.modalClass} 
             displayBox={displayBox} 
             isModal={true} 
             color={style.color()} 
             backgroundColor={style.backgroundColor()} 
+            longSize={datePickerParams.is[baseId].dateTime}
         >
             {(selectedDate.type !== "time" && selectedDate.type !== "timePeriod") && (
                 <CalendarSection>
@@ -250,9 +241,9 @@ function Calendar(props){
                                             id={`dayLi-${baseId}-${index}`}
                                             $type={(index < startDay || index > (monthLength + startDay - 1)) ? ("empty-cell") : ("clickable") }
                                             onMouseOver={(e) => { showCorrespondingWeekday( (index) - (parseInt(index/7)*7) ) 
-                                                                selected.isPeriod && displaySelectedDay(e, calendarMonthSelected+1)}}
+                                                                datePickerParams.is[baseId].period && displaySelectedDay(e, calendarMonthSelected+1)}}
                                             onMouseOut={(e) => { showCorrespondingWeekday( (index) - (parseInt(index/7)*7), false )  
-                                                                selected.isPeriod && displaySelectedDay(e, calendarMonthSelected+1)}}
+                                                                datePickerParams.is[baseId].period && displaySelectedDay(e, calendarMonthSelected+1)}}
                                         >{getNumberDay(index+1, monthLength, startDay)}</CalendarListItem>
                                 ))}
                             </CalendarList>
@@ -263,8 +254,8 @@ function Calendar(props){
                 </CalendarSection>
             )}
             {(selectedDate.type !== "date" && selectedDate.type !== "datePeriod") && (
-                <CalendarSection $flexDirection="row" $name="timeSection" $flexWrap={selected.isPeriod && "wrap"} className={selected.isPeriod ? "time-period" : null}>
-                    {selected.isPeriod && (
+                <CalendarSection $flexDirection="row" $name="timeSection" $flexWrap={datePickerParams.is[baseId].period && "wrap"} className={datePickerParams.is[baseId].period ? "time-period" : null}>
+                    {datePickerParams.is[baseId].period && (
                     <div>
                         <p>Start</p>
                         <TimeSelect 
@@ -296,13 +287,13 @@ function Calendar(props){
                     </div>
                     )}
                     <div style={{display: selected.typeHour === "start" && "none"}}>
-                        {selected.isPeriod && (<p>End</p>)}
+                        {datePickerParams.is[baseId].period && (<p>End</p>)}
                         <TimeSelect 
                             baseId={baseId} 
                             maxValue={23} 
                             name={`hours${selected.nameSuffix}`} 
-                            reduceSize={selected.isPeriod}
-                            selectedValue={selected.getHours(selected.isPeriod && "end")} 
+                            reduceSize={datePickerParams.is[baseId].period}
+                            selectedValue={selected.getHours(datePickerParams.is[baseId].period && "end")} 
                             onClickFunction={click.hour}
                         />
                         <div className="time-separator">:</div>
@@ -311,15 +302,15 @@ function Calendar(props){
                                 baseId={baseId} 
                                 maxValue={5} 
                                 name={`minutesDec${selected.nameSuffix}`} 
-                                reduceSize={selected.isPeriod}
-                                selectedValue={selected.getMinutes("deci", selected.isPeriod && "end")} 
+                                reduceSize={datePickerParams.is[baseId].period}
+                                selectedValue={selected.getMinutes("deci", datePickerParams.is[baseId].period && "end")} 
                                 onClickFunction={click.minute}
                             />
                             <TimeSelect 
                                 baseId={baseId} 
                                 name={`minutesUni${selected.nameSuffix}`} 
-                                reduceSize={selected.isPeriod}
-                                selectedValue={selected.getMinutes("unit", selected.isPeriod && "end")} 
+                                reduceSize={datePickerParams.is[baseId].period}
+                                selectedValue={selected.getMinutes("unit", datePickerParams.is[baseId].period && "end")} 
                                 onClickFunction={click.minute} 
                             />
                         </div>

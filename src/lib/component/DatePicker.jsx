@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { datePickerParams } from "../utils/datePickerParams"
 import { validation } from "../utils/validation" 
 import { calendar } from "../utils/calendar"
-import { DatePickerContainer } from "../style"
+import { DatePickerContainer, DatePickerInput } from "../style"
 import Dialog from "./Dialog"
 import Error from "./Error"
 import Calendar from "./Calendar"
@@ -42,7 +42,6 @@ const DatePicker = (props) => {
 
     const baseId = validation.checkId(inputId, "paramError") ? inputId : "paramError"
     datePickerParams.initComponentParams(baseId, label, eventFunction, htmlClass, valueFormat, type, colors)
-    const period = type.indexOf("Period") > 0 ? true : false
     const dispatch = useDispatch()
     const params = useSelector(selectParams())
     const selectedDate = useSelector(selectSelectedDate(baseId))
@@ -70,7 +69,6 @@ const DatePicker = (props) => {
             e.preventDefault()
             dispatch(paramsAction.updateDisplay(datePickerParams.id[baseId].modal, true))
             eventFunctionHandler.paramsFunction(e, "onClick")
-            if(e.target.getAttribute("id") === baseId){ e.target.focus() }
         }, 
     }
     
@@ -79,8 +77,8 @@ const DatePicker = (props) => {
             { (baseId !== "paramError" && datePickerParams.label[baseId]) && (
                 <div className={ datePickerParams.htmlClass[baseId].container && datePickerParams.htmlClass[baseId].container }>
                     <label htmlFor={baseId}>{datePickerParams.label[baseId]}</label> 
-                    <div>
-                        <input 
+                    <div className="date-picker-input">
+                        <DatePickerInput 
                             type="text" 
                             id={baseId} 
                             name={baseId} 
@@ -89,13 +87,13 @@ const DatePicker = (props) => {
                             className={ datePickerParams.htmlClass[baseId].input && (`${datePickerParams.htmlClass[baseId].input}`) }
                             onChange={ eventFunctionHandler.change }
                             onClick={ eventFunctionHandler.click }
-                            onBlur={ eventFunctionHandler.blur } 
-                            tabIndex={0}
+                            onBlur={ eventFunctionHandler.blur }
+                            $long={datePickerParams.is[baseId].dateTime}
                             required 
                         />
                         <Calendar baseId={baseId} displayBox={params.display[datePickerParams.id[baseId].modal]} type={type} />
-                        { period && (
-                            <input 
+                        { datePickerParams.is[baseId].period && (
+                            <DatePickerInput 
                                 type="text" 
                                 id={`${baseId}-end`} 
                                 name={`${baseId}-end`} 
@@ -104,8 +102,8 @@ const DatePicker = (props) => {
                                 className={ datePickerParams.htmlClass[baseId].input && (`${datePickerParams.htmlClass[baseId].input}`) }
                                 onChange={ eventFunctionHandler.change }
                                 onClick={ eventFunctionHandler.click }
-                                onBlur={ eventFunctionHandler.blur } 
-                                tabIndex={0}
+                                onBlur={ eventFunctionHandler.blur }
+                                $long={datePickerParams.is[baseId].dateTime}
                                 required 
                             />
                         ) }

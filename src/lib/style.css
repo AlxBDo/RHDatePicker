@@ -23,13 +23,12 @@
     padding: 1% 5%;
     align-items: center;
     margin-bottom: 5%;
-    width: 100%;
+    width: 90%;
     text-align: center;
 }
-.example-ctn label, .example-ctn input { 
+.example-ctn label, div.date-picker-input { 
     width: 40%; 
     min-width: 200px;
-    padding: 3%
 }
 .example-err {
 	color: red;
@@ -44,15 +43,6 @@
 	font-size: smaller;
 	font-weight: normal;
 }
-.example-ctn input {
-    text-align: center;
-    font-size: large;
-    font-weight: bold;
-    border: none;
-    padding: 3% 0;
-    box-shadow: none;
-    border-radius: 10px;
-}
 
 .example {
     max-width: 550px;
@@ -60,6 +50,8 @@
     border: 3px solid #75b74e;
     border-radius: 5px;
 }
+
+.example:last-of-type { margin-bottom: 265px; }
   
 .example p {
     text-align: center;
