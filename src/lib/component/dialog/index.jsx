@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
  
-import { DialogBox } from "../style"
+import { DialogBox } from "../../style"
 
 function Dialog(props){
     const { children, dialogBoxId, htmlClass, displayBox, isModal, color, backgroundColor, name, longSize } = props

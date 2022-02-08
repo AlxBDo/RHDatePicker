@@ -1,7 +1,7 @@
 import React from "react";
-import { DatePicker } from "..";
-import { TimeSelectorPage, style } from "../style"
-import "../style.css"
+import DatePicker from "../component/datePicker";
+import { TimeSelectorPage } from "../style"
+import "../style/style.css"
 
 const App = () => {
 

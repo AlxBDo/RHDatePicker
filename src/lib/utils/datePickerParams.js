@@ -80,7 +80,9 @@ export const datePickerParams = {
         if(!style.colors.dark){
             style.setColors(
                 validation.checkColor(calendarColor.dark, inputId), 
-                validation.checkColor(calendarColor.light, inputId)
+                validation.checkColor(calendarColor.light, inputId),
+                calendarColor.advice && validation.checkColor(calendarColor.advice, inputId),
+                calendarColor.error && validation.checkColor(calendarColor.error, inputId)
             )
         }
     },

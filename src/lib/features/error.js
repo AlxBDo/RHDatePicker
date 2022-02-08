@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-import { selectError } from "../utils/selectors"
 import { validation } from "../utils/validation"
 
 export const getErrors = (inputId) => {

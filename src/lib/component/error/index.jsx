@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types"
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import Dialog from "./Dialog";
-import { AdviceBox, ErrorBox } from "../style";
-import { datePickerParams } from "../utils/datePickerParams";
-import { validation } from "../utils/validation";
-import { selectError } from "../utils/selectors";
-import * as errorAction from "../features/error"
+import Dialog from "../dialog";
+import { AdviceBox, ErrorBox } from "../../style";
+import { datePickerParams } from "../../utils/datePickerParams";
+import { validation } from "../../utils/validation";
+import { selectError } from "../../utils/selectors";
 
 
 function Error(props){

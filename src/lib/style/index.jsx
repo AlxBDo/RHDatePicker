@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-import homeIcoDarkMode from "./assets/home-darkMode.png" 
-import homeIcoLightMode from "./assets/home-lightMode.png" 
-import arrowIcoDarkMode from "./assets/arrow-darkMode.png" 
-import arrowIcoLightMode from "./assets/arrow-lightMode.png" 
-import moveIcoDarkMode from "./assets/move-darkMode.png"
-import moveIcoLightMode from "./assets/move-lightMode.png"
+import homeIcoDarkMode from "../assets/home-darkMode.png" 
+import homeIcoLightMode from "../assets/home-lightMode.png" 
+import arrowIcoDarkMode from "../assets/arrow-darkMode.png" 
+import arrowIcoLightMode from "../assets/arrow-lightMode.png" 
+import moveIcoDarkMode from "../assets/move-darkMode.png"
+import moveIcoLightMode from "../assets/move-lightMode.png"
 
 export const theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light"
 
@@ -42,9 +42,11 @@ export const style = {
         bgColor: theme === "dark" ? "#1e1e1e" : "#eaeaea"
     },
 
-    setColors: (dark, light) => {
+    setColors: (dark, light, advice = false, error = false) => {
         style.colors.dark = dark  
-        style.colors.light = light
+        style.colors.light = light 
+        if(advice){ style.colors.advice = advice }
+        if(error){ style.colors.error = error }
     }
 }
 
@@ -66,6 +68,14 @@ export const AdviceBox = styled.p`
 export const CalendarBox = styled.div`
     overflow: hidden;
     display: flex;
+    &.date-ctn div:not(.show) {
+        padding: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: scaleX(0);
+        margin: 0 -130px;
+        transform-origin: left;
+    }
     ${(props) => (
         props.$name === "option" ? `
         width: 100%;

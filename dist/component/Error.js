@@ -1,0 +1,106 @@
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _Dialog = _interopRequireDefault(require("./Dialog"));
+
+var _style = require("../style");
+
+var _datePickerParams = require("../utils/datePickerParams");
+
+var _validation = require("../utils/validation");
+
+var _selectors = require("../utils/selectors");
+
+function Error(props) {
+  var dialogBoxId = props.dialogBoxId,
+      htmlClass = props.htmlClass;
+  var error = (0, _reactRedux.useSelector)((0, _selectors.selectError)());
+  /**
+   * Provides error message to validation object
+   */
+
+  var errorMessage = {
+    allowed: {
+      length: function length(_ref) {
+        var max = _ref.max,
+            min = _ref.min;
+        return max !== min ? "Its length must be between ".concat(min, " and ").concat(max, " characters.") : "Its length must be ".concat(max, " characters.");
+      },
+      format: function format(what) {
+        switch (what) {
+          case "date":
+            return "Date must consist of numbers separated by hyphens : ".concat(_datePickerParams.datePickerParams.format[dialogBoxId].placeholder, " .");
+
+          case "dateTime":
+            return "Date and time must be separeted by a space and consist of numbers separated by hyphens (for date) \n                        or double point (for time) : ".concat(_datePickerParams.datePickerParams.format[dialogBoxId].placeholder, " .");
+
+          case "id":
+            return "Only alphanumeric characters are allowed.";
+
+          case "label":
+            return "Only alphanumeric characters, hyphen and apostrophe are allowed.";
+
+          case "time":
+            return "Time must consist of numbers separated by double point : ".concat(_datePickerParams.datePickerParams.format[dialogBoxId].placeholder, " .");
+
+          default:
+            return "Impossible to determinate good format !";
+        }
+      },
+      type: function type(expectedType) {
+        return "The expected type is ".concat(expectedType.indexOf("-") < 0 ? expectedType : expectedType.split("-")[1]);
+      }
+    },
+    get: function get(errorObj, key) {
+      if (errorObj.what && errorMessage[errorObj.why].problem && typeof errorMessage[errorObj.why].advice === "function") {
+        return /*#__PURE__*/_react.default.createElement(_style.ErrorBox, {
+          key: key
+        }, errorObj.what, " ", errorMessage[errorObj.why].problem, /*#__PURE__*/_react.default.createElement(_style.AdviceBox, null, errorMessage[errorObj.why].advice(errorObj.what)));
+      }
+    },
+    tooLong: {
+      problem: "is too long !",
+      advice: function advice(what) {
+        return errorMessage.allowed.length(_validation.validation.allowedLength[what]);
+      }
+    },
+    tooShort: {
+      problem: "is too short !",
+      advice: function advice(what) {
+        return errorMessage.allowed.length(_validation.validation.allowedLength[what]);
+      }
+    },
+    wrongFormat: {
+      problem: "is in wrong format !",
+      advice: function advice(what) {
+        return errorMessage.allowed.format(what);
+      }
+    },
+    wrongType: {
+      problem: "is in wrong type !",
+      advice: function advice(what) {
+        return errorMessage.allowed.type(_validation.validation.allowedType[what]);
+      }
+    }
+  };
+  return /*#__PURE__*/_react.default.createElement(_Dialog.default, {
+    dialogBoxId: "".concat(dialogBoxId, "-err-msg"),
+    htmlClass: "hrnet-dp-error ".concat(htmlClass && htmlClass),
+    displayBox: error.error[dialogBoxId] && error.status !== "empty" ? true : false
+  }, error.error[dialogBoxId] && error.error[dialogBoxId].length > 0 && error.error[dialogBoxId].map(function (err, index) {
+    return err.what && errorMessage.get(err, "error".concat(index));
+  }));
+}
+
+var _default = Error;
+exports.default = _default;

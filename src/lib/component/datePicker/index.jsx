@@ -1,44 +1,37 @@
-import React, { useEffect, useState } from "react" 
+import React from "react" 
 import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 
-import { datePickerParams } from "../utils/datePickerParams"
-import { validation } from "../utils/validation" 
-import { calendar } from "../utils/calendar"
-import { DatePickerContainer, DatePickerInput } from "../style"
-import Dialog from "./Dialog"
-import Error from "./Error"
-import Calendar from "./Calendar"
-import { selectError } from "../utils/selectors"
-import * as errorAction from "../features/error"
-import { selectParams } from "../utils/selectors"
-import * as paramsAction from "../features/params"
-import { selectSelectedDate } from "../utils/selectors" 
-import * as selectedDateAction from "../features/selectedDate"
+import { datePickerParams } from "../../utils/datePickerParams"
+import { validation } from "../../utils/validation" 
+import { DatePickerContainer, DatePickerInput } from "../../style"
+import Error from "../error"
+import Calendar from "../calendar"
+import * as errorAction from "../../features/error"
+import { selectParams } from "../../utils/selectors"
+import * as paramsAction from "../../features/params"
+import { selectSelectedDate } from "../../utils/selectors" 
+import * as selectedDateAction from "../../features/selectedDate"
 
 /**
  * Check and display input type date
- * @param {object} param - object containing attributes: inputId, label, evenFunction (optional) and htmlClass (optional)
+ * @param {object} props - object containing attributes: inputId, label, evenFunction (optional) and htmlClass (optional)
  * @example { inputId: "my-input-id", label: "My input id label", evenFunction: {}, htmlClass: {} }
- * @param {string} param.inputId - accepts alphanumeric characters and hyphen
- * @param {string} param.label - accepts alphanumeric characters, hyphen, space and apostrophe
- * @param {object} param.eventFunction - contains function to apply to events
+ * @param {string} props.inputId - accepts alphanumeric characters and hyphen
+ * @param {string} props.label - accepts alphanumeric characters, hyphen, space and apostrophe
+ * @param {object} props.eventFunction - contains function to apply to events
  * @example { onBlur: onBlurFunction, onChange: onChangeFunction, onClick: onClickFunction }
- * @param {object} param.htmlClass - contains classes to apply to the container, to the input and to the error message
+ * @param {object} props.htmlClass - contains classes to apply to the container, to the input and to the error message
  * @example { container: "container-class", input: "input-class", error: "error-class" }
+ * @param {string} props.valueFormat - output format of DatePicker input value - Accept : "array", "dateObject" = Date(), "number", "string"
+ * @param {string} props.type - define input type to generate - Accept : "date", "datePeriod", "dateTime", "dateTimePeriod", "time", "timePeriod"
+ * @param {object} props.colors - define colors used by component
+ * @example { dark: "#302f2f", light: "#f2f2ef", error: "#e55a44", advice: "#75B74E"}  
  * @returns {object}
  */
 const DatePicker = (props) => {
 
-    const {
-        inputId, 
-        label,
-        eventFunction = {},
-        htmlClass = {}, 
-        valueFormat, 
-        colors, 
-        type
-    } = props
+    const { inputId, label, eventFunction = {}, htmlClass = {}, valueFormat, colors, type } = props
 
     const baseId = validation.checkId(inputId, "paramError") ? inputId : "paramError"
     datePickerParams.initComponentParams(baseId, label, eventFunction, htmlClass, valueFormat, type, colors)
