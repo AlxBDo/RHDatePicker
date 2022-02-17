@@ -9,7 +9,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _style = require("../style");
+var _style = require("../../style");
 
 function Dialog(props) {
   var children = props.children,

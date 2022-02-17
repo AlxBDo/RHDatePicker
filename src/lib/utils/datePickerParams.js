@@ -13,6 +13,8 @@ export const datePickerParams = {
 
     is: {},
 
+    deadlines: {},
+
     /**
      * store a new id
      * @param {string} name 
@@ -29,12 +31,17 @@ export const datePickerParams = {
                         ? "dateTime" : "date" : "time"
             const expectedLenght = validation.allowedLength[type].min
             if(eventFunctionName === "onChange" && valueLength < expectedLenght){
-                value && validation.checkInputValue(value, baseId, type)
+                value && validation.checkInputValue(value, baseId, type, datePickerParams.deadlines[baseId])
                 value = false
             } else if(valueLength >= expectedLenght || (eventFunctionName === "onBlur" && valueLength > 0)){
                 value = datePickerParams.format[baseId].output !== "number"
-                    ? datePickerParams.format[baseId].output(validation.checkInputValue(value, baseId, type, true)) 
-                    : validation.checkInputValue(value, baseId, type, true)
+                    ? datePickerParams.format[baseId].output(validation.checkInputValue(
+                        value, 
+                        baseId, 
+                        type, 
+                        datePickerParams.deadlines[baseId], 
+                        true
+                    )) : validation.checkInputValue(value, baseId, type, datePickerParams.deadlines[baseId], true)
             } else { value = false }
             datePickerParams.eventFunction[baseId][eventFunctionName] 
             && datePickerParams.eventFunction[baseId][eventFunctionName](value)
@@ -58,7 +65,7 @@ export const datePickerParams = {
      * @param {object} eventFunction 
      * @param {object} htmlClass 
      */
-    initComponentParams: (inputId, label, eventFunction, htmlClass, dateFormat, type, calendarColor = false) => {
+    initComponentParams: (inputId, label, deadlines, eventFunction, htmlClass, dateFormat, type, calendarColor = false) => {
         if(!datePickerParams.is[inputId]){
             const indexTime = type.indexOf("ime")
             const isTime = indexTime > 0
@@ -72,6 +79,7 @@ export const datePickerParams = {
         }
         datePickerParams.initIdHtml(inputId, datePickerParams.is[inputId].period) 
         datePickerParams.setLabel(inputId, label)
+        datePickerParams.deadlines[inputId] = deadlines
         datePickerParams.setEventFunction(inputId, eventFunction) 
         datePickerParams.setHtmlClass(inputId, htmlClass)
         datePickerParams.format[inputId] = { type, ...validation.formats.get(

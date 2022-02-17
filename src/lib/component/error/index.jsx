@@ -56,6 +56,11 @@ function Error(props){
                 )
             }
         },
+
+        outOfBounds: {
+            problem: "is out of bounds!",
+            advice: () => `It's must be between ${datePickerParams.deadlines[dialogBoxId].min} and ${datePickerParams.deadlines[dialogBoxId].max}` 
+        },
     
         tooLong: {
             problem: "is too long !",  

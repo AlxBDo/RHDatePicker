@@ -11,15 +11,15 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRedux = require("react-redux");
 
-var _Dialog = _interopRequireDefault(require("./Dialog"));
+var _dialog = _interopRequireDefault(require("../dialog"));
 
-var _style = require("../style");
+var _style = require("../../style");
 
-var _datePickerParams = require("../utils/datePickerParams");
+var _datePickerParams = require("../../utils/datePickerParams");
 
-var _validation = require("../utils/validation");
+var _validation = require("../../utils/validation");
 
-var _selectors = require("../utils/selectors");
+var _selectors = require("../../utils/selectors");
 
 function Error(props) {
   var dialogBoxId = props.dialogBoxId,
@@ -93,7 +93,7 @@ function Error(props) {
       }
     }
   };
-  return /*#__PURE__*/_react.default.createElement(_Dialog.default, {
+  return /*#__PURE__*/_react.default.createElement(_dialog.default, {
     dialogBoxId: "".concat(dialogBoxId, "-err-msg"),
     htmlClass: "hrnet-dp-error ".concat(htmlClass && htmlClass),
     displayBox: error.error[dialogBoxId] && error.status !== "empty" ? true : false

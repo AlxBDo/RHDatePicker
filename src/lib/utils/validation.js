@@ -49,7 +49,7 @@ import { datePickerParams } from "./datePickerParams";
      * @param {string} value - date format : YYYY-MM-DD 
      * @returns {boolean}
      */
-    checkInputValue: (value, output, type, strictValidation = false) => validation.checkString(value, type, output, strictValidation),
+    checkInputValue: (value, output, type, limits = false, strictValidation = false) => validation.checkString(value, type, output, limits, strictValidation),
 
     /**
      * @see validation.labelRegExp
@@ -58,16 +58,47 @@ import { datePickerParams } from "./datePickerParams";
      */
     checkLabel: (datePickerLabel, output) => validation.checkString(datePickerLabel, "label", output),
 
+    checkLimits: (date, limits, strictValidation = false) => {
+        const dateSplit = date.split("-") 
+        date = parseInt(
+            dateSplit[0].length === 4 
+            ? `${dateSplit[0]}${dateSplit[1]}${dateSplit[2]}` 
+            : `${dateSplit[2]}${dateSplit[1]}${dateSplit[0]}`
+        )
+        if(limits.max){
+            const maxSplit = limits.max.split("-") 
+            const max = parseInt(
+                maxSplit[0].length === 4 
+                ? `${maxSplit[0]}${maxSplit[1]}${maxSplit[2]}` 
+                : `${maxSplit[2]}${maxSplit[1]}${maxSplit[0]}`
+            )
+            if(date > max) { return false }
+        }
+        if(strictValidation && limits.min){
+            const minSplit = limits.min.split("-") 
+            const min = parseInt(
+                minSplit[0].length === 4 
+                ? `${minSplit[0]}${minSplit[1]}${minSplit[2]}` 
+                : `${minSplit[2]}${minSplit[1]}${minSplit[0]}`
+            )
+            if(date < min) { return false }
+        }
+        return true
+    },
+
     /**
      * controls the length and format of the string parameter
      * @param {string} string 
      * @param {string} stringName - accept dateInput, id or label
      * @returns {boolean}
      */
-    checkString: (string, stringName, output, strictValidation = false) => {
+    checkString: (string, stringName, output, limits, strictValidation = false) => {
         const stringLength = string.length
         const searchLetter = stringName === "date" || stringName === "dateTime" || stringName === "time" 
                             ? true : false
+        if(limits && stringName === "date" && !validation.checkLimits(string, limits, strictValidation)){ 
+            return validation.addError(stringName, "outOfBounds", output)
+        }
         if(searchLetter && !strictValidation){
             if( /[a-zA-Z?,;!§%*$£&+_()\/]/.test(string) ){
                 return validation.addError(stringName, "wrongFormat", output)

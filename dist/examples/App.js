@@ -9,11 +9,11 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _ = require("..");
+var _datePicker = _interopRequireDefault(require("../component/datePicker"));
 
 var _style = require("../style");
 
-require("../style.css");
+require("../style/style.css");
 
 var App = function App() {
   // contain event function param
@@ -62,7 +62,7 @@ var App = function App() {
   return /*#__PURE__*/_react.default.createElement(_style.TimeSelectorPage, null, /*#__PURE__*/_react.default.createElement("h1", null, "Date Picker Component Example"), /*#__PURE__*/_react.default.createElement("div", {
     id: "example1",
     className: "example"
-  }, /*#__PURE__*/_react.default.createElement("h2", null, "What was the day of the week you were born ?"), /*#__PURE__*/_react.default.createElement(_.DatePicker, {
+  }, /*#__PURE__*/_react.default.createElement("h2", null, "What was the day of the week you were born ?"), /*#__PURE__*/_react.default.createElement(_datePicker.default, {
     inputId: "birthdate-ipt",
     label: "Please indicate your birthdate",
     eventFunction: eventFunction,
@@ -76,7 +76,7 @@ var App = function App() {
   }))), /*#__PURE__*/_react.default.createElement("div", {
     id: "example2",
     className: "example"
-  }, /*#__PURE__*/_react.default.createElement("h2", null, "Choose a date and time to get it to string format"), /*#__PURE__*/_react.default.createElement(_.DatePicker, {
+  }, /*#__PURE__*/_react.default.createElement("h2", null, "Choose a date and time to get it to string format"), /*#__PURE__*/_react.default.createElement(_datePicker.default, {
     inputId: "string-date-ipt",
     label: "Choose date and time",
     eventFunction: onBlurFunction,
@@ -87,7 +87,7 @@ var App = function App() {
   })), /*#__PURE__*/_react.default.createElement("div", {
     id: "example3",
     className: "example"
-  }, /*#__PURE__*/_react.default.createElement("h2", null, "Choose the dates of your next vacation"), /*#__PURE__*/_react.default.createElement(_.DatePicker, {
+  }, /*#__PURE__*/_react.default.createElement("h2", null, "Choose the dates of your next vacation"), /*#__PURE__*/_react.default.createElement(_datePicker.default, {
     inputId: "holidays-period-ipt",
     label: "Choose end and start date of your next vacation",
     htmlClass: BDHtmlClass,

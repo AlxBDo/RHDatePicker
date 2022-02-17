@@ -31,10 +31,10 @@ import * as selectedDateAction from "../../features/selectedDate"
  */
 const DatePicker = (props) => {
 
-    const { inputId, label, eventFunction = {}, htmlClass = {}, valueFormat, colors, type } = props
+    const { inputId, label, deadlines, eventFunction = {}, htmlClass = {}, valueFormat, colors, type } = props
 
     const baseId = validation.checkId(inputId, "paramError") ? inputId : "paramError"
-    datePickerParams.initComponentParams(baseId, label, eventFunction, htmlClass, valueFormat, type, colors)
+    datePickerParams.initComponentParams(baseId, label, deadlines, eventFunction, htmlClass, valueFormat, type, colors)
     const dispatch = useDispatch()
     const params = useSelector(selectParams())
     const selectedDate = useSelector(selectSelectedDate(baseId))
@@ -120,7 +120,8 @@ DatePicker.defaultProps = {
 
 DatePicker.propTypes = {
     inputId: PropTypes.string.isRequired, 
-    label: PropTypes.string.isRequired, 
+    label: PropTypes.string.isRequired,
+    deadlines: PropTypes.object, 
     eventFunction: PropTypes.object, 
     htmlClass: PropTypes.object, 
     valueFormat: PropTypes.string, 

@@ -13,23 +13,23 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRedux = require("react-redux");
 
-var _datePickerParams = require("../utils/datePickerParams");
+var _datePickerParams = require("../../utils/datePickerParams");
 
-var _validation = require("../utils/validation");
+var _validation = require("../../utils/validation");
 
-var _style = require("../style");
+var _style = require("../../style");
 
-var _Error = _interopRequireDefault(require("./Error"));
+var _error = _interopRequireDefault(require("../error"));
 
-var _calendar = _interopRequireDefault(require("./calendar"));
+var _calendar = _interopRequireDefault(require("../calendar"));
 
-var errorAction = _interopRequireWildcard(require("../features/error"));
+var errorAction = _interopRequireWildcard(require("../../features/error"));
 
-var _selectors = require("../utils/selectors");
+var _selectors = require("../../utils/selectors");
 
-var paramsAction = _interopRequireWildcard(require("../features/params"));
+var paramsAction = _interopRequireWildcard(require("../../features/params"));
 
-var selectedDateAction = _interopRequireWildcard(require("../features/selectedDate"));
+var selectedDateAction = _interopRequireWildcard(require("../../features/selectedDate"));
 
 /**
  * Check and display input type date
@@ -131,7 +131,7 @@ var DatePicker = function DatePicker(props) {
     onBlur: eventFunctionHandler.blur,
     $long: _datePickerParams.datePickerParams.is[baseId].dateTime,
     required: true
-  }))), /*#__PURE__*/_react.default.createElement(_Error.default, {
+  }))), /*#__PURE__*/_react.default.createElement(_error.default, {
     dialogBoxId: baseId,
     htmlClass: _datePickerParams.datePickerParams.htmlClass[baseId].error && _datePickerParams.datePickerParams.htmlClass[baseId].error
   }));

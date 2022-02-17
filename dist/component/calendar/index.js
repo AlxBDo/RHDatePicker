@@ -19,7 +19,7 @@ var selectedDateAction = _interopRequireWildcard(require("../../features/selecte
 
 var _selectors = require("../../utils/selectors");
 
-var _Dialog = _interopRequireDefault(require("../Dialog"));
+var _dialog = _interopRequireDefault(require("../dialog"));
 
 var _CalendarSelect = _interopRequireDefault(require("./CalendarSelect"));
 
@@ -293,7 +293,7 @@ function Calendar(props) {
     document.getElementById("wd".concat(baseId, "-").concat(_date.weekdays[weekdayNumber])).style.borderBottom = highlight ? "1px solid" : "none";
   }
 
-  return /*#__PURE__*/_react.default.createElement(_Dialog.default, {
+  return /*#__PURE__*/_react.default.createElement(_dialog.default, {
     dialogBoxId: _datePickerParams.datePickerParams.id[baseId].modal,
     name: "hrnet-dp-modal",
     displayBox: displayBox,

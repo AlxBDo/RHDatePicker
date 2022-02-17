@@ -217,9 +217,7 @@ export const CalendarSection = styled.section`
 }
 `
 
-export const DatePickerContainer = styled.div`
-    position: relative;
-`
+export const DatePickerContainer = styled.div``
 
 export const DatePickerInput = styled.input`
     text-align: center;
@@ -318,31 +316,22 @@ export const DialogBox = styled.div`
         padding: 25px;
         overflow: hidden;
         z-index: 9;
-        top: -125px;
-        width: 80%
+        width: max-content;
+        height: max-content;
+        margin: auto;
     `)};
     ${(props) => props.$longSize ? (`
-        margin: 0 5%;
         @media (max-width : 499px){
             flex-direction: column;
         }
     `) : (`
-        max-width: 270px;
-        @media (min-width : 500px){
-            margin: 0 20%;
-        };
-        @media (max-width : 499px){
-            margin: 0 5%;
-        };
+        &:not(.hrnet-dp-error){ max-width: 270px; }
     `)};
 `
 
 export const ErrorBox = styled.div`
     color: ${style.errorColor()};
-    margin: 5% auto;
-    padding: 15px 10px;
-    border: 1px dashed;
-    border-radius: 10px;
+    margin: 2% auto;
 `
 
 export const TimeSelectorPage = styled.div`

@@ -35,6 +35,8 @@ const App = () => {
 
     // contain html class param
     const BDHtmlClass = {container: "example-ctn", error: "example-err"}
+
+    const deadlines = {min: "01-01-2022", max: "17-02-2022"}
     
     return (
         <TimeSelectorPage>
@@ -44,6 +46,7 @@ const App = () => {
                 <DatePicker 
                     inputId={"birthdate-ipt"} 
                     label={"Please indicate your birthdate"} 
+                    deadlines={ deadlines }
                     eventFunction={eventFunction} 
                     htmlClass={BDHtmlClass} 
                     type={"date"}

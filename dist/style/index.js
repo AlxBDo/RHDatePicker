@@ -11,17 +11,17 @@ var _taggedTemplateLiteral2 = _interopRequireDefault(require("@babel/runtime/hel
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _homeDarkMode = _interopRequireDefault(require("./assets/home-darkMode.png"));
+var _homeDarkMode = _interopRequireDefault(require("../assets/home-darkMode.png"));
 
-var _homeLightMode = _interopRequireDefault(require("./assets/home-lightMode.png"));
+var _homeLightMode = _interopRequireDefault(require("../assets/home-lightMode.png"));
 
-var _arrowDarkMode = _interopRequireDefault(require("./assets/arrow-darkMode.png"));
+var _arrowDarkMode = _interopRequireDefault(require("../assets/arrow-darkMode.png"));
 
-var _arrowLightMode = _interopRequireDefault(require("./assets/arrow-lightMode.png"));
+var _arrowLightMode = _interopRequireDefault(require("../assets/arrow-lightMode.png"));
 
-var _moveDarkMode = _interopRequireDefault(require("./assets/move-darkMode.png"));
+var _moveDarkMode = _interopRequireDefault(require("../assets/move-darkMode.png"));
 
-var _moveLightMode = _interopRequireDefault(require("./assets/move-lightMode.png"));
+var _moveLightMode = _interopRequireDefault(require("../assets/move-lightMode.png"));
 
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12;
 
@@ -97,7 +97,7 @@ var AdviceBox = _styledComponents.default.p(_templateObject || (_templateObject 
 
 exports.AdviceBox = AdviceBox;
 
-var CalendarBox = _styledComponents.default.div(_templateObject2 || (_templateObject2 = (0, _taggedTemplateLiteral2.default)(["\n    overflow: hidden;\n    display: flex;\n    ", "\n"])), function (props) {
+var CalendarBox = _styledComponents.default.div(_templateObject2 || (_templateObject2 = (0, _taggedTemplateLiteral2.default)(["\n    overflow: hidden;\n    display: flex;\n    &.date-ctn div:not(.show) {\n        padding: 0;\n        overflow: hidden;\n        opacity: 0;\n        transform: scaleX(0);\n        margin: 0 -130px;\n        transform-origin: left;\n    }\n    ", "\n"])), function (props) {
   return props.$name === "option" ? "\n        width: 100%;\n        justify-content: space-between;\n        align-items: center;\n        height: 45px; \n        padding-bottom: 10px;\n        " : "\n        height: 265px;\n        ";
 });
 
