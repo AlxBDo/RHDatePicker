@@ -59,12 +59,17 @@ var App = function App() {
     container: "example-ctn",
     error: "example-err"
   };
+  var deadlines = {
+    min: "01-01-2022",
+    max: "17-02-2022"
+  };
   return /*#__PURE__*/_react.default.createElement(_style.TimeSelectorPage, null, /*#__PURE__*/_react.default.createElement("h1", null, "Date Picker Component Example"), /*#__PURE__*/_react.default.createElement("div", {
     id: "example1",
     className: "example"
   }, /*#__PURE__*/_react.default.createElement("h2", null, "What was the day of the week you were born ?"), /*#__PURE__*/_react.default.createElement(_datePicker.default, {
     inputId: "birthdate-ipt",
     label: "Please indicate your birthdate",
+    deadlines: deadlines,
     eventFunction: eventFunction,
     htmlClass: BDHtmlClass,
     type: "date",

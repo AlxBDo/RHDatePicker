@@ -131,7 +131,7 @@ var CalendarSection = _styledComponents.default.section(_templateObject6 || (_te
 
 exports.CalendarSection = CalendarSection;
 
-var DatePickerContainer = _styledComponents.default.div(_templateObject7 || (_templateObject7 = (0, _taggedTemplateLiteral2.default)(["\n    position: relative;\n"])));
+var DatePickerContainer = _styledComponents.default.div(_templateObject7 || (_templateObject7 = (0, _taggedTemplateLiteral2.default)([""])));
 
 exports.DatePickerContainer = DatePickerContainer;
 
@@ -177,14 +177,14 @@ var DialogBox = _styledComponents.default.div(_templateObject10 || (_templateObj
 }, function (props) {
   return props.$color;
 }, function (props) {
-  return props.$name === "hrnet-dp-modal" && "\n        text-align: center;\n        border-radius: 5px;\n        box-shadow: 2px 2px 3px gray;\n        padding: 25px;\n        overflow: hidden;\n        z-index: 9;\n        top: -125px;\n        width: 80%\n    ";
+  return props.$name === "hrnet-dp-modal" && "\n        text-align: center;\n        border-radius: 5px;\n        box-shadow: 2px 2px 3px gray;\n        padding: 25px;\n        overflow: hidden;\n        z-index: 9;\n        width: max-content;\n        height: max-content;\n        margin: auto;\n    ";
 }, function (props) {
-  return props.$longSize ? "\n        margin: 0 5%;\n        @media (max-width : 499px){\n            flex-direction: column;\n        }\n    " : "\n        max-width: 270px;\n        @media (min-width : 500px){\n            margin: 0 20%;\n        };\n        @media (max-width : 499px){\n            margin: 0 5%;\n        };\n    ";
+  return props.$longSize ? "\n        @media (max-width : 499px){\n            flex-direction: column;\n        }\n    " : "\n        &:not(.hrnet-dp-error){ max-width: 270px; }\n    ";
 });
 
 exports.DialogBox = DialogBox;
 
-var ErrorBox = _styledComponents.default.div(_templateObject11 || (_templateObject11 = (0, _taggedTemplateLiteral2.default)(["\n    color: ", ";\n    margin: 5% auto;\n    padding: 15px 10px;\n    border: 1px dashed;\n    border-radius: 10px;\n"])), style.errorColor());
+var ErrorBox = _styledComponents.default.div(_templateObject11 || (_templateObject11 = (0, _taggedTemplateLiteral2.default)(["\n    color: ", ";\n    margin: 2% auto;\n"])), style.errorColor());
 
 exports.ErrorBox = ErrorBox;
 

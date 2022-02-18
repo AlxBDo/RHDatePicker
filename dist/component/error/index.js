@@ -68,6 +68,12 @@ function Error(props) {
         }, errorObj.what, " ", errorMessage[errorObj.why].problem, /*#__PURE__*/_react.default.createElement(_style.AdviceBox, null, errorMessage[errorObj.why].advice(errorObj.what)));
       }
     },
+    outOfBounds: {
+      problem: "is out of bounds!",
+      advice: function advice() {
+        return "It's must be between ".concat(_datePickerParams.datePickerParams.deadlines[dialogBoxId].min, " and ").concat(_datePickerParams.datePickerParams.deadlines[dialogBoxId].max);
+      }
+    },
     tooLong: {
       problem: "is too long !",
       advice: function advice(what) {

@@ -1,4 +1,4 @@
-import React from "react" 
+import React, { useEffect } from "react" 
 import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -38,7 +38,6 @@ const DatePicker = (props) => {
     const dispatch = useDispatch()
     const params = useSelector(selectParams())
     const selectedDate = useSelector(selectSelectedDate(baseId))
-    dispatch(errorAction.getErrors(baseId))
     
     if(baseId !== "paramError" && datePickerParams.label[baseId]){
         if(!params.checked.includes(inputId)){ 
@@ -64,6 +63,10 @@ const DatePicker = (props) => {
             eventFunctionHandler.paramsFunction(e, "onClick")
         }, 
     }
+
+    useEffect( () => {
+        dispatch(errorAction.getErrors(baseId))
+    }, [])
     
     return(
         <DatePickerContainer>

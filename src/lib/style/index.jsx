@@ -7,6 +7,7 @@ import arrowIcoLightMode from "../assets/arrow-lightMode.png"
 import moveIcoDarkMode from "../assets/move-darkMode.png"
 import moveIcoLightMode from "../assets/move-lightMode.png"
 
+
 export const theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light"
 
 /**
@@ -318,7 +319,7 @@ export const DialogBox = styled.div`
         z-index: 9;
         width: max-content;
         height: max-content;
-        margin: auto;
+        margin: -100px auto 0;
     `)};
     ${(props) => props.$longSize ? (`
         @media (max-width : 499px){

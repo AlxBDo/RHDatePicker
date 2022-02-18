@@ -28,6 +28,7 @@ var datePickerParams = {
    */
   id: {},
   is: {},
+  deadlines: {},
 
   /**
    * store a new id
@@ -46,10 +47,10 @@ var datePickerParams = {
       var expectedLenght = _validation.validation.allowedLength[type].min;
 
       if (eventFunctionName === "onChange" && valueLength < expectedLenght) {
-        value && _validation.validation.checkInputValue(value, baseId, type);
+        value && _validation.validation.checkInputValue(value, baseId, type, datePickerParams.deadlines[baseId]);
         value = false;
       } else if (valueLength >= expectedLenght || eventFunctionName === "onBlur" && valueLength > 0) {
-        value = datePickerParams.format[baseId].output !== "number" ? datePickerParams.format[baseId].output(_validation.validation.checkInputValue(value, baseId, type, true)) : _validation.validation.checkInputValue(value, baseId, type, true);
+        value = datePickerParams.format[baseId].output !== "number" ? datePickerParams.format[baseId].output(_validation.validation.checkInputValue(value, baseId, type, datePickerParams.deadlines[baseId], true)) : _validation.validation.checkInputValue(value, baseId, type, datePickerParams.deadlines[baseId], true);
       } else {
         value = false;
       }
@@ -72,8 +73,8 @@ var datePickerParams = {
    * @param {object} eventFunction 
    * @param {object} htmlClass 
    */
-  initComponentParams: function initComponentParams(inputId, label, eventFunction, htmlClass, dateFormat, type) {
-    var calendarColor = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+  initComponentParams: function initComponentParams(inputId, label, deadlines, eventFunction, htmlClass, dateFormat, type) {
+    var calendarColor = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
 
     if (!datePickerParams.is[inputId]) {
       var indexTime = type.indexOf("ime");
@@ -84,6 +85,7 @@ var datePickerParams = {
 
     datePickerParams.initIdHtml(inputId, datePickerParams.is[inputId].period);
     datePickerParams.setLabel(inputId, label);
+    datePickerParams.deadlines[inputId] = deadlines;
     datePickerParams.setEventFunction(inputId, eventFunction);
     datePickerParams.setHtmlClass(inputId, htmlClass);
     datePickerParams.format[inputId] = (0, _objectSpread2.default)({

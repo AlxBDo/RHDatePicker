@@ -94,8 +94,9 @@ var validation = {
    * @returns {boolean}
    */
   checkInputValue: function checkInputValue(value, output, type) {
-    var strictValidation = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-    return validation.checkString(value, type, output, strictValidation);
+    var limits = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+    var strictValidation = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+    return validation.checkString(value, type, output, limits, strictValidation);
   },
 
   /**
@@ -106,6 +107,31 @@ var validation = {
   checkLabel: function checkLabel(datePickerLabel, output) {
     return validation.checkString(datePickerLabel, "label", output);
   },
+  checkLimits: function checkLimits(date, limits) {
+    var strictValidation = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    var dateSplit = date.split("-");
+    date = parseInt(dateSplit[0].length === 4 ? "".concat(dateSplit[0]).concat(dateSplit[1]).concat(dateSplit[2]) : "".concat(dateSplit[2]).concat(dateSplit[1]).concat(dateSplit[0]));
+
+    if (limits.max) {
+      var maxSplit = limits.max.split("-");
+      var max = parseInt(maxSplit[0].length === 4 ? "".concat(maxSplit[0]).concat(maxSplit[1]).concat(maxSplit[2]) : "".concat(maxSplit[2]).concat(maxSplit[1]).concat(maxSplit[0]));
+
+      if (date > max) {
+        return false;
+      }
+    }
+
+    if (strictValidation && limits.min) {
+      var minSplit = limits.min.split("-");
+      var min = parseInt(minSplit[0].length === 4 ? "".concat(minSplit[0]).concat(minSplit[1]).concat(minSplit[2]) : "".concat(minSplit[2]).concat(minSplit[1]).concat(minSplit[0]));
+
+      if (date < min) {
+        return false;
+      }
+    }
+
+    return true;
+  },
 
   /**
    * controls the length and format of the string parameter
@@ -113,10 +139,14 @@ var validation = {
    * @param {string} stringName - accept dateInput, id or label
    * @returns {boolean}
    */
-  checkString: function checkString(string, stringName, output) {
-    var strictValidation = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  checkString: function checkString(string, stringName, output, limits) {
+    var strictValidation = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
     var stringLength = string.length;
     var searchLetter = stringName === "date" || stringName === "dateTime" || stringName === "time" ? true : false;
+
+    if (limits && stringName === "date" && !validation.checkLimits(string, limits, strictValidation)) {
+      return validation.addError(stringName, "outOfBounds", output);
+    }
 
     if (searchLetter && !strictValidation) {
       if (/[a-zA-Z?,;!§%*$£&+_()\/]/.test(string)) {

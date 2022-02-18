@@ -50,6 +50,7 @@ var selectedDateAction = _interopRequireWildcard(require("../../features/selecte
 var DatePicker = function DatePicker(props) {
   var inputId = props.inputId,
       label = props.label,
+      deadlines = props.deadlines,
       _props$eventFunction = props.eventFunction,
       eventFunction = _props$eventFunction === void 0 ? {} : _props$eventFunction,
       _props$htmlClass = props.htmlClass,
@@ -59,7 +60,7 @@ var DatePicker = function DatePicker(props) {
       type = props.type;
   var baseId = _validation.validation.checkId(inputId, "paramError") ? inputId : "paramError";
 
-  _datePickerParams.datePickerParams.initComponentParams(baseId, label, eventFunction, htmlClass, valueFormat, type, colors);
+  _datePickerParams.datePickerParams.initComponentParams(baseId, label, deadlines, eventFunction, htmlClass, valueFormat, type, colors);
 
   var dispatch = (0, _reactRedux.useDispatch)();
   var params = (0, _reactRedux.useSelector)((0, _selectors.selectParams)());

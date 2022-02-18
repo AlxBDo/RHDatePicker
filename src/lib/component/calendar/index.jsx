@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import * as paramsAction from "../../features/params"
 import * as selectedDateAction from "../../features/selectedDate"
+import * as errorAction from "../../features/error"
 import { selectSelectedDate } from "../../utils/selectors";
 import Dialog from "../dialog";
 import CalendarSelect from "./CalendarSelect";
@@ -12,13 +13,15 @@ import { datePickerParams } from "../../utils/datePickerParams"
 import { weekdays, months, getLimitYear, transformToNumber, currentDate } from "../../utils/date";
 import { validation } from "../../utils/validation";
 
+
 const deleteSelectedDay = () => document.querySelectorAll(".selected-day").forEach((element) => { element.classList.remove("selected-day") })
 
 const getNumberDay = (currentDay, monthLength, startDay) => (currentDay >= (startDay+1) && (currentDay - startDay) <= monthLength ) 
 && parseInt(currentDay - startDay)
 
+
 function Calendar(props){
-    
+
     const {baseId, displayBox} = props
     const dispatch = useDispatch() 
     
@@ -79,6 +82,7 @@ function Calendar(props){
         browseMonths: (month)=> month > 12 ? 1 : month < 1 ? 12 : month,
         days: (e) => click.fct(e, "Day"), 
         fct: (e, name) => {
+            dispatch(errorAction.clear(baseId))
             let value = name === "Month" ? parseInt(months.name.indexOf(e.target.textContent)) + 1 
                         : name === "Minute" ? parseInt(e.target.getAttribute("id").indexOf("minutesuni") > 0
                         ? String(document.querySelector(
@@ -115,6 +119,7 @@ function Calendar(props){
                     if(datePickerParams.is[baseId].period){ calendarDate.changeIsEndDate() }
                 } else { click.show(datePickerParams.id[baseId].daySelect, baseId) }
             }
+            dispatch(errorAction.getErrors(baseId))
         },
         getFormattedValue: (day, time = false) => {
             day = parseInt(day)
