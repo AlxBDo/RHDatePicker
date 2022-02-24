@@ -1,8 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
-
 import { CalendarBox, CalendarOption, DateSelect} from "../../style"
 import { datePickerParams } from "../../utils/datePickerParams"
+
 
 /**
  * Provides span option for CalendarBox list
@@ -14,7 +14,8 @@ function getCalendarOption(item, baseId){
     return(
         <CalendarOption 
             key={`${baseId}-opt-${item.name}`} 
-            id={datePickerParams.id[baseId][getSelectItemId(item.name)]}
+            id={datePickerParams.id[baseId][getSelectItemId(item.name)]} 
+            data-testid={`${item.name}-test`}
             $name={item.name} 
             $type={item.type} 
         >
@@ -114,6 +115,7 @@ function updateDateSelectList(id, list, maxValue, minValue, startValue){
     })
 }
 
+
 /**
  * Display Calendar select
  * @component
@@ -144,7 +146,7 @@ function CalendarSelect(props){
     }
 
     return typeof list[0] === "object" ? (
-        <CalendarBox $name="option" onClick={onClickFunction}>
+        <CalendarBox $name="option" onClick={onClickFunction} data-testid="calendar-options-menu" >
                 { list.map((item) => getCalendarOption(item, baseId)) }
         </CalendarBox>
     ) : (
@@ -158,6 +160,7 @@ function CalendarSelect(props){
             { spanOnClickFunction && ( 
                 <CalendarOption 
                     id={`${elementId}-less-btn`} 
+                    data-testid={`${elementId}-less-btn-test`} 
                     $name={`less`} 
                     $type={"move-icon"} 
                     onClick={() => moveDateSelectList("less", elementId, list, maxValue, minValue)}
@@ -172,6 +175,7 @@ function CalendarSelect(props){
             { spanOnClickFunction && ( 
                 <CalendarOption 
                     id={`${elementId}-more-btn`} 
+                    data-testid={`${elementId}-more-btn-test`} 
                     $name={`more`} 
                     $type={"move-icon"} 
                     onClick={() => moveDateSelectList("more", elementId, list, maxValue, minValue)}

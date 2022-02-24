@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> component/calendar/CalendarSelect.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">RHDatePicker components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Calendar.html">Calendar</a></li><li><a href="CalendarSelect.html">CalendarSelect</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dialog.html">Dialog</a></li><li><a href="Error.html">Error</a></li><li><a href="TimeSelect.html">TimeSelect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#currentDate">currentDate</a></li><li><a href="global.html#currentTime">currentTime</a></li><li><a href="global.html#datePattern">datePattern</a></li><li><a href="global.html#datePickerParams">datePickerParams</a></li><li><a href="global.html#datePlaceholder">datePlaceholder</a></li><li><a href="global.html#deleteSelectedDay">deleteSelectedDay</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#getCalendarOption">getCalendarOption</a></li><li><a href="global.html#getErrors">getErrors</a></li><li><a href="global.html#getIsDefaultObject">getIsDefaultObject</a></li><li><a href="global.html#getLimitYear">getLimitYear</a></li><li><a href="global.html#getNumberDay">getNumberDay</a></li><li><a href="global.html#getSelectItemId">getSelectItemId</a></li><li><a href="global.html#getSpan">getSpan</a></li><li><a href="global.html#getSpanValue">getSpanValue</a></li><li><a href="global.html#months">months</a></li><li><a href="global.html#moveDateSelectList">moveDateSelectList</a></li><li><a href="global.html#onWheelFunction">onWheelFunction</a></li><li><a href="global.html#params">params</a></li><li><a href="global.html#selectedDate">selectedDate</a></li><li><a href="global.html#setInitialDateState">setInitialDateState</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#theme">theme</a></li><li><a href="global.html#transformToNumber">transformToNumber</a></li><li><a href="global.html#updateDateSelectList">updateDateSelectList</a></li><li><a href="global.html#validation">validation</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>component/calendar/CalendarSelect.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react"
+import PropTypes from "prop-types"
+import { CalendarBox, CalendarOption, DateSelect} from "../../style"
+import { datePickerParams } from "../../utils/datePickerParams"
+
+
+/**
+ * Provides span option for CalendarBox list
+ * @param {object} item 
+ * @param {string} baseId - date picker input id
+ * @returns {object} span html element
+ */
+function getCalendarOption(item, baseId){
+    return(
+        &lt;CalendarOption 
+            key={`${baseId}-opt-${item.name}`} 
+            id={datePickerParams.id[baseId][getSelectItemId(item.name)]} 
+            data-testid={`${item.name}-test`}
+            $name={item.name} 
+            $type={item.type} 
+        >
+            {item.value &amp;&amp; item.value}
+        &lt;/CalendarOption>
+    )
+}
+
+/**
+ * Provides span option for Calendar Select list
+ * @param {string | number} textContent 
+ * @param {string} id 
+ * @param {boolean} isSelected 
+ * @param {function} spanOnClickFunction 
+ * @returns {object} span html element
+ */
+const getSpan = (textContent, id, isSelected = false, spanOnClickFunction = false) => &lt;span 
+                                                            key={`opt-${id}-${textContent}`} 
+                                                            id={id} 
+                                                            className={isSelected ? "selected-option" : null} 
+                                                            onClick={spanOnClickFunction ? spanOnClickFunction : null}
+                                                        >{textContent}&lt;/span> 
+/**
+ * Corrects the value passed in parameter if it does not respect the minimum and maximum values
+ * @param {number} value 
+ * @param {number} maxValue 
+ * @param {number} minValue 
+ * @returns {number}
+ */ 
+function getSpanValue(value, maxValue, minValue){
+    return value > maxValue ? value - (maxValue+1) 
+        : value &lt; minValue ? value + maxValue + 1 
+        : value
+}
+
+/**
+ * Provide the id of the html select tag
+ * @param {string} name 
+ * @returns {string}
+ */
+function getSelectItemId(name){
+    switch(name){
+        case "home": return "todayBtn" 
+        case "month": return "selectedMonth" 
+        case "next-month": return "nextMonthBtn" 
+        case "previous-month": return "prevMonthBtn" 
+        case "year": return "selectedYear" 
+        default: return false                   
+    }
+}
+
+/**
+ * Scrolls through list values - onClick
+ * @param {string} moreOrLess - if receive "more" increment the value of the list else do a decrement
+ * @param {string} id 
+ * @param {array} list 
+ * @param {number} maxValue 
+ * @param {number} minValue 
+ */
+function moveDateSelectList(moreOrLess, id, list, maxValue, minValue = 0){
+    updateDateSelectList(id, list, maxValue, minValue, 
+        moreOrLess === "more" 
+        ? parseInt(document.querySelector(`div#${id} .selected-option`).textContent) - (parseInt(list.length / 2)-1) 
+        :  parseInt(document.querySelector(`div#${id} .selected-option`).textContent) - (parseInt(list.length / 2)+1)
+    )
+}
+
+/**
+ * Scrolls through list values - onWheel
+ * @param {object} e - event
+ * @param {string} id 
+ * @param {array} list 
+ * @param {number} maxValue 
+ * @param {number} minValue 
+ */
+function onWheelFunction(e, id, list, maxValue, minValue = 0){
+    const selectedValue = parseInt(document.querySelector(`div#${id} .selected-option`).textContent)
+    const startValue = getSpanValue(
+        e.deltaY > 0 ? (selectedValue + 1) - parseInt(list.length / 2) : (selectedValue - 1) - parseInt(list.length / 2), 
+        maxValue, 
+        minValue
+    )
+    updateDateSelectList(id, list, maxValue, minValue, startValue)
+}
+
+/**
+ * modify span value of CalendarSelect
+ * @param {string} id 
+ * @param {array} list 
+ * @param {number} maxValue 
+ * @param {number} minValue 
+ * @param {number} startValue 
+ */
+function updateDateSelectList(id, list, maxValue, minValue, startValue){
+    list.map((item, index) => {
+        document.getElementById(`${id}-option-${index}`).textContent =  getSpanValue(startValue + index, maxValue, minValue)
+    })
+}
+
+
+/**
+ * Display Calendar select
+ * @component
+ * @param {object} props 
+ * @param {string} props.baseId - date picker input id
+ * @param {string} props.className 
+ * @param {array} props.list - list of values ​​or objects used to create the select
+ * @param {number} props.maxValue - maximum value that the select can display
+ * @param {number} props.minValue - minimum value that the select can display
+ * @param {string} props.name
+ * @param {object} props.onClickFunction - function apply to select 
+ * @param {number} props.selectedValue - value display as selected
+ * @param {function} props.spanOnClickFunction - function apply to option select    
+ * @returns {object} 
+ */ 
+function CalendarSelect(props){
+
+    const { baseId, className, list, maxValue, minValue, name, onClickFunction, selectedValue, spanOnClickFunction } = props
+    const elementId = datePickerParams.id[baseId][`${name}Select`]
+    
+    /**
+     * change selected value of select
+     * @param {object} e - event
+     */
+    const updateDateSelectOnClickSpan = (e) => {
+        e.stopPropagation()
+        updateDateSelectList(elementId, list, maxValue, minValue, parseInt(e.target.textContent) - parseInt(list.length / 2))
+    }
+
+    return typeof list[0] === "object" ? (
+        &lt;CalendarBox $name="option" onClick={onClickFunction} data-testid="calendar-options-menu" >
+                { list.map((item) => getCalendarOption(item, baseId)) }
+        &lt;/CalendarBox>
+    ) : (
+        &lt;DateSelect 
+            $name={name} 
+            id={elementId} 
+            onClick={onClickFunction} 
+            onWheel={ (e) => maxValue &amp;&amp; onWheelFunction(e, elementId, list, maxValue, minValue)} 
+            className={className}
+        >
+            { spanOnClickFunction &amp;&amp; ( 
+                &lt;CalendarOption 
+                    id={`${elementId}-less-btn`} 
+                    data-testid={`${elementId}-less-btn-test`} 
+                    $name={`less`} 
+                    $type={"move-icon"} 
+                    onClick={() => moveDateSelectList("less", elementId, list, maxValue, minValue)}
+                />
+            )}
+            { list.map((item, index) => getSpan(
+                getSpanValue(Number.isInteger(item) ? item + index : item, maxValue, minValue), 
+                `${elementId}-option-${index}`, 
+                selectedValue === item + index &amp;&amp; true, 
+                spanOnClickFunction &amp;&amp; updateDateSelectOnClickSpan
+            )) }
+            { spanOnClickFunction &amp;&amp; ( 
+                &lt;CalendarOption 
+                    id={`${elementId}-more-btn`} 
+                    data-testid={`${elementId}-more-btn-test`} 
+                    $name={`more`} 
+                    $type={"move-icon"} 
+                    onClick={() => moveDateSelectList("more", elementId, list, maxValue, minValue)}
+                /> 
+            )}
+        &lt;/DateSelect>
+    )
+}
+
+CalendarSelect.defaultProp = {
+    className: null,
+    maxValue: false, 
+    minValue: 0,
+    selectedValue: false, 
+    spanOnClickFunction: false
+}
+
+CalendarSelect.propTypes = {
+    baseId: PropTypes.string,
+    className: PropTypes.string,
+    list : PropTypes.array.isRequired, 
+    maxValue: PropTypes.number, 
+    minValue: PropTypes.number,
+    name: PropTypes.string.isRequired, 
+    onClickFunction: PropTypes.func.isRequired,
+    selectedValue: PropTypes.number, 
+    spanOnClickFunction: PropTypes.bool
+}
+
+export default CalendarSelect</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

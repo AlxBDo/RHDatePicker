@@ -1,5 +1,5 @@
-import paramsReducer from "./params" 
-import * as paramsAction from "./params"
+import paramsReducer from "../lib/features/params" 
+import * as paramsAction from "../lib/features/params"
 
 describe("Params reducer and actions", () => {
 

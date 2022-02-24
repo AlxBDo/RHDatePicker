@@ -1,15 +1,15 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _reactRedux = require("react-redux");
 
@@ -65,7 +65,6 @@ var DatePicker = function DatePicker(props) {
   var dispatch = (0, _reactRedux.useDispatch)();
   var params = (0, _reactRedux.useSelector)((0, _selectors.selectParams)());
   var selectedDate = (0, _reactRedux.useSelector)((0, _selectors.selectSelectedDate)(baseId));
-  dispatch(errorAction.getErrors(baseId));
 
   if (baseId !== "paramError" && _datePickerParams.datePickerParams.label[baseId]) {
     if (!params.checked.includes(inputId)) {
@@ -98,6 +97,9 @@ var DatePicker = function DatePicker(props) {
       eventFunctionHandler.paramsFunction(e, "onClick");
     }
   };
+  (0, _react.useEffect)(function () {
+    dispatch(errorAction.getErrors(baseId));
+  }, []);
   return /*#__PURE__*/_react.default.createElement(_style.DatePickerContainer, null, baseId !== "paramError" && _datePickerParams.datePickerParams.label[baseId] && /*#__PURE__*/_react.default.createElement("div", {
     className: _datePickerParams.datePickerParams.htmlClass[baseId].container && _datePickerParams.datePickerParams.htmlClass[baseId].container
   }, /*#__PURE__*/_react.default.createElement("label", {

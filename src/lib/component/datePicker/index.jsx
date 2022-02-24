@@ -1,7 +1,6 @@
 import React, { useEffect } from "react" 
 import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
-
 import { datePickerParams } from "../../utils/datePickerParams"
 import { validation } from "../../utils/validation" 
 import { DatePickerContainer, DatePickerInput } from "../../style"
@@ -15,9 +14,12 @@ import * as selectedDateAction from "../../features/selectedDate"
 
 /**
  * Check and display input type date
+ * @component 
  * @param {object} props - object containing attributes: inputId, label, evenFunction (optional) and htmlClass (optional)
  * @example { inputId: "my-input-id", label: "My input id label", evenFunction: {}, htmlClass: {} }
- * @param {string} props.inputId - accepts alphanumeric characters and hyphen
+ * @param {string} props.inputId - accepts alphanumeric characters and hyphen 
+ * @param {object} props.deadlines - contains min and max attributes
+ * @example { max: 2022-02-22, min: 1940-06-18 }
  * @param {string} props.label - accepts alphanumeric characters, hyphen, space and apostrophe
  * @param {object} props.eventFunction - contains function to apply to events
  * @example { onBlur: onBlurFunction, onChange: onChangeFunction, onClick: onClickFunction }
@@ -49,19 +51,53 @@ const DatePicker = (props) => {
         }
     }
 
+    /**
+     * contains the functions to be executed following the events
+     */
     const eventFunctionHandler = {
+
+        /**
+         * Executes the functions provided by the eventFunction parameter of the DatePicker component 
+         * as well as those for controlling the format of the input value
+         * @method 
+         * @memberof eventFunctionHandler
+         * @param {object} e - event 
+         * @param {string} eventName - accept onBlur, onChange or onClick 
+         */
         paramsFunction : (e, eventName) => {
             dispatch(errorAction.clear(baseId))
             datePickerParams.listen(e, eventName, baseId)
             dispatch(errorAction.getErrors(baseId))
-        }, 
+        },
+
+        /**
+         * Provide the function to execute at the onBlur event
+         * @method 
+         * @memberof eventFunctionHandler
+         * @param {object} e - event
+         */
         blur: (e) => eventFunctionHandler.paramsFunction(e, "onBlur"), 
+        
+        /**
+         * Provide the function to execute at the onChange event
+         * @method 
+         * @memberof eventFunctionHandler
+         * @param {object} e - event
+         */
         change: (e) => eventFunctionHandler.paramsFunction(e, "onChange"), 
+        
+        /**
+         * Provide the function to execute at the onClick event
+         * @method 
+         * @memberof eventFunctionHandler
+         * @param {object} e - event
+         */
         click: (e) => {
             e.preventDefault()
             dispatch(paramsAction.updateDisplay(datePickerParams.id[baseId].modal, true))
             eventFunctionHandler.paramsFunction(e, "onClick")
-        }, 
+        },
+
     }
 
     useEffect( () => {
@@ -72,10 +108,11 @@ const DatePicker = (props) => {
         <DatePickerContainer>
             { (baseId !== "paramError" && datePickerParams.label[baseId]) && (
                 <div className={ datePickerParams.htmlClass[baseId].container && datePickerParams.htmlClass[baseId].container }>
-                    <label htmlFor={baseId}>{datePickerParams.label[baseId]}</label> 
+                    <label role={"label"} htmlFor={baseId}>{datePickerParams.label[baseId]}</label> 
                     <div className="date-picker-input">
                         <DatePickerInput 
-                            type="text" 
+                            type="text"
+                            data-testid="date-picker-input" 
                             id={baseId} 
                             name={baseId} 
                             pattern={datePickerParams.format[baseId].pattern} 
@@ -87,7 +124,11 @@ const DatePicker = (props) => {
                             $long={datePickerParams.is[baseId].dateTime}
                             required 
                         />
-                        <Calendar baseId={baseId} displayBox={params.display[datePickerParams.id[baseId].modal]} type={type} />
+                        <Calendar 
+                            baseId={baseId}
+                            displayBox={params.display[datePickerParams.id[baseId].modal]} 
+                            type={type} 
+                        />
                         { datePickerParams.is[baseId].period && (
                             <DatePickerInput 
                                 type="text" 

@@ -177,7 +177,7 @@ var DialogBox = _styledComponents.default.div(_templateObject10 || (_templateObj
 }, function (props) {
   return props.$color;
 }, function (props) {
-  return props.$name === "hrnet-dp-modal" && "\n        text-align: center;\n        border-radius: 5px;\n        box-shadow: 2px 2px 3px gray;\n        padding: 25px;\n        overflow: hidden;\n        z-index: 9;\n        width: max-content;\n        height: max-content;\n        margin: auto;\n    ";
+  return props.$name === "hrnet-dp-modal" && "\n        text-align: center;\n        border-radius: 5px;\n        box-shadow: 2px 2px 3px gray;\n        padding: 25px;\n        overflow: hidden;\n        z-index: 9;\n        width: max-content;\n        height: max-content;\n        margin: -100px auto 0;\n    ";
 }, function (props) {
   return props.$longSize ? "\n        @media (max-width : 499px){\n            flex-direction: column;\n        }\n    " : "\n        &:not(.hrnet-dp-error){ max-width: 270px; }\n    ";
 });

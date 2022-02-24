@@ -17,6 +17,8 @@ var paramsAction = _interopRequireWildcard(require("../../features/params"));
 
 var selectedDateAction = _interopRequireWildcard(require("../../features/selectedDate"));
 
+var errorAction = _interopRequireWildcard(require("../../features/error"));
+
 var _selectors = require("../../utils/selectors");
 
 var _dialog = _interopRequireDefault(require("../dialog"));
@@ -133,6 +135,7 @@ function Calendar(props) {
       return click.fct(e, "Day");
     },
     fct: function fct(e, name) {
+      dispatch(errorAction.clear(baseId));
       var value = name === "Month" ? parseInt(_date.months.name.indexOf(e.target.textContent)) + 1 : name === "Minute" ? parseInt(e.target.getAttribute("id").indexOf("minutesuni") > 0 ? String(document.querySelector("div#".concat(_datePickerParams.datePickerParams.getTimeSelectId(baseId, "minutesDec", calendarDate.typeDate), " .selected-option")).textContent) + String(document.querySelector("div#".concat(_datePickerParams.datePickerParams.getTimeSelectId(baseId, "minutesUni", calendarDate.typeDate), " .selected-option")).textContent) : String(document.querySelector("div#".concat(_datePickerParams.datePickerParams.getTimeSelectId(baseId, "minutesDec", calendarDate.typeDate), " .selected-option")).textContent) + String(document.querySelector("div#".concat(_datePickerParams.datePickerParams.getTimeSelectId(baseId, "minutesUni", calendarDate.typeDate), " .selected-option")).textContent)) : name === "Hour" ? parseInt(document.querySelector("div#".concat(_datePickerParams.datePickerParams.getTimeSelectId(baseId, "hours", calendarDate.typeDate), " .selected-option")).textContent) : parseInt(e.target.textContent);
 
       if (Number.isInteger(value)) {
@@ -177,6 +180,8 @@ function Calendar(props) {
           click.show(_datePickerParams.datePickerParams.id[baseId].daySelect, baseId);
         }
       }
+
+      dispatch(errorAction.getErrors(baseId));
     },
     getFormattedValue: function getFormattedValue(day) {
       var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;

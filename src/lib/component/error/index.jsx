@@ -8,7 +8,14 @@ import { datePickerParams } from "../../utils/datePickerParams";
 import { validation } from "../../utils/validation";
 import { selectError } from "../../utils/selectors";
 
-
+/**
+ * Display Dialog component containing error messages
+ * @component 
+ * @param {object} props 
+ * @param {string} props.dialogBoxId - use for html attribute id 
+ * @param {string} props.htmlClass - html class(es) to assign to component className attribute 
+ * @returns {object} Dialog component
+ */
 function Error(props){
 
     const { dialogBoxId, htmlClass} = props
@@ -100,7 +107,8 @@ function Error(props){
 }
 
 Error.propTypes = {
-    dialogBoxId: PropTypes.string
+    dialogBoxId: PropTypes.string, 
+    htmlClass: PropTypes.string 
 }
 
 export default Error

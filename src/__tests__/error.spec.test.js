@@ -1,5 +1,5 @@
-import errorReducer from "./error"
-import * as errorAction from "./error"
+import errorReducer from "../lib/features/error"
+import * as errorAction from "../lib/features/error"
 
 describe("Error reducer and actions", () => {
 

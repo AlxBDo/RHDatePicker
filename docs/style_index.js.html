@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> style/index.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">RHDatePicker components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Calendar.html">Calendar</a></li><li><a href="CalendarSelect.html">CalendarSelect</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dialog.html">Dialog</a></li><li><a href="Error.html">Error</a></li><li><a href="TimeSelect.html">TimeSelect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#currentDate">currentDate</a></li><li><a href="global.html#currentTime">currentTime</a></li><li><a href="global.html#datePattern">datePattern</a></li><li><a href="global.html#datePickerParams">datePickerParams</a></li><li><a href="global.html#datePlaceholder">datePlaceholder</a></li><li><a href="global.html#deleteSelectedDay">deleteSelectedDay</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#getCalendarOption">getCalendarOption</a></li><li><a href="global.html#getErrors">getErrors</a></li><li><a href="global.html#getIsDefaultObject">getIsDefaultObject</a></li><li><a href="global.html#getLimitYear">getLimitYear</a></li><li><a href="global.html#getNumberDay">getNumberDay</a></li><li><a href="global.html#getSelectItemId">getSelectItemId</a></li><li><a href="global.html#getSpan">getSpan</a></li><li><a href="global.html#getSpanValue">getSpanValue</a></li><li><a href="global.html#months">months</a></li><li><a href="global.html#moveDateSelectList">moveDateSelectList</a></li><li><a href="global.html#onWheelFunction">onWheelFunction</a></li><li><a href="global.html#params">params</a></li><li><a href="global.html#selectedDate">selectedDate</a></li><li><a href="global.html#setInitialDateState">setInitialDateState</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#theme">theme</a></li><li><a href="global.html#transformToNumber">transformToNumber</a></li><li><a href="global.html#updateDateSelectList">updateDateSelectList</a></li><li><a href="global.html#validation">validation</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>style/index.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import styled from "styled-components";
+
+import homeIcoDarkMode from "../assets/home-darkMode.png" 
+import homeIcoLightMode from "../assets/home-lightMode.png" 
+import arrowIcoDarkMode from "../assets/arrow-darkMode.png" 
+import arrowIcoLightMode from "../assets/arrow-lightMode.png" 
+import moveIcoDarkMode from "../assets/move-darkMode.png"
+import moveIcoLightMode from "../assets/move-lightMode.png"
+
+/**
+ * Contains navigator theme 
+ * @example "light"
+ */
+export const theme = window.matchMedia &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light"
+
+/**
+ * Provides the color, the background-color and the calendar icons corresponding to the theme 
+ */
+export const style = {
+
+    /**
+     * Provides advice message font color 
+     * @returns {string}
+     */
+    adviceColor: () => style.colors.advice ?? style.colors.default.advice,
+
+    /**
+     * Provides background color 
+     * @returns {string}
+     */
+    backgroundColor: () => style.colors[theme] ? style.colors[theme] : style.colors.default[theme],
+
+    /**
+     * Provides font color 
+     * @returns {string}
+     */
+    color: () => style.colors.light ? style.colors[theme === "light" ? "dark" : "light"] 
+                : style.colors.default[theme === "light" ? "dark" : "light"],
+
+    /**
+     * Store advice, dark, error, light and defaults fonts colors
+     */
+    colors: {
+        advice: undefined,
+        dark: undefined, 
+        error: undefined,
+        light: undefined, 
+        default: { dark: "#302f2f", light: "#f2f2ef", error: "#e55a44", advice: "#75B74E"}
+    },
+
+    /**
+     * Provides error message font color 
+     * @returns {string}
+     */
+    errorColor: () => style.colors.error ?? style.colors.default.error,
+
+    /**
+     * Store icons 
+     */
+    icons: {
+
+        /**
+         * Provides arrow icon
+         * @returns {string}
+         */
+        arrow: () => theme === "light" ? arrowIcoLightMode : arrowIcoDarkMode, 
+        
+        /**
+         * Provides home icon
+         * @returns {string}
+         */
+        home: () => theme === "light" ? homeIcoLightMode : homeIcoDarkMode,
+        
+        /**
+         * Provides move icon
+         * @returns {string}
+         */
+        move: () => theme === "light" ? moveIcoLightMode : moveIcoDarkMode
+    },
+
+    /**
+     * Store page font and background colors
+     */
+    page: {
+        color: theme === "light" ? "#1e1e1e" : "#eaeaea",
+        bgColor: theme === "dark" ? "#1e1e1e" : "#eaeaea"
+    },
+
+    /**
+     * Set font colors : dark and light theme, advice and error message
+     * @param {string} dark 
+     * @param {string} light 
+     * @param {string | boolean} advice 
+     * @param {string | boolean} error 
+     */
+    setColors: (dark, light, advice = false, error = false) => {
+        style.colors.dark = dark  
+        style.colors.light = light 
+        if(advice){ style.colors.advice = advice }
+        if(error){ style.colors.error = error }
+    }
+}
+
+const clickable = `cursor: pointer;
+                    &amp;:hover {
+                        background-color: ${style.color()};
+                        color: ${style.backgroundColor()};
+                        border-radius: 22px;
+                        text-shadow: 0px -1px 1px ${theme === "dark" ? "black" : "lightgrey"};
+                        box-shadow: inset 0px 0px 3px ${theme === "dark" ? "black" : "lightgrey"};
+                    }`
+
+
+export const AdviceBox = styled.p`
+    color: ${style.adviceColor()};
+    font-size: smaller;
+`
+
+export const CalendarBox = styled.div`
+    overflow: hidden;
+    display: flex;
+    &amp;.date-ctn div:not(.show) {
+        padding: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: scaleX(0);
+        margin: 0 -130px;
+        transform-origin: left;
+    }
+    ${(props) => (
+        props.$name === "option" ? `
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        height: 45px; 
+        padding-bottom: 10px;
+        ` : (`
+        height: 265px;
+        `)
+    )}
+`
+
+export const CalendarList = styled.ul`
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    ${(props) => ( props.$name === "month-days" 
+        ? `height: 225px;` : props.$name === "weekdays" &amp;&amp; `
+        background-color: ${theme === "dark" ? `rgba(0, 0, 0, 0.2)` : `rgba(255, 255, 255, 0.2)`};
+        border-radius: 5px;
+        &amp; ${CalendarListItem} { 
+            opacity: 0.5; 
+            &amp;:hover { opacity: 1 }
+        };
+        &amp;:hover {
+            background-color: ${theme === "dark" ? `rgba(0, 0, 0, 0.5)` : `rgba(255, 255, 255, 0.5)`};
+        };
+        `
+    )}
+`
+
+export const CalendarListItem = styled.li`
+    list-style: none;
+    width: 14%;
+    line-height: 35px;
+    &amp;.selected-day {
+        color: black;
+        background-color: gray;
+        font-weight: bold;
+    }
+    ${(props) => (
+        props.$type === "clickable" &amp;&amp; clickable
+    )}
+`
+
+export const CalendarOption = styled.span`
+    cursor: pointer;
+    ${(props) => (
+        props.$type === "icon" ? (`
+            content: url(${props.$name === "home" ? style.icons.home() : style.icons.arrow() }); 
+            width: 24px; 
+            height: 24px;
+            ${props.$name === "previous-month" &amp;&amp; (`transform: rotate(180deg);`)}
+        `) : props.$type === "move-icon" ? (`
+            content: url(${style.icons.move() }); 
+            width: 25px; 
+            height: 25px;
+            ${props.$name === "more" &amp;&amp; (`transform: rotate(180deg);`)}
+        `) : (`
+            padding: 5px 10px;
+            ${clickable}
+            ${props.$name === "month" &amp;&amp; (`width: 85px;`)}
+        `)
+    )}
+`
+
+export const CalendarSection = styled.section`
+    text-align: center;
+    display: flex;
+    flex-direction: ${(props) => ( props.$flexDirection || `column` )};
+    flex-wrap: ${(props) => ( props.$flexWrap || `nowrap` )};
+    overflow: hidden;
+    max-height: 320px;
+    &amp;:first-of-type {
+        width: 270px;
+    }
+    div.time-separator {
+        align-self: center;
+        font-size: xxx-large;
+    }
+    div:not(.time-select) {
+        display: flex;
+        flex-direction: row;
+    };
+    &amp;.time-period{
+        overflow: hidden;
+        div:not(.time-select, .minutes-ctn) {
+            height: 50%;
+            overflow: hidden;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: baseline;
+            align-content: baseline;
+        };
+        div.time-separator {
+            margin-top: -15px;
+            margin-left: 5px;
+        }
+        p {
+            width: 100%;
+            margin: 0px auto;
+            padding: 0;
+            height: 15px;
+            font-size: small;
+            border-radius: 5px;
+            ${theme === "dark" ? (`
+            color: gray;
+            background-color: rgba(0, 0, 0, 0.1);
+            `) : (`
+            color: lightgray;
+            background-color: rgba(255, 255, 255, 0.1);
+            `)}
+        };
+    };
+    ${(props) => ( props.$name === "timeSection" &amp;&amp; `
+        @media (max-width : 499px){
+            justify-content: center;
+        };
+        @media (min-width : 500px){
+            justify-content: flex-start;
+            flex-direction: column;
+            max-width: 115px;
+            height: 320px;
+            margin-left: 30px
+        };
+        &amp;:not(.time-period) {
+            div.time-separator{
+                margin-top: -7px;
+                align-items: center;
+            }
+            div:not(.time-select) { height : 100%; }
+        };
+    `)}
+}
+`
+
+export const DatePickerContainer = styled.div``
+
+export const DatePickerInput = styled.input`
+    text-align: center;
+    border: 1px solid;
+    padding: 5px;
+    margin: 1%;
+    border-radius: 3px;
+    background-color: ${style.backgroundColor()}; 
+    color: ${style.color()};
+    width: ${(props) =>  props.$long ? (`130px`) : (`95px`) }
+`
+
+export const DateSelect = styled.div`   
+    display: flex;
+    margin: 0; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 250ms ease-in-out;
+    transform-origin: right;
+    &amp;:not(.time-select) { 
+        width: 270px;
+        span {
+            margin: auto;
+            padding: 10px;
+            ${clickable}
+        }
+    };
+    &amp;.time-select {
+        span.selected-option {
+            font-size: xx-large;
+            border-top: 1px solid;
+            border-bottom: 1px solid;
+            font-weight: bold;
+            margin: 10px auto;
+            &amp;:hover { cursor: s-resize;}
+        }
+        span:not(.selected-option) {
+            opacity: 0.25;
+            &amp;:hover{
+                text-shadow: 2px 2px 2px black;
+                font-size: larger;
+                cursor: pointer;
+                opacity: 1;
+            }
+        }
+        span:not(:first-of-type, :nth-of-type(4), :nth-of-type(6), :last-of-type, .selected-option) { 
+            font-size: x-small; 
+            &amp;:hover { margin: -6.5px auto; }
+        }
+        span:nth-of-type(4):hover, span:nth-of-type(6):hover {
+            margin: -2.5px auto;
+        }
+    }
+    ${(props) => {
+        switch(props.$name){
+            case "hours":  
+                return `
+                    flex-direction: column;
+                    width: 60px;`
+            case "minutesUni": case "minutesUniEnd" : case "minutesDec": case "minutesDecEnd" :  
+                return `
+                flex-direction: column;
+                width: 30px`
+            case "month": 
+                return null ;
+            case "time-select": 
+                return `
+                    flex-direction: column;
+                    span:not(:nth-of-type(4), :nth-of-type(6), .selected-option) {
+                    font-size: x-small;
+                }
+                `
+            case "year": 
+                return `overflow: auto;`
+            default: 
+                return `
+                    flex-direction: column;`;
+
+        }
+    }}
+`
+
+export const DialogBox = styled.div`
+    left: 0px;
+    right: 0px;
+    display: ${(props) => ( props.$isDisplay ? `flex` : `none`)};
+    position: ${(props) => ( props.$isModal ? `absolute` : `relative`)};
+    background-color: ${(props) => ( props.$backgroundColor )};
+    color: ${(props) => (props.$color) };
+    ${(props) => 
+        props.$name === "hrnet-dp-modal" &amp;&amp; (`
+        text-align: center;
+        border-radius: 5px;
+        box-shadow: 2px 2px 3px gray;
+        padding: 25px;
+        overflow: hidden;
+        z-index: 9;
+        width: max-content;
+        height: max-content;
+        margin: -100px auto 0;
+    `)};
+    ${(props) => props.$longSize ? (`
+        @media (max-width : 499px){
+            flex-direction: column;
+        }
+    `) : (`
+        &amp;:not(.hrnet-dp-error){ max-width: 270px; }
+    `)};
+`
+
+export const ErrorBox = styled.div`
+    color: ${style.errorColor()};
+    margin: 2% auto;
+`
+
+export const TimeSelectorPage = styled.div`
+    background-color: ${style.page.bgColor};
+    color: ${style.page.color};
+    padding: 2%;
+` </code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

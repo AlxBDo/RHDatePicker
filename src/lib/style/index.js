@@ -7,21 +7,39 @@ import arrowIcoLightMode from "../assets/arrow-lightMode.png"
 import moveIcoDarkMode from "../assets/move-darkMode.png"
 import moveIcoLightMode from "../assets/move-lightMode.png"
 
-
+/**
+ * Contains navigator theme 
+ * @example "light"
+ */
 export const theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light"
 
 /**
- * Provides the color, the background-color and the calendar icons corresponding to the theme
+ * Provides the color, the background-color and the calendar icons corresponding to the theme 
  */
 export const style = {
 
+    /**
+     * Provides advice message font color 
+     * @returns {string}
+     */
     adviceColor: () => style.colors.advice ?? style.colors.default.advice,
 
+    /**
+     * Provides background color 
+     * @returns {string}
+     */
     backgroundColor: () => style.colors[theme] ? style.colors[theme] : style.colors.default[theme],
 
+    /**
+     * Provides font color 
+     * @returns {string}
+     */
     color: () => style.colors.light ? style.colors[theme === "light" ? "dark" : "light"] 
                 : style.colors.default[theme === "light" ? "dark" : "light"],
 
+    /**
+     * Store advice, dark, error, light and defaults fonts colors
+     */
     colors: {
         advice: undefined,
         dark: undefined, 
@@ -30,19 +48,51 @@ export const style = {
         default: { dark: "#302f2f", light: "#f2f2ef", error: "#e55a44", advice: "#75B74E"}
     },
 
+    /**
+     * Provides error message font color 
+     * @returns {string}
+     */
     errorColor: () => style.colors.error ?? style.colors.default.error,
 
+    /**
+     * Store icons 
+     */
     icons: {
+
+        /**
+         * Provides arrow icon
+         * @returns {string}
+         */
         arrow: () => theme === "light" ? arrowIcoLightMode : arrowIcoDarkMode, 
+        
+        /**
+         * Provides home icon
+         * @returns {string}
+         */
         home: () => theme === "light" ? homeIcoLightMode : homeIcoDarkMode,
+        
+        /**
+         * Provides move icon
+         * @returns {string}
+         */
         move: () => theme === "light" ? moveIcoLightMode : moveIcoDarkMode
     },
 
+    /**
+     * Store page font and background colors
+     */
     page: {
         color: theme === "light" ? "#1e1e1e" : "#eaeaea",
         bgColor: theme === "dark" ? "#1e1e1e" : "#eaeaea"
     },
 
+    /**
+     * Set font colors : dark and light theme, advice and error message
+     * @param {string} dark 
+     * @param {string} light 
+     * @param {string | boolean} advice 
+     * @param {string | boolean} error 
+     */
     setColors: (dark, light, advice = false, error = false) => {
         style.colors.dark = dark  
         style.colors.light = light 

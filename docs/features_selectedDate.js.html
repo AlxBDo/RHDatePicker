@@ -1,4 +1,95 @@
-import { createSlice } from "@reduxjs/toolkit";
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> features/selectedDate.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">RHDatePicker components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Calendar.html">Calendar</a></li><li><a href="CalendarSelect.html">CalendarSelect</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dialog.html">Dialog</a></li><li><a href="Error.html">Error</a></li><li><a href="TimeSelect.html">TimeSelect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#currentDate">currentDate</a></li><li><a href="global.html#currentTime">currentTime</a></li><li><a href="global.html#datePattern">datePattern</a></li><li><a href="global.html#datePickerParams">datePickerParams</a></li><li><a href="global.html#datePlaceholder">datePlaceholder</a></li><li><a href="global.html#deleteSelectedDay">deleteSelectedDay</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#getCalendarOption">getCalendarOption</a></li><li><a href="global.html#getErrors">getErrors</a></li><li><a href="global.html#getIsDefaultObject">getIsDefaultObject</a></li><li><a href="global.html#getLimitYear">getLimitYear</a></li><li><a href="global.html#getNumberDay">getNumberDay</a></li><li><a href="global.html#getSelectItemId">getSelectItemId</a></li><li><a href="global.html#getSpan">getSpan</a></li><li><a href="global.html#getSpanValue">getSpanValue</a></li><li><a href="global.html#months">months</a></li><li><a href="global.html#moveDateSelectList">moveDateSelectList</a></li><li><a href="global.html#onWheelFunction">onWheelFunction</a></li><li><a href="global.html#params">params</a></li><li><a href="global.html#selectedDate">selectedDate</a></li><li><a href="global.html#setInitialDateState">setInitialDateState</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#theme">theme</a></li><li><a href="global.html#transformToNumber">transformToNumber</a></li><li><a href="global.html#updateDateSelectList">updateDateSelectList</a></li><li><a href="global.html#validation">validation</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>features/selectedDate.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createSlice } from "@reduxjs/toolkit";
 import { getLimitYear, transformToNumber } from "../utils/date";
 
 
@@ -58,7 +149,7 @@ const { actions, reducer } = createSlice({
             }),
 
             reducer: (draft, action) => {
-                if(draft.dates[action.payload.id] && draft.dates[action.payload.id].status === "default"){ return }
+                if(draft.dates[action.payload.id] &amp;&amp; draft.dates[action.payload.id].status === "default"){ return }
                 setInitialDateState(draft, action.payload.id, action.payload.type)
                 draft.status = draft.status === "empty" ? 1 : draft.status+1
                 return
@@ -108,7 +199,7 @@ const { actions, reducer } = createSlice({
 
             reducer: (draft, action) => {
                 const day = parseInt(action.payload.day)
-                if(day < 1 || day > 31){ return }
+                if(day &lt; 1 || day > 31){ return }
                 const inputId = action.payload.inputId 
                 draft.dates[inputId].calendar.day = day 
                 return
@@ -132,7 +223,7 @@ const { actions, reducer } = createSlice({
 
             reducer: (draft, action) => {
                 const hour = parseInt(action.payload.hour)
-                if(hour < 0 || hour >= 24){ return }
+                if(hour &lt; 0 || hour >= 24){ return }
                 const inputId = action.payload.inputId 
                 draft.dates[inputId].calendar.hour = hour
                 return
@@ -156,7 +247,7 @@ const { actions, reducer } = createSlice({
 
             reducer: (draft, action) => {
                 const minute = parseInt(action.payload.minute)
-                if(minute < 0 || minute > 59){ return }
+                if(minute &lt; 0 || minute > 59){ return }
                 const inputId = action.payload.inputId 
                 draft.dates[inputId].calendar.minute = minute 
                 return
@@ -180,7 +271,7 @@ const { actions, reducer } = createSlice({
 
             reducer: (draft, action) => {
                 const month = parseInt(action.payload.month)
-                if(month < 1 || month > 12){ return }
+                if(month &lt; 1 || month > 12){ return }
                 const inputId = action.payload.inputId 
                 draft.dates[inputId].calendar.month = month 
                 return
@@ -204,7 +295,7 @@ const { actions, reducer } = createSlice({
 
             reducer: (draft, action) => {
                 const year = parseInt(action.payload.year)
-                if(year < getLimitYear("min") || year > getLimitYear("max")){ return }
+                if(year &lt; getLimitYear("min") || year > getLimitYear("max")){ return }
                 const inputId = action.payload.inputId 
                 draft.dates[inputId].calendar.year = year 
                 return
@@ -229,7 +320,7 @@ const { actions, reducer } = createSlice({
 
             reducer: (draft, action) => {
                 const day = parseInt(action.payload.day)
-                if(day < 1 || day > 31){ return }
+                if(day &lt; 1 || day > 31){ return }
                 const inputId = action.payload.inputId 
                 const typeDate = action.payload.typeDate
                 if(typeDate){
@@ -239,9 +330,9 @@ const { actions, reducer } = createSlice({
                     draft.dates[inputId].day = transformToNumber(day) 
                     draft.dates[inputId].calendar.day = day 
                 }
-                if(draft.dates[inputId].status !== "selected" && (
-                    draft.dates[inputId].type.indexOf("Period") < 0 || ( 
-                        typeDate === "end" && draft.dates[inputId].start.day !== draft.dates[inputId].end.day
+                if(draft.dates[inputId].status !== "selected" &amp;&amp; (
+                    draft.dates[inputId].type.indexOf("Period") &lt; 0 || ( 
+                        typeDate === "end" &amp;&amp; draft.dates[inputId].start.day !== draft.dates[inputId].end.day
                     ))){ draft.dates[inputId].status = "selected" 
                 } else if(typeDate === "start"){ draft.dates[inputId].status = "pending" }
                 return
@@ -266,7 +357,7 @@ const { actions, reducer } = createSlice({
 
             reducer: (draft, action) => {
                 const hour = parseInt(action.payload.hour)
-                if(hour < 0 || hour >= 24){ return }
+                if(hour &lt; 0 || hour >= 24){ return }
                 const inputId = action.payload.inputId 
                 const typeDate = action.payload.typeDate
                 if(typeDate){
@@ -276,9 +367,9 @@ const { actions, reducer } = createSlice({
                     draft.dates[inputId].hour = transformToNumber(hour) 
                     draft.dates[inputId].calendar.hour = hour 
                 }
-                if(draft.dates[inputId].status !== "selected" && (
-                    draft.dates[inputId].type.indexOf("Period") < 0 || ( 
-                        typeDate === "end" && draft.dates[inputId].start.hour !== draft.dates[inputId].end.hour
+                if(draft.dates[inputId].status !== "selected" &amp;&amp; (
+                    draft.dates[inputId].type.indexOf("Period") &lt; 0 || ( 
+                        typeDate === "end" &amp;&amp; draft.dates[inputId].start.hour !== draft.dates[inputId].end.hour
                     ))){ draft.dates[inputId].status = "selected"}
                 return
             }
@@ -302,7 +393,7 @@ const { actions, reducer } = createSlice({
 
             reducer: (draft, action) => {
                 const minute = parseInt(action.payload.minute)
-                if(minute < 0 || minute > 59){ return }
+                if(minute &lt; 0 || minute > 59){ return }
                 const inputId = action.payload.inputId 
                 const typeDate = action.payload.typeDate
                 if(typeDate){
@@ -312,9 +403,9 @@ const { actions, reducer } = createSlice({
                     draft.dates[inputId].minute = transformToNumber(minute) 
                     draft.dates[inputId].calendar.minute = minute 
                 }
-                if(draft.dates[inputId].status !== "selected" && (
-                    draft.dates[inputId].type.indexOf("Period") < 0 || ( 
-                        typeDate === "end" && draft.dates[inputId].start.minute !== draft.dates[inputId].end.minute
+                if(draft.dates[inputId].status !== "selected" &amp;&amp; (
+                    draft.dates[inputId].type.indexOf("Period") &lt; 0 || ( 
+                        typeDate === "end" &amp;&amp; draft.dates[inputId].start.minute !== draft.dates[inputId].end.minute
                     ))){ draft.dates[inputId].status = "selected"}
                 return
             }
@@ -338,7 +429,7 @@ const { actions, reducer } = createSlice({
 
             reducer: (draft, action) => {
                 const month = parseInt(action.payload.month)
-                if(month < 1 || month > 12){ return }
+                if(month &lt; 1 || month > 12){ return }
                 const inputId = action.payload.inputId 
                 const typeDate = action.payload.typeDate
                 if(typeDate){
@@ -348,9 +439,9 @@ const { actions, reducer } = createSlice({
                     draft.dates[inputId].month = transformToNumber(month)
                     draft.dates[inputId].calendar.month = month 
                 }
-                if(draft.dates[inputId].status !== "selected" && (
-                    draft.dates[inputId].type.indexOf("Period") < 0 || ( 
-                        typeDate === "end" && draft.dates[inputId].start.month !== draft.dates[inputId].end.month
+                if(draft.dates[inputId].status !== "selected" &amp;&amp; (
+                    draft.dates[inputId].type.indexOf("Period") &lt; 0 || ( 
+                        typeDate === "end" &amp;&amp; draft.dates[inputId].start.month !== draft.dates[inputId].end.month
                     ))){ draft.dates[inputId].status = "selected"}
                 return
             }
@@ -374,7 +465,7 @@ const { actions, reducer } = createSlice({
 
             reducer: (draft, action) => {
                 const year = parseInt(action.payload.year)
-                if(year < getLimitYear("min") || year > getLimitYear("max")){ return }
+                if(year &lt; getLimitYear("min") || year > getLimitYear("max")){ return }
                 const inputId = action.payload.inputId 
                 const typeDate = action.payload.typeDate
                 if(typeDate){
@@ -384,9 +475,9 @@ const { actions, reducer } = createSlice({
                     draft.dates[inputId].year = transformToNumber(year) 
                     draft.dates[inputId].calendar.year = year 
                 }
-                if(draft.dates[inputId].status !== "selected" && (
-                    draft.dates[inputId].type.indexOf("Period") < 0 || ( 
-                        typeDate === "end" && draft.dates[inputId].start.year !== draft.dates[inputId].end.year
+                if(draft.dates[inputId].status !== "selected" &amp;&amp; (
+                    draft.dates[inputId].type.indexOf("Period") &lt; 0 || ( 
+                        typeDate === "end" &amp;&amp; draft.dates[inputId].start.year !== draft.dates[inputId].end.year
                     ))){ draft.dates[inputId].status = "selected"}
                 return
             }
@@ -410,4 +501,33 @@ export const {
     setYear 
 } = actions
 
-export default reducer
+export default reducer</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

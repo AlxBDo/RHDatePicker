@@ -1,4 +1,95 @@
-import { datePattern, datePlaceholder, timePattern, timePlaceholder } from "./date";
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> utils/validation.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">RHDatePicker components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Calendar.html">Calendar</a></li><li><a href="CalendarSelect.html">CalendarSelect</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dialog.html">Dialog</a></li><li><a href="Error.html">Error</a></li><li><a href="TimeSelect.html">TimeSelect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#currentDate">currentDate</a></li><li><a href="global.html#currentTime">currentTime</a></li><li><a href="global.html#datePattern">datePattern</a></li><li><a href="global.html#datePickerParams">datePickerParams</a></li><li><a href="global.html#datePlaceholder">datePlaceholder</a></li><li><a href="global.html#deleteSelectedDay">deleteSelectedDay</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#getCalendarOption">getCalendarOption</a></li><li><a href="global.html#getErrors">getErrors</a></li><li><a href="global.html#getIsDefaultObject">getIsDefaultObject</a></li><li><a href="global.html#getLimitYear">getLimitYear</a></li><li><a href="global.html#getNumberDay">getNumberDay</a></li><li><a href="global.html#getSelectItemId">getSelectItemId</a></li><li><a href="global.html#getSpan">getSpan</a></li><li><a href="global.html#getSpanValue">getSpanValue</a></li><li><a href="global.html#months">months</a></li><li><a href="global.html#moveDateSelectList">moveDateSelectList</a></li><li><a href="global.html#onWheelFunction">onWheelFunction</a></li><li><a href="global.html#params">params</a></li><li><a href="global.html#selectedDate">selectedDate</a></li><li><a href="global.html#setInitialDateState">setInitialDateState</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#theme">theme</a></li><li><a href="global.html#transformToNumber">transformToNumber</a></li><li><a href="global.html#updateDateSelectList">updateDateSelectList</a></li><li><a href="global.html#validation">validation</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>utils/validation.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { datePattern, datePlaceholder, timePattern, timePlaceholder } from "./date";
 import { datePickerParams } from "./datePickerParams";
 
 /**
@@ -56,7 +147,7 @@ import { datePickerParams } from "./datePickerParams";
      * @param {string} format 
      * @returns {boolean}
      */
-    checkFormat: (format) => (validation.formats.pattern[format] && validation.formats.placeholder[format]) ? true : false,
+    checkFormat: (format) => (validation.formats.pattern[format] &amp;&amp; validation.formats.placeholder[format]) ? true : false,
 
     /**
      * Checks that id passed in parameter corresponds to the accepted format
@@ -111,14 +202,14 @@ import { datePickerParams } from "./datePickerParams";
             )
             if(date > max) { return false }
         }
-        if(strictValidation && limits.min){
+        if(strictValidation &amp;&amp; limits.min){
             const minSplit = limits.min.split("-") 
             const min = parseInt(
                 minSplit[0].length === 4 
                 ? `${minSplit[0]}${minSplit[1]}${minSplit[2]}` 
                 : `${minSplit[2]}${minSplit[1]}${minSplit[0]}`
             )
-            if(date < min) { return false }
+            if(date &lt; min) { return false }
         }
         return true
     },
@@ -136,19 +227,19 @@ import { datePickerParams } from "./datePickerParams";
         const stringLength = string.length
         const searchLetter = stringName === "date" || stringName === "dateTime" || stringName === "time" 
                             ? true : false
-        if(limits && stringName === "date" && !validation.checkLimits(string, limits, strictValidation)){ 
+        if(limits &amp;&amp; stringName === "date" &amp;&amp; !validation.checkLimits(string, limits, strictValidation)){ 
             return validation.addError(stringName, "outOfBounds", output)
         }
-        if(searchLetter && !strictValidation){
-            if( /[a-zA-Z?,;!§%*$£&+_()\/]/.test(string) ){
+        if(searchLetter &amp;&amp; !strictValidation){
+            if( /[a-zA-Z?,;!§%*$£&amp;+_()\/]/.test(string) ){
                 return validation.addError(stringName, "wrongFormat", output)
             }
-            if(stringLength < validation.allowedLength[stringName].min){ return false }
+            if(stringLength &lt; validation.allowedLength[stringName].min){ return false }
         }
         if(stringLength > validation.allowedLength[stringName].max){ 
             return validation.addError(stringName, "tooLong", output) 
         }
-        if(stringLength < validation.allowedLength[stringName].min){
+        if(stringLength &lt; validation.allowedLength[stringName].min){
             return validation.addError(stringName, "tooShort", output)
         }
         if(!validation.regExpTest(string, stringName, output)){
@@ -254,7 +345,7 @@ import { datePickerParams } from "./datePickerParams";
                  * @returns {array} dateArray
                  * @example [ {number} year, {number} month, {number} day ]
                  */
-                date: (date) => date && date.split(date.indexOf("-") > 0 ? "-" : "."), 
+                date: (date) => date &amp;&amp; date.split(date.indexOf("-") > 0 ? "-" : "."), 
                 
                 /**
                  * Provide date time in array format 
@@ -275,7 +366,7 @@ import { datePickerParams } from "./datePickerParams";
                  * @returns {array} timeArray
                  * @example [ {number} hour, {number} minute ]
                  */
-                time: (time) => time && time.split(":"),
+                time: (time) => time &amp;&amp; time.split(":"),
             },
 
             /**
@@ -288,14 +379,14 @@ import { datePickerParams } from "./datePickerParams";
                  * @param {string} date 
                  * @returns {object} Date
                  */
-                date: (date) => date && validation.formats.output.dateObject.fct(date, "date"), 
+                date: (date) => date &amp;&amp; validation.formats.output.dateObject.fct(date, "date"), 
 
                 /**
                  * Provide dateTime in object format 
                  * @param {string} dateTime 
                  * @returns {object} Date
                  */
-                dateTime: (dateTime) => dateTime && validation.formats.output.dateObject.fct(dateTime, "dateTime"),  
+                dateTime: (dateTime) => dateTime &amp;&amp; validation.formats.output.dateObject.fct(dateTime, "dateTime"),  
 
                 /**
                  * Provide date in object format 
@@ -315,8 +406,8 @@ import { datePickerParams } from "./datePickerParams";
                         date[validation.formats.lang === "en" ? 0 : 2], 
                         parseInt(date[1]) - 1, 
                         date[validation.formats.lang === "en" ? 2 : 0], 
-                        date[3] && date[3], 
-                        date[4] && date[4]
+                        date[3] &amp;&amp; date[3], 
+                        date[4] &amp;&amp; date[4]
                     )
                 },  
 
@@ -325,7 +416,7 @@ import { datePickerParams } from "./datePickerParams";
                  * @param {string} time 
                  * @returns {object} Date
                  */
-                time: (time) => time && validation.formats.output.dateObject.fct(time, "time")
+                time: (time) => time &amp;&amp; validation.formats.output.dateObject.fct(time, "time")
             },
 
             number: "number",
@@ -340,14 +431,14 @@ import { datePickerParams } from "./datePickerParams";
                  * @param {string} date 
                  * @returns {string} date
                  */
-                date: (date) => date && validation.formats.output.string.fct(date, false),
+                date: (date) => date &amp;&amp; validation.formats.output.string.fct(date, false),
 
                 /**
                  * Provide dateTime in string format 
                  * @param {string} dateTime 
                  * @returns {string} dateTime
                  */
-                dateTime: (date) => date && validation.formats.output.string.fct(date, true),   
+                dateTime: (date) => date &amp;&amp; validation.formats.output.string.fct(date, true),   
 
                 /**
                  * Provide date in string format 
@@ -366,7 +457,7 @@ import { datePickerParams } from "./datePickerParams";
                  * @param {string} time 
                  * @returns {string} time
                  */
-                time: (date) => date && date.toLocalTimeString()
+                time: (date) => date &amp;&amp; date.toLocalTimeString()
             }
         },
 
@@ -429,4 +520,33 @@ import { datePickerParams } from "./datePickerParams";
         return regEx.test(string)
     }
 
-};
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

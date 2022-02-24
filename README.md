@@ -1,15 +1,23 @@
-[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
-[![forthebadge](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzQuNjYiIGhlaWdodD0iMzUiIHZpZXdCb3g9IjAgMCAxMzQuNjYgMzUiPjxyZWN0IGNsYXNzPSJzdmdfX3JlY3QiIHg9IjAiIHk9IjAiIHdpZHRoPSI1NC43NjAwMDAwMDAwMDAwMDUiIGhlaWdodD0iMzUiIGZpbGw9IiMzMUM0RjMiLz48cmVjdCBjbGFzcz0ic3ZnX19yZWN0IiB4PSI1Mi43NjAwMDAwMDAwMDAwMDUiIHk9IjAiIHdpZHRoPSI4MS44OTk5OTk5OTk5OTk5OSIgaGVpZ2h0PSIzNSIgZmlsbD0iIzM4OUFENSIvPjxwYXRoIGNsYXNzPSJzdmdfX3RleHQiIGQ9Ik0xNC4wOCAxOS4xNkwxNC4wOCAxOS4xNkwxNC4wOCAxMy40N0wxNS41NiAxMy40N0wxNS41NiAxOS4xOFExNS41NiAyMC4wMyAxNS45OSAyMC40OFExNi40MyAyMC45MyAxNy4yNyAyMC45M0wxNy4yNyAyMC45M1ExOC45OCAyMC45MyAxOC45OCAxOS4xM0wxOC45OCAxOS4xM0wxOC45OCAxMy40N0wyMC40NiAxMy40N0wyMC40NiAxOS4xN1EyMC40NiAyMC41MyAxOS41OSAyMS4zMlExOC43MiAyMi4xMiAxNy4yNyAyMi4xMkwxNy4yNyAyMi4xMlExNS44MSAyMi4xMiAxNC45NCAyMS4zM1ExNC4wOCAyMC41NSAxNC4wOCAxOS4xNlpNMjQuNTkgMTkuNDJMMjQuNTkgMTkuNDJMMjYuMDggMTkuNDJRMjYuMDggMjAuMTUgMjYuNTYgMjAuNTVRMjcuMDQgMjAuOTUgMjcuOTMgMjAuOTVMMjcuOTMgMjAuOTVRMjguNzEgMjAuOTUgMjkuMTAgMjAuNjNRMjkuNDkgMjAuMzIgMjkuNDkgMTkuODBMMjkuNDkgMTkuODBRMjkuNDkgMTkuMjQgMjkuMDkgMTguOTRRMjguNzAgMTguNjMgMjcuNjYgMTguMzJRMjYuNjMgMTguMDEgMjYuMDIgMTcuNjNMMjYuMDIgMTcuNjNRMjQuODYgMTYuOTAgMjQuODYgMTUuNzJMMjQuODYgMTUuNzJRMjQuODYgMTQuNjkgMjUuNzAgMTQuMDJRMjYuNTQgMTMuMzUgMjcuODggMTMuMzVMMjcuODggMTMuMzVRMjguNzcgMTMuMzUgMjkuNDcgMTMuNjhRMzAuMTcgMTQuMDEgMzAuNTYgMTQuNjFRMzAuOTYgMTUuMjIgMzAuOTYgMTUuOTZMMzAuOTYgMTUuOTZMMjkuNDkgMTUuOTZRMjkuNDkgMTUuMjkgMjkuMDcgMTQuOTFRMjguNjUgMTQuNTQgMjcuODcgMTQuNTRMMjcuODcgMTQuNTRRMjcuMTQgMTQuNTQgMjYuNzQgMTQuODVRMjYuMzQgMTUuMTYgMjYuMzQgMTUuNzFMMjYuMzQgMTUuNzFRMjYuMzQgMTYuMTggMjYuNzcgMTYuNTBRMjcuMjEgMTYuODEgMjguMjAgMTcuMTBRMjkuMjAgMTcuNDAgMjkuODAgMTcuNzhRMzAuNDEgMTguMTYgMzAuNjkgMTguNjVRMzAuOTcgMTkuMTMgMzAuOTcgMTkuNzlMMzAuOTcgMTkuNzlRMzAuOTcgMjAuODYgMzAuMTUgMjEuNDlRMjkuMzMgMjIuMTIgMjcuOTMgMjIuMTJMMjcuOTMgMjIuMTJRMjcuMDEgMjIuMTIgMjYuMjMgMjEuNzdRMjUuNDYgMjEuNDMgMjUuMDIgMjAuODNRMjQuNTkgMjAuMjIgMjQuNTkgMTkuNDJaTTQwLjg0IDIyTDM1LjI2IDIyTDM1LjI2IDEzLjQ3TDQwLjgwIDEzLjQ3TDQwLjgwIDE0LjY2TDM2Ljc0IDE0LjY2TDM2Ljc0IDE3LjAyTDQwLjI0IDE3LjAyTDQwLjI0IDE4LjE5TDM2Ljc0IDE4LjE5TDM2Ljc0IDIwLjgyTDQwLjg0IDIwLjgyTDQwLjg0IDIyWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGNsYXNzPSJzdmdfX3RleHQiIGQ9Ik02OS4zMyAyMkw2Ni45NSAyMkw2Ni45NSAxMy42MEw3MC43OSAxMy42MFE3MS45MyAxMy42MCA3Mi43NyAxMy45OFE3My42MSAxNC4zNSA3NC4wNyAxNS4wNlE3NC41MiAxNS43NiA3NC41MiAxNi43MUw3NC41MiAxNi43MVE3NC41MiAxNy42MiA3NC4xMCAxOC4zMFE3My42NyAxOC45OCA3Mi44OCAxOS4zNkw3Mi44OCAxOS4zNkw3NC42OSAyMkw3Mi4xNSAyMkw3MC42MiAxOS43N0w2OS4zMyAxOS43N0w2OS4zMyAyMlpNNjkuMzMgMTUuNDdMNjkuMzMgMTcuOTNMNzAuNjUgMTcuOTNRNzEuMzggMTcuOTMgNzEuNzUgMTcuNjFRNzIuMTIgMTcuMjkgNzIuMTIgMTYuNzFMNzIuMTIgMTYuNzFRNzIuMTIgMTYuMTIgNzEuNzUgMTUuNzlRNzEuMzggMTUuNDcgNzAuNjUgMTUuNDdMNzAuNjUgMTUuNDdMNjkuMzMgMTUuNDdaTTg2LjA2IDIyTDc5LjMxIDIyTDc5LjMxIDEzLjYwTDg1LjkwIDEzLjYwTDg1LjkwIDE1LjQ0TDgxLjY3IDE1LjQ0TDgxLjY3IDE2Ljg1TDg1LjQwIDE2Ljg1TDg1LjQwIDE4LjYzTDgxLjY3IDE4LjYzTDgxLjY3IDIwLjE3TDg2LjA2IDIwLjE3TDg2LjA2IDIyWk05Mi4yOCAyMkw4OS44NSAyMkw5My41NiAxMy42MEw5NS45MCAxMy42MEw5OS42MiAyMkw5Ny4xNSAyMkw5Ni40OSAyMC4zN0w5Mi45NCAyMC4zN0w5Mi4yOCAyMlpNOTQuNzIgMTUuOTNMOTMuNjMgMTguNjFMOTUuNzkgMTguNjFMOTQuNzIgMTUuOTNaTTEwMy4zNSAxNy44MEwxMDMuMzUgMTcuODBRMTAzLjM1IDE2LjU0IDEwMy45NCAxNS41NFExMDQuNTQgMTQuNTUgMTA1LjU5IDEzLjk5UTEwNi42NSAxMy40MyAxMDcuOTYgMTMuNDNMMTA3Ljk2IDEzLjQzUTEwOS4xMiAxMy40MyAxMTAuMDQgMTMuODRRMTEwLjk2IDE0LjI1IDExMS41OCAxNS4wMkwxMTEuNTggMTUuMDJMMTEwLjA3IDE2LjM5UTEwOS4yNSAxNS40MCAxMDguMDkgMTUuNDBMMTA4LjA5IDE1LjQwUTEwNy40MCAxNS40MCAxMDYuODcgMTUuNzBRMTA2LjMzIDE2IDEwNi4wNCAxNi41NFExMDUuNzQgMTcuMDkgMTA1Ljc0IDE3LjgwTDEwNS43NCAxNy44MFExMDUuNzQgMTguNTEgMTA2LjA0IDE5LjA1UTEwNi4zMyAxOS42MCAxMDYuODcgMTkuOTBRMTA3LjQwIDIwLjIwIDEwOC4wOSAyMC4yMEwxMDguMDkgMjAuMjBRMTA5LjI1IDIwLjIwIDExMC4wNyAxOS4yMkwxMTAuMDcgMTkuMjJMMTExLjU4IDIwLjU4UTExMC45NyAyMS4zNSAxMTAuMDQgMjEuNzZRMTA5LjEyIDIyLjE3IDEwNy45NiAyMi4xN0wxMDcuOTYgMjIuMTdRMTA2LjY1IDIyLjE3IDEwNS41OSAyMS42MVExMDQuNTQgMjEuMDUgMTAzLjk0IDIwLjA1UTEwMy4zNSAxOS4wNiAxMDMuMzUgMTcuODBaTTExNy45MSAxNS40OEwxMTUuMzIgMTUuNDhMMTE1LjMyIDEzLjYwTDEyMi44NSAxMy42MEwxMjIuODUgMTUuNDhMMTIwLjI4IDE1LjQ4TDEyMC4yOCAyMkwxMTcuOTEgMjJMMTE3LjkxIDE1LjQ4WiIgZmlsbD0iI0ZGRkZGRiIgeD0iNjUuNzYiLz48L3N2Zz4=)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) 
+[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com) 
+[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com) 
+![ScreenShot](https://github.com/AlxBDo/RHDatePicker/scr/img/use-react.svg)
+![ScreenShot](https://github.com/AlxBDo/RHDatePicker/scr/img/use-redux.svg)
+
 
 
 # RHDatePicker 
 
-A library of React components created using `create-react-app` to make secure and customizable date picker
+A library of React components created using `create-react-app` to make secure and customizable date picker.
 
-![ScreenShot](https://alxbdo.github.io/RHDatePicker/src/img/DatePickerScreenshot.png)
+![ScreenShot](https://alxbdo.github.io/RHDatePicker/src/img/PeriodInput.png)
 
+![ScreenShot](https://alxbdo.github.io/RHDatePicker/src/img/Calendar.png)
+
+RHDatePicker is a time picker displaying a label and an html input as well as a clickable calendar. 
+ * It manages dates, times and periods. The input value can be retrieved in number, string, array or Date object format. 
+ * It retrieves the language and the theme defined by the browser in order to apply the input and output format as well as the colors used.
+ 
 
 ## 1. Author
 
@@ -18,9 +26,14 @@ Alexandre Bidaud
 
 ## 2. Technologies
 
-- JS
-- CSS
-- React
+- JS 
+- CSS 
+- HTML 
+- NodeJs
+- React.js 
+- React-Redux 
+- Styled-components 
+- Prop-Type 
 
 
 ## 3. Project
@@ -28,8 +41,7 @@ Alexandre Bidaud
 ### 3.1 Prerequisites
 
 - [NodeJS (**version 12.18**)](https://nodejs.org/en/)
-- [React](https://reactjs.org/)
-
+- [React](https://reactjs.org/) 
 
 
 ### 3.2 Installation
@@ -37,3 +49,33 @@ Alexandre Bidaud
 Run the following command:
 `npm i rh-date-picker`
 
+
+### 3.3 Use 
+
+
+#### 3.3.1 Example 
+
+Below is an example implementation of the RHDatePicker component. You can also see the demo in the src/lib/examples/ directory.
+
+`import DatePicker from "rh-date-picker/dist/component/datePicker"`
+
+`<DatePicker inputId={"myInputId"} label={"my label text"} deadlines= {{ max: 2022-02-02, min: 2020-01-01 }} type={"dateTimePeriod"} eventFunction={{ onblur: myCheckFunction() }} />`
+
+
+#### 3.3.2 Parameters 
+
+Below is the list of parameters accepted by the DatePicker component : 
+
+- inputId {string} : accepts alphanumeric characters and hyphen 
+- deadlines {object} : contains min and max attributes
+- label {string} : accepts alphanumeric characters, hyphen, space and apostrophe
+- eventFunction {object} : contains function to apply to events
+- htmlClass {object} : contains classes to apply to the container, to the input and to the error message
+- valueFormat {string} : output format of DatePicker input value - Accept : "array", "dateObject" = Date(), "number", "string"
+- type {string} : define input type to generate - Accept : "date", "datePeriod", "dateTime", "dateTimePeriod", "time", "timePeriod"
+- colors {object} : define colors used by component
+
+
+#### 3.3.3 Documenation
+
+The documentation can be viewed by following the link below : [documentation](https://github.com/AlxBDo/RHDatePicker/docs/index.html)

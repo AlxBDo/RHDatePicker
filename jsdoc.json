@@ -1,0 +1,30 @@
+{
+    "source": {
+        "include": [
+            "src/index.jsx",
+            "src/lib/component",  
+            "src/lib/features", 
+            "src/lib/style", 
+            "src/lib/utils"
+        ],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(node_modules/|docs)"
+    },
+    "plugins": ["plugins/markdown", "better-docs/component"],
+    "templates": {
+        "cleverlinks":true,
+        "monospacelinks": true,
+        "default": {
+            "useLongnameInNav": true
+        },
+        "better-docs": {
+            "name": "RHDatePicker components"
+          }
+    },
+    "opts": {
+        "recurse": true,
+        "destination": "./docs/",
+        "template": "node_modules/better-docs", 
+        "readme": "README.md"
+    }
+}
