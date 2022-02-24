@@ -1,8 +1,8 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) 
 [![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com) 
 [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com) 
-![ScreenShot](https://github.com/AlxBDo/RHDatePicker/scr/img/use-react.svg)
-![ScreenShot](https://github.com/AlxBDo/RHDatePicker/scr/img/use-redux.svg)
+![ScreenShot](https://alxbdo.github.io/RHDatePicker/scr/img/use-react.svg)
+![ScreenShot](https://alxbdo.github.io/RHDatePicker/scr/img/use-redux.svg)
 
 
 
@@ -78,4 +78,4 @@ Below is the list of parameters accepted by the DatePicker component :
 
 #### 3.3.3 Documenation
 
-The documentation can be viewed by following the link below : [documentation](https://github.com/AlxBDo/RHDatePicker/docs/index.html)
+The documentation can be viewed by following the link below : [documentation](https://alxbdo.github.io/RHDatePicker/docs/index.html)
