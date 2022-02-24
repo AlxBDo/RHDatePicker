@@ -1,9 +1,6 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) 
 [![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com) 
 [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com) 
-![ScreenShot](https://alxbdo.github.io/RHDatePicker/scr/img/use-react.svg)
-![ScreenShot](https://alxbdo.github.io/RHDatePicker/scr/img/use-redux.svg)
-
 
 
 # RHDatePicker 
