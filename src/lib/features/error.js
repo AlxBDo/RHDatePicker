@@ -25,8 +25,11 @@ const initialState = {
 }
 
 /**
- * Redux component in charge of react Error component state - state : { status: {string}, error: {object} }
- * @name error
+ * @typedef {object} error 
+ * @description Redux component in charge of react Error component state - state : { status: {string}, error: {object} } 
+ * @component 
+ * @property {function} add - Add an error 
+ * @property {function} clear - Remove errors encountered by a component 
  */
 const { actions, reducer } = createSlice({
     name: "error", 
@@ -37,6 +40,7 @@ const { actions, reducer } = createSlice({
          * Add an error to error state 
          * @memberof error
          * @param {object} errorObject - contains output, what and why attributes 
+         * @example `errorAction.add( errorObject = { what: "date", why: "tooShort", output: "inputId"} )` 
          */
         add: {
 
@@ -70,7 +74,8 @@ const { actions, reducer } = createSlice({
 
         /**
          * Remove errors encountered by a component 
-         * @memberof error
+         * @memberof error 
+         * @example `errorAction.clear("inputId")` 
          */
         clear: {
 

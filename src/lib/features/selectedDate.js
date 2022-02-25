@@ -29,11 +29,24 @@ const initialState = {
 }
 
 /**
- * Redux component in charge of selected dates state - 
+ * @typedef {object} selectedDate 
+ * @component 
+ * @description Redux component in charge of selected dates state - 
  * state : { status: {string}, dates: {object} } - 
  * state.dates : { selectedDate1Id, selectedDate2Id, ... }
- * state.dates.selectedDate1Id : { day: {number}, month: {number}, year: {number}, hour: {number}, minute: {number} }
- * @name selectedDate 
+ * state.dates.selectedDate1Id : { day: {number}, month: {number}, year: {number}, hour: {number}, minute: {number} } 
+ * @property {function} init - Initializes selected dates state of element corresponding to id passed as parameter
+ * @property {function} initCalendar - Initializes calendars state of element corresponding to id passed as parameter
+ * @property {function} setCalendarDay - Set day displayed to calendar 
+ * @property {function} setCalendarHour - Set hour displayed to calendar
+ * @property {function} setCalendarMinute - Set minute displayed to calendar
+ * @property {function} setCalendarMonth - Set month displayed to calendar
+ * @property {function} setCalendarYear - Set year displayed to calendar
+ * @property {function} setDay - Set selected day 
+ * @property {function} setHour - Set selected hour 
+ * @property {function} setMinute - Set selected minute 
+ * @property {function} setMonth - Set selected month 
+ * @property {function} setYear - Set selected year
  */
 const { actions, reducer } = createSlice({
 
@@ -44,15 +57,13 @@ const { actions, reducer } = createSlice({
 
         /**
          * Initializes selected dates state of element corresponding to id passed as parameter
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {string} id 
+         * @param {string} type - accept date, datePeriod, dateTime, dateTimePeriod, time, timePeriod 
+         * @example `selectedDateAction.init( {string} id, {string} type )` 
          */
         init: {
 
-            /**
-            * @memberof selectedDate.init
-            * @param {string} id 
-            * @param {string} type - accept date, datePeriod, dateTime, dateTimePeriod, time, timePeriod 
-            */
             prepare: (id, type) => ({
                 payload: {id, type}
             }),
@@ -67,14 +78,13 @@ const { actions, reducer } = createSlice({
 
         /**
          * Initializes calendars state of element corresponding to id passed as parameter
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @memberof selectedDate.initCalendar
+         * @param {string} id 
+         * @example `selectedDateAction.initCalendar( {string} id )` 
          */
         initCalendar: {
 
-            /**
-            * @memberof selectedDate.initCalendar
-            * @param {string} id 
-            */
             prepare: (id) => ({
                 payload: {id}
             }),
@@ -93,15 +103,13 @@ const { actions, reducer } = createSlice({
 
         /**
          * Set day displayed to calendar
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {number} day 
+         * @param {string} inputId 
+         * @example `selectedDateAction.setCalendarDay( {string} id, {number} day )` 
          */
         setCalendarDay: {
 
-            /**
-             * @memberof selectedDate.setCalendarDay
-             * @param {number} day 
-             * @param {string} inputId 
-             */
             prepare: (day, inputId) => ({
                 payload: {day, inputId}
             }),
@@ -117,15 +125,13 @@ const { actions, reducer } = createSlice({
 
         /**
          * Set hour displayed to calendar
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {number} hour 
+         * @param {string} inputId 
+         * @example `selectedDateAction.setCalendarHour( {string} id, {number} hour )` 
          */
         setCalendarHour: {
 
-            /**
-             * @memberof selectedDate.setCalendarHour
-             * @param {number} hour 
-             * @param {string} inputId 
-             */
             prepare: (hour, inputId) => ({
                 payload: {hour, inputId}
             }),
@@ -141,15 +147,13 @@ const { actions, reducer } = createSlice({
 
         /**
          * Set minutes displayed to calendar
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {number} minute 
+         * @param {string} inputId 
+         * @example `selectedDateAction.setCalendarMinute( {string} id, {number} minute )`
          */
         setCalendarMinute: {
 
-            /**
-             * @memberof selectedDate.setCalendarMinute
-             * @param {number} minute 
-             * @param {string} inputId 
-             */
             prepare: (minute, inputId) => ({
                 payload: {minute, inputId}
             }),
@@ -165,15 +169,13 @@ const { actions, reducer } = createSlice({
 
         /**
          * Set month displayed to calendar
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {number} month 
+         * @param {string} inputId 
+         * @example `selectedDateAction.setCalendarMonth( {string} id, {number} month )` 
          */
         setCalendarMonth: {
 
-            /**
-             * @memberof selectedDate.setCalendarMonth
-             * @param {number} month 
-             * @param {string} inputId 
-             */
             prepare: (month, inputId) => ({
                 payload: {month, inputId}
             }),
@@ -189,15 +191,13 @@ const { actions, reducer } = createSlice({
 
         /**
          * Set year displayed to calendar
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {number} year 
+         * @param {string} inputId 
+         * @example `selectedDateAction.setCalendarYear( {string} id, {number} year )` 
          */
         setCalendarYear: {
 
-            /**
-             * @memberof selectedDate.setCalendarYear
-             * @param {number} year 
-             * @param {string} inputId 
-             */
             prepare: (year, inputId) => ({
                 payload: {year, inputId}
             }),
@@ -213,16 +213,14 @@ const { actions, reducer } = createSlice({
 
         /**
          * Set selected day
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {number} day 
+         * @param {string} inputId 
+         * @param {string | boolean} typeDate - accept start, end or false 
+         * @example `selectedDateAction.setDay( {string} id, {number} day, {string | boolean} typeDate )` 
          */
         setDay: {
 
-            /**
-             * @memberof selectedDate.setDay
-             * @param {number} day 
-             * @param {string} inputId 
-             * @param {string | boolean} typeDate - accept start, end or false
-             */
             prepare: (day, inputId, typeDate) => ({
                 payload: {day, inputId, typeDate}
             }),
@@ -250,16 +248,14 @@ const { actions, reducer } = createSlice({
 
         /**
          * Set selected hour
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {number} hour 
+         * @param {string} inputId 
+         * @param {string | boolean} typeDate - accept start, end or false 
+         * @example `selectedDateAction.setHour( {string} id, {number} hour, {string | boolean} typeDate )` 
          */
         setHour: {
 
-            /**
-             * @memberof selectedDate.setHour
-             * @param {number} hour 
-             * @param {string} inputId 
-             * @param {string | boolean} typeDate - accept start, end or false
-             */
             prepare: (hour, inputId, typeDate) => ({
                 payload: {hour, inputId, typeDate}
             }),
@@ -286,16 +282,14 @@ const { actions, reducer } = createSlice({
 
         /**
          * Set selected minute
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {number} minute 
+         * @param {string} inputId 
+         * @param {string | boolean} typeDate - accept start, end or false 
+         * @example `selectedDateAction.setMinute( {string} id, {number} minute, {string | boolean} typeDate )` 
          */
         setMinute: {
 
-            /**
-             * @memberof selectedDate.setMinute
-             * @param {number} minute 
-             * @param {string} inputId 
-             * @param {string | boolean} typeDate - accept start, end or false
-             */
             prepare: (minute, inputId, typeDate) => ({
                 payload: {minute, inputId, typeDate}
             }),
@@ -322,16 +316,14 @@ const { actions, reducer } = createSlice({
 
         /**
          * Set selected Month
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {number} month 
+         * @param {string} inputId 
+         * @param {string | boolean} typeDate - accept start, end or false 
+         * @example `selectedDateAction.setMonth( {string} id, {number} month, {string | boolean} typeDate )` 
          */
         setMonth: {
 
-            /**
-             * @memberof selectedDate.setMonth
-             * @param {number} month 
-             * @param {string} inputId 
-             * @param {string | boolean} typeDate - accept start, end or false
-             */
             prepare: (month, inputId, typeDate) => ({
                 payload: {month, inputId, typeDate}
             }),
@@ -358,16 +350,14 @@ const { actions, reducer } = createSlice({
 
         /**
          * Set selected year
-         * @memberof selectedDate
+         * @memberof selectedDate 
+         * @param {number} year 
+         * @param {string} inputId 
+         * @param {string | boolean} typeDate - accept start, end or false 
+         * @example `selectedDateAction.setYear( {string} id, {number} year, {string | boolean} typeDate )` 
          */
         setYear: {
 
-            /**
-             * @memberof selectedDate.setYear
-             * @param {number} year 
-             * @param {string} inputId 
-             * @param {string | boolean} typeDate - accept start, end or false
-             */
             prepare: (year, inputId, typeDate) => ({
                 payload: {year, inputId, typeDate}
             }),

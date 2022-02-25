@@ -4,8 +4,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = { status: "void", display: {}, checked: [] }
 
 /**
- * Redux component in charge of params state - state : { status: {string}, display: {object}, checked: {array} }
- * @name params 
+ * @typedef {object} params 
+ * @component 
+ * @description Redux component in charge of params state - state : { status: {string}, display: {object}, checked: {array} }
+ * @property {function} init - Initializes state params of element corresponding to id passed as parameter 
+ * @property {function} setDisplay - Manages display state of element corresponding to id passed in 1st parameters 
+ * @property {function} updateDisplay - Update display state of element corresponding to id passed in 1st parameters 
  */
 const { actions, reducer } = createSlice({
     name: "params", 
@@ -13,15 +17,13 @@ const { actions, reducer } = createSlice({
     reducers: {
 
         /**
-         * Initializes state params of element corresponding to id passed as parameter
-         * @memberof params
+         * Initializes state params of element corresponding to id passed as parameter 
+         * @memberof params 
+         * @param {string} id 
+         * @example `paramsAction.init( {string} id )`
          */
         init: {
             
-            /**
-            * @memberof params.init
-            * @param {string} id 
-            */
             prepare: (id) => ({
                 payload: {id}
             }),
@@ -38,15 +40,13 @@ const { actions, reducer } = createSlice({
         
         /**
          * Manages display state of element corresponding to id passed in 1st parameters
-         * @memberof params
+         * @memberof params 
+         * @param {string} id 
+         * @param {boolean} value - true : element is displayed 
+         * @example `paramsAction.setDisplay( {string} id, {boolean} value )`
          */
         setDisplay: {
 
-            /**
-            * @memberof params.setDisplay
-            * @param {string} id 
-            * @param {boolean} value - true : element is displayed
-            */
             prepare: (id, value = false) => ({
                 payload: {id, value}
             }),
@@ -60,15 +60,13 @@ const { actions, reducer } = createSlice({
         
         /**
          * Update display state of element corresponding to id passed in 1st parameters
-         * @memberof params
+         * @memberof params 
+         * @param {string} id 
+         * @param {boolean} value - true : element is displayed 
+         * @example `paramsAction.updatetDisplay( {string} id, {boolean} value )`
          */
         updateDisplay: {
 
-            /**
-            * @memberof params.updateDisplay
-            * @param {string} id 
-            * @param {boolean} value - true : element is displayed
-            */
             prepare: (id, value) => ({
                 payload: {id, value}
             }),

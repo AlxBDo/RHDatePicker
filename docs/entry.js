@@ -37,5 +37,14 @@ reactComponents['Dialog'] = Component3;
 import Component4 from '../src/lib/component/error/index.jsx';
 reactComponents['Error'] = Component4;
 
-import Component5 from '../src/lib/component/calendar/TimeSelect.jsx';
-reactComponents['TimeSelect'] = Component5;
+import Component5 from '../src/lib/features/error.js';
+reactComponents['error'] = Component5;
+
+import Component6 from '../src/lib/features/params.js';
+reactComponents['params'] = Component6;
+
+import Component7 from '../src/lib/features/selectedDate.js';
+reactComponents['selectedDate'] = Component7;
+
+import Component8 from '../src/lib/component/calendar/TimeSelect.jsx';
+reactComponents['TimeSelect'] = Component8;

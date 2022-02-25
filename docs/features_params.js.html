@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Calendar.html">Calendar</a></li><li><a href="CalendarSelect.html">CalendarSelect</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dialog.html">Dialog</a></li><li><a href="Error.html">Error</a></li><li><a href="TimeSelect.html">TimeSelect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#currentDate">currentDate</a></li><li><a href="global.html#currentTime">currentTime</a></li><li><a href="global.html#datePattern">datePattern</a></li><li><a href="global.html#datePlaceholder">datePlaceholder</a></li><li><a href="global.html#deleteSelectedDay">deleteSelectedDay</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#getCalendarOption">getCalendarOption</a></li><li><a href="global.html#getErrors">getErrors</a></li><li><a href="global.html#getIsDefaultObject">getIsDefaultObject</a></li><li><a href="global.html#getLimitYear">getLimitYear</a></li><li><a href="global.html#getNumberDay">getNumberDay</a></li><li><a href="global.html#getSelectItemId">getSelectItemId</a></li><li><a href="global.html#getSpan">getSpan</a></li><li><a href="global.html#getSpanValue">getSpanValue</a></li><li><a href="global.html#months">months</a></li><li><a href="global.html#moveDateSelectList">moveDateSelectList</a></li><li><a href="global.html#onWheelFunction">onWheelFunction</a></li><li><a href="global.html#params">params</a></li><li><a href="global.html#selectedDate">selectedDate</a></li><li><a href="global.html#setInitialDateState">setInitialDateState</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#theme">theme</a></li><li><a href="global.html#transformToNumber">transformToNumber</a></li><li><a href="global.html#updateDateSelectList">updateDateSelectList</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Calendar.html">Calendar</a></li><li><a href="CalendarSelect.html">CalendarSelect</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dialog.html">Dialog</a></li><li><a href="Error.html">Error</a></li><li><a href="error_.html">error</a></li><li><a href="params.html">params</a></li><li><a href="selectedDate.html">selectedDate</a></li><li><a href="TimeSelect.html">TimeSelect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#currentDate">currentDate</a></li><li><a href="global.html#currentTime">currentTime</a></li><li><a href="global.html#datePattern">datePattern</a></li><li><a href="global.html#datePlaceholder">datePlaceholder</a></li><li><a href="global.html#deleteSelectedDay">deleteSelectedDay</a></li><li><a href="global.html#getCalendarOption">getCalendarOption</a></li><li><a href="global.html#getErrors">getErrors</a></li><li><a href="global.html#getIsDefaultObject">getIsDefaultObject</a></li><li><a href="global.html#getLimitYear">getLimitYear</a></li><li><a href="global.html#getNumberDay">getNumberDay</a></li><li><a href="global.html#getSelectItemId">getSelectItemId</a></li><li><a href="global.html#getSpan">getSpan</a></li><li><a href="global.html#getSpanValue">getSpanValue</a></li><li><a href="global.html#months">months</a></li><li><a href="global.html#moveDateSelectList">moveDateSelectList</a></li><li><a href="global.html#onWheelFunction">onWheelFunction</a></li><li><a href="global.html#setInitialDateState">setInitialDateState</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#theme">theme</a></li><li><a href="global.html#transformToNumber">transformToNumber</a></li><li><a href="global.html#updateDateSelectList">updateDateSelectList</a></li></ul></div>
                 
             </nav>
         </div>
@@ -95,8 +95,12 @@
 const initialState = { status: "void", display: {}, checked: [] }
 
 /**
- * Redux component in charge of params state - state : { status: {string}, display: {object}, checked: {array} }
- * @name params 
+ * @typedef {object} params 
+ * @component 
+ * @description Redux component in charge of params state - state : { status: {string}, display: {object}, checked: {array} }
+ * @property {function} init - Initializes state params of element corresponding to id passed as parameter 
+ * @property {function} setDisplay - Manages display state of element corresponding to id passed in 1st parameters 
+ * @property {function} updateDisplay - Update display state of element corresponding to id passed in 1st parameters 
  */
 const { actions, reducer } = createSlice({
     name: "params", 
@@ -104,15 +108,13 @@ const { actions, reducer } = createSlice({
     reducers: {
 
         /**
-         * Initializes state params of element corresponding to id passed as parameter
-         * @memberof params
+         * Initializes state params of element corresponding to id passed as parameter 
+         * @memberof params 
+         * @param {string} id 
+         * @example `paramsAction.init( {string} id )`
          */
         init: {
             
-            /**
-            * @memberof params.init
-            * @param {string} id 
-            */
             prepare: (id) => ({
                 payload: {id}
             }),
@@ -129,15 +131,13 @@ const { actions, reducer } = createSlice({
         
         /**
          * Manages display state of element corresponding to id passed in 1st parameters
-         * @memberof params
+         * @memberof params 
+         * @param {string} id 
+         * @param {boolean} value - true : element is displayed 
+         * @example `paramsAction.setDisplay( {string} id, {boolean} value )`
          */
         setDisplay: {
 
-            /**
-            * @memberof params.setDisplay
-            * @param {string} id 
-            * @param {boolean} value - true : element is displayed
-            */
             prepare: (id, value = false) => ({
                 payload: {id, value}
             }),
@@ -151,15 +151,13 @@ const { actions, reducer } = createSlice({
         
         /**
          * Update display state of element corresponding to id passed in 1st parameters
-         * @memberof params
+         * @memberof params 
+         * @param {string} id 
+         * @param {boolean} value - true : element is displayed 
+         * @example `paramsAction.updatetDisplay( {string} id, {boolean} value )`
          */
         updateDisplay: {
 
-            /**
-            * @memberof params.updateDisplay
-            * @param {string} id 
-            * @param {boolean} value - true : element is displayed
-            */
             prepare: (id, value) => ({
                 payload: {id, value}
             }),

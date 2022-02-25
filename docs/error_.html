@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> utils/date.js</title>
+  <title> error</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -79,108 +77,406 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>utils/date.js</h1>
+                    <p>Components</p>
+                    <h1>error</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>const date = new Date()
+        <h2>
+            &lterror  /&gt
+        </h2>
+        
+    
+</header>
 
-/**
- * Convert a digit to a number
- * @param {number} number 
- * @returns {string}
- */
-export const transformToNumber = (number) => number.toLocaleString(
-    undefined, { minimumIntegerDigits: 2, useGrouping: false })
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
 
-/**
- * Store current date - contains day, month and year attributes
- */
-export const currentDate = {
-    day: transformToNumber(date.getDate()), 
-    month: transformToNumber(date.getMonth() + 1) , 
-    year: date.getFullYear()
-}
 
-/**
- * Store current time - contains hour and minute attributes
- */
-export const currentTime = {
-    hour: transformToNumber(date.getHours()), 
-    minute: transformToNumber(date.getMinutes()) 
-}
+    
+    <h4 class="name" id="error">
+        <a class="href-link" href="#error">#</a>
+        
+        <span class="code-name">
+            
+                &lterror  /&gt
+            
+        </span>
+    </h4>
+    
 
-/**
- * Input pattern array
- */
-export const datePattern = [
-    "[0-9]{4}-[0-9]{2}-[0-9]{2}", 
-    "[0-9]{2}-[0-9]{2}-[0-9]{4}", 
-    "[0-9]{1}-[0-9]{1}-[0-9]{4}", 
-    "[0-9]{1}.[0-9]{1}.[0-9]{4}"
-]
+    
+    
+    <div class="description">
+        <p>Redux component in charge of react Error component state - state : { status: {string}, error: {object} }</p>
+    </div>
+    
 
-/**
- * Input placeholder array
- */
-export const datePlaceholder = ["YYYY-MM-DD", "JJ-MM-AAAA", "J-M-AAAA", "J.M.AAAA"]
 
-/**
- * provides the start and end years of the select
- * @param {string} minOrMax - max = last year accepted 
- * @returns {interger} year
-*/
-export const getLimitYear = (minOrMax) => minOrMax === "max" 
-                          ? currentDate.year + 30 : currentDate.year - 70
 
-/**
- * Provide month informations. Contains name (month names array) and getLength (function) attributes
- */
-export const months = {
 
-    name: [
-        "January", 
-        "February", 
-        "March", 
-        "April", 
-        "May", 
-        "June", 
-        "July", 
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ], 
 
-    /**
-     * Provides month length
-     * @param {number} month 
-     * @param {number} year 
-     * @returns {number}
-     */
-    getLength: (month, year) => {
-        switch(month){
-            case 1 : return parseInt(year) % 4 === 0 ? 28 : 27
-            case 3 : case 5 : case 7 : case 8 : case 10 : return 30
-            default : return 31
-        }
-    }
-}
 
-export const timePattern = "[0-9]{2}:[0-9]{2}" 
 
-export const timePlaceholder = "HH:MM"
+    
 
-export const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>add</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Add an error</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>clear</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Remove errors encountered by a component</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="features_error.js.html" class="button">View Source</a>
+            <span>
+                <a href="features_error.js.html">features/error.js</a>, <a href="features_error.js.html#line27">line 27</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+<h4 class="name" id=".add">
+    <a class="href-link" href="#.add">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+    
+    <span class="code-name">
+        add
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Add an error to error state</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="features_error.js.html" class="button">View Source</a>
+            <span>
+                <a href="features_error.js.html">features/error.js</a>, <a href="features_error.js.html#line45">line 45</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>`errorAction.add( errorObject = { what: "date", why: "tooShort", output: "inputId"} )` </code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".clear">
+    <a class="href-link" href="#.clear">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+    
+    <span class="code-name">
+        clear
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Remove errors encountered by a component</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="features_error.js.html" class="button">View Source</a>
+            <span>
+                <a href="features_error.js.html">features/error.js</a>, <a href="features_error.js.html#line80">line 80</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>`errorAction.clear("inputId")` </code></pre>
+    
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
