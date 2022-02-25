@@ -23,7 +23,7 @@ const initialState = {
     status: "empty", 
     error: {}
 }
-
+ 
 /**
  * @typedef {object} error 
  * @description Redux component in charge of react Error component state - state : { status: {string}, error: {object} } 

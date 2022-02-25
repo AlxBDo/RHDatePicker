@@ -60,7 +60,7 @@ For use, only "inputId" and "label" parameters are required. By default, "valueF
 
 Input value can be retrieved using input id or name (equal to "inputId" argument), or a custom event function (see "eventFunction" argument). If "type" argument is a period (datePeriod, dateTimePeriod or timePeriod), a second input is generated. Its name and id correspond to "inputId" argument with the addition of the suffix "-end" (ex: "myInputId-end").
 
-Below is an example implementation of the RHDatePicker component. You can also see other examples in [src/lib/examples/](https://alxbdo.github.io/RHDatePicker/src/lib/example) .
+Below is an example implementation of the RHDatePicker component. You can also see other examples in src/lib/examples/ .
 
 `import DatePicker from "rh-date-picker/dist/component/datePicker"`
 
@@ -74,7 +74,7 @@ Below is an example implementation of the RHDatePicker component. You can also s
 
 `   type={"dateTimePeriod"}` 
 
-`   eventFunction={{ onBlur: myFunction() }}` 
+`   eventFunction={{ onBlur: myFunction }}` 
 
 `   valueFormat={"dateObject"}`
 
@@ -103,9 +103,9 @@ Below is the list of parameters accepted by the DatePicker component :
 
 
 * eventFunction
-    * {object} : contains function to apply to events. Input value is passed as first argument of custom event function
+    * {object} : contains function to apply to events. Input value is passed as first argument of custom event function (not for onClick function)
     * optional 
-    * example : { onChange: myCustomOnChangeFunction, onChange: myCustomOnClickFunction, onBlur: myCustomOnBlurFunction } 
+    * example : { onChange: myCustomOnChangeFunction, onClick: myCustomOnClickFunction, onBlur: myCustomOnBlurFunction } 
 
 
 * htmlClass 
@@ -137,4 +137,9 @@ Below is the list of parameters accepted by the DatePicker component :
 
 #### 3.3.3 Documenation
 
-The documentation can be viewed by following the link below : [documentation](https://alxbdo.github.io/RHDatePicker/docs/index.html)
+The documentation can be viewed by following the link below : [documentation](https://alxbdo.github.io/RHDatePicker/docs/index.html) 
+
+
+#### 3.3.4 Npm package 
+
+[See RHDatePicker npm package](https://www.npmjs.com/package/rh-date-picker)
