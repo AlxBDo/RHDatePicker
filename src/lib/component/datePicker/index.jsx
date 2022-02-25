@@ -13,22 +13,21 @@ import { selectSelectedDate } from "../../utils/selectors"
 import * as selectedDateAction from "../../features/selectedDate"
 
 /**
- * Check and display input type date
+ * Display label, input and calendar. Controls input format and formats output value. 
  * @component 
  * @param {object} props - object containing attributes: inputId, label, evenFunction (optional) and htmlClass (optional)
- * @example { inputId: "my-input-id", label: "My input id label", evenFunction: {}, htmlClass: {} }
  * @param {string} props.inputId - accepts alphanumeric characters and hyphen 
  * @param {object} props.deadlines - contains min and max attributes
- * @example { max: 2022-02-22, min: 1940-06-18 }
+ * @example `deadlines = { max: 2022-02-22, min: 1940-06-18 }`
  * @param {string} props.label - accepts alphanumeric characters, hyphen, space and apostrophe
  * @param {object} props.eventFunction - contains function to apply to events
- * @example { onBlur: onBlurFunction, onChange: onChangeFunction, onClick: onClickFunction }
+ * @example `eventFunction = { onBlur: onBlurFunction, onChange: onChangeFunction, onClick: onClickFunction }`
  * @param {object} props.htmlClass - contains classes to apply to the container, to the input and to the error message
- * @example { container: "container-class", input: "input-class", error: "error-class" }
+ * @example `htmlClass = { container: "container-class", input: "input-class", error: "error-class" }`
  * @param {string} props.valueFormat - output format of DatePicker input value - Accept : "array", "dateObject" = Date(), "number", "string"
  * @param {string} props.type - define input type to generate - Accept : "date", "datePeriod", "dateTime", "dateTimePeriod", "time", "timePeriod"
  * @param {object} props.colors - define colors used by component
- * @example { dark: "#302f2f", light: "#f2f2ef", error: "#e55a44", advice: "#75B74E"}  
+ * @example `colors = { dark: "#302f2f", light: "#f2f2ef", error: "#e55a44", advice: "#75B74E"}`  
  * @returns {object}
  */
 const DatePicker = (props) => {

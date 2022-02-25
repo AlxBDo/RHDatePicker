@@ -14,27 +14,33 @@ const getIsDefaultObject = (isDate, isDateTime, isPeriod, isTime) => { return {
     date: isDate, dateTime: isDateTime, period: isPeriod, time: isTime }}
 
 /**
- * Store necessary informations and functions to execute DatePicker component
- */
+ * @typedef {object} datePickerParams
+ * @description Store necessary informations and functions to execute DatePicker component
+ * @property {object} id - Store id 
+ * @property {object} is - Store "is" object. Contains date, dateTime, period and time attributes. 
+ * @example `datePickerParams.is = { date: true, dateTime: false, period: true, time: false }`
+ * @property {object} deadlines - Store deadlines applied to the DatePicker component 
+ * @example `datePickerParams.deadlines = { max: 2022-02-24, min: 2022-01-01 }` 
+ * @property {function} addId - Add ids to "id" attribute 
+ * @property {object} eventFunction - Stores functions to be executed when events are triggered 
+ * @property {object} format - Store format of input and output values 
+ * @property {function} getTimeSelectId - Provide time select id 
+ * @property {object} htmlClass - Stores html class provided as a parameter of DatePicker component. Use to define className 
+ * @property {object} label - Store input label provided as a parameter of DatePicker component. Use to define label text 
+ * @property {function} initComponentParams - Initializes the attributes containing the component parameters 
+ * @property {function} initIdHtml - Initializes the html ids necessary to component operations 
+ * @property {function} listen - Execute the functions corresponding to the eventName parameter 
+ * @property {function} setEventFunction - Check and store the event functions passed as a parameter of the DatePicker component 
+ * @property {function} setHtmlClass - Check and store html class passed as a parameter of the DatePicker component 
+ * @property {function} setInputId - Check and store the input id passed as a parameter of the DatePicker component
+ * @property {function} setLabel - Check and store the input label passed as a parameter of the DatePicker component
+*/
 export const datePickerParams = {
 
-    /**
-     * Store id
-     * @see initIdHtml
-     */
     id : {},
 
-    /**
-     * Store "is" object. Contains date, dateTime, period and time attributes. 
-     * @see getIsDefaultObject 
-     * @example { date: true, dateTime: false, period: true, time: false }
-     */
     is: {},
 
-    /**
-     * Store deadlines applied to the DatePicker component 
-     * @example { max: 2022-02-24, min: 2022-01-01 }
-     */
     deadlines: {},
 
     /**
@@ -45,9 +51,6 @@ export const datePickerParams = {
      */
     addId: (baseId, idObject) => datePickerParams.id[baseId] = idObject,
 
-    /**
-     * stores functions to be executed when events are triggered 
-     */
     eventFunction: {
 
         /**
@@ -81,9 +84,6 @@ export const datePickerParams = {
         }
     },
 
-    /**
-     * Store format of input and output values
-     */
     format: {},
 
     /**
@@ -91,20 +91,14 @@ export const datePickerParams = {
      * @param {string} baseId - DatePicker input id
      * @param {string} selectName - time select name (is equivalent to id) 
      * @param {string | boolean} startOrEnd - defines if it is an end time, a start time or neither 
-     * @returns {string}
+     * @returns {string} timeSelectId
      */
     getTimeSelectId: (baseId, selectName, startOrEnd = false) => {
         return datePickerParams.id[baseId][`${selectName}${startOrEnd ? startOrEnd.substring(0,1).toUpperCase() + startOrEnd.substring(1) : ""}Select`]
     },
 
-    /**
-     * Stores html class provided as a parameter of DatePicker component. Use to define className
-     */
     htmlClass: {},
 
-    /**
-     * Store input label provided as a parameter of DatePicker component. Use to define label text
-     */
     label: {},
     
     /**

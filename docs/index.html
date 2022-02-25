@@ -70,7 +70,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Calendar.html">Calendar</a></li><li><a href="CalendarSelect.html">CalendarSelect</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dialog.html">Dialog</a></li><li><a href="Error.html">Error</a></li><li><a href="TimeSelect.html">TimeSelect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#currentDate">currentDate</a></li><li><a href="global.html#currentTime">currentTime</a></li><li><a href="global.html#datePattern">datePattern</a></li><li><a href="global.html#datePickerParams">datePickerParams</a></li><li><a href="global.html#datePlaceholder">datePlaceholder</a></li><li><a href="global.html#deleteSelectedDay">deleteSelectedDay</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#getCalendarOption">getCalendarOption</a></li><li><a href="global.html#getErrors">getErrors</a></li><li><a href="global.html#getIsDefaultObject">getIsDefaultObject</a></li><li><a href="global.html#getLimitYear">getLimitYear</a></li><li><a href="global.html#getNumberDay">getNumberDay</a></li><li><a href="global.html#getSelectItemId">getSelectItemId</a></li><li><a href="global.html#getSpan">getSpan</a></li><li><a href="global.html#getSpanValue">getSpanValue</a></li><li><a href="global.html#months">months</a></li><li><a href="global.html#moveDateSelectList">moveDateSelectList</a></li><li><a href="global.html#onWheelFunction">onWheelFunction</a></li><li><a href="global.html#params">params</a></li><li><a href="global.html#selectedDate">selectedDate</a></li><li><a href="global.html#setInitialDateState">setInitialDateState</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#theme">theme</a></li><li><a href="global.html#transformToNumber">transformToNumber</a></li><li><a href="global.html#updateDateSelectList">updateDateSelectList</a></li><li><a href="global.html#validation">validation</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Calendar.html">Calendar</a></li><li><a href="CalendarSelect.html">CalendarSelect</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dialog.html">Dialog</a></li><li><a href="Error.html">Error</a></li><li><a href="TimeSelect.html">TimeSelect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#currentDate">currentDate</a></li><li><a href="global.html#currentTime">currentTime</a></li><li><a href="global.html#datePattern">datePattern</a></li><li><a href="global.html#datePlaceholder">datePlaceholder</a></li><li><a href="global.html#deleteSelectedDay">deleteSelectedDay</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#getCalendarOption">getCalendarOption</a></li><li><a href="global.html#getErrors">getErrors</a></li><li><a href="global.html#getIsDefaultObject">getIsDefaultObject</a></li><li><a href="global.html#getLimitYear">getLimitYear</a></li><li><a href="global.html#getNumberDay">getNumberDay</a></li><li><a href="global.html#getSelectItemId">getSelectItemId</a></li><li><a href="global.html#getSpan">getSpan</a></li><li><a href="global.html#getSpanValue">getSpanValue</a></li><li><a href="global.html#months">months</a></li><li><a href="global.html#moveDateSelectList">moveDateSelectList</a></li><li><a href="global.html#onWheelFunction">onWheelFunction</a></li><li><a href="global.html#params">params</a></li><li><a href="global.html#selectedDate">selectedDate</a></li><li><a href="global.html#setInitialDateState">setInitialDateState</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#theme">theme</a></li><li><a href="global.html#transformToNumber">transformToNumber</a></li><li><a href="global.html#updateDateSelectList">updateDateSelectList</a></li></ul></div>
                 
             </nav>
         </div>
@@ -109,12 +109,13 @@
 <a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/uses-html.svg" alt="forthebadge"></a></p>
 <h1>RHDatePicker</h1>
 <p>A library of React components created using <code>create-react-app</code> to make secure and customizable date picker.</p>
-<p><img src="https://alxbdo.github.io/RHDatePicker/src/img/PeriodInput.png" alt="ScreenShot"></p>
-<p><img src="https://alxbdo.github.io/RHDatePicker/src/img/Calendar.png" alt="ScreenShot"></p>
+<p><img src="https://alxbdo.github.io/RHDatePicker/src/img/darkTheme.png" alt="ScreenShot"></p>
+<p><img src="https://alxbdo.github.io/RHDatePicker/src/img/lightTheme.png" alt="ScreenShot"></p>
 <p>RHDatePicker is a time picker displaying a label and an html input as well as a clickable calendar.</p>
 <ul>
-<li>It manages dates, times and periods. The input value can be retrieved in number, string, array or Date object format.</li>
-<li>It retrieves the language and the theme defined by the browser in order to apply the input and output format as well as the colors used.</li>
+<li>It manages dates, times and periods.</li>
+<li>Input value can be retrieved in number, string, array or Date object format.</li>
+<li>It retrieves the language and the theme defined to navigator in order to apply the input and output format as well as the colors used.</li>
 </ul>
 <h2>1. Author</h2>
 <p>Alexandre Bidaud</p>
@@ -134,26 +135,97 @@
 <ul>
 <li><a href="https://nodejs.org/en/">NodeJS (<strong>version 12.18</strong>)</a></li>
 <li><a href="https://reactjs.org/">React</a></li>
+<li><a href="https://react-redux.js.org/introduction/getting-started">React-Redux</a></li>
+<li><a href="https://redux-toolkit.js.org/introduction/getting-started">Redux-toolkit</a></li>
+<li><a href="https://styled-components.com/">Styled-components</a></li>
 </ul>
 <h3>3.2 Installation</h3>
 <p>Run the following command:
 <code>npm i rh-date-picker</code></p>
 <h3>3.3 Use</h3>
 <h4>3.3.1 Example</h4>
-<p>Below is an example implementation of the RHDatePicker component. You can also see the demo in the src/lib/examples/ directory.</p>
+<p>For use, only &quot;inputId&quot; and &quot;label&quot; parameters are required. By default, &quot;valueFormat&quot; attribute is &quot;number&quot; and &quot;type&quot; attribute is &quot;dateTime&quot;.</p>
+<p>Input value can be retrieved using input id or name (equal to &quot;inputId&quot; argument), or a custom event function (see &quot;eventFunction&quot; argument). If &quot;type&quot; argument is a period (datePeriod, dateTimePeriod or timePeriod), a second input is generated. Its name and id correspond to &quot;inputId&quot; argument with the addition of the suffix &quot;-end&quot; (ex: &quot;myInputId-end&quot;).</p>
+<p>Below is an example implementation of the RHDatePicker component. You can also see other examples in <a href="https://alxbdo.github.io/RHDatePicker/src/lib/example">src/lib/examples/</a> .</p>
 <p><code>import DatePicker from &quot;rh-date-picker/dist/component/datePicker&quot;</code></p>
-<p><code>&lt;DatePicker inputId={&quot;myInputId&quot;} label={&quot;my label text&quot;} deadlines= {{ max: 2022-02-02, min: 2020-01-01 }} type={&quot;dateTimePeriod&quot;} eventFunction={{ onblur: myCheckFunction() }} /&gt;</code></p>
+<p><code>&lt;DatePicker</code></p>
+<p><code>   inputId={&quot;myInputId&quot;}</code></p>
+<p><code>   label={&quot;my label text&quot;}</code></p>
+<p><code>   deadlines= {{ max: 2022-02-02, min: 2020-01-01 }}</code></p>
+<p><code>   type={&quot;dateTimePeriod&quot;}</code></p>
+<p><code>   eventFunction={{ onBlur: myFunction() }}</code></p>
+<p><code>   valueFormat={&quot;dateObject&quot;}</code></p>
+<p><code> /&gt;</code></p>
 <h4>3.3.2 Parameters</h4>
 <p>Below is the list of parameters accepted by the DatePicker component :</p>
 <ul>
-<li>inputId {string} : accepts alphanumeric characters and hyphen</li>
-<li>deadlines {object} : contains min and max attributes</li>
-<li>label {string} : accepts alphanumeric characters, hyphen, space and apostrophe</li>
-<li>eventFunction {object} : contains function to apply to events</li>
-<li>htmlClass {object} : contains classes to apply to the container, to the input and to the error message</li>
-<li>valueFormat {string} : output format of DatePicker input value - Accept : &quot;array&quot;, &quot;dateObject&quot; = Date(), &quot;number&quot;, &quot;string&quot;</li>
-<li>type {string} : define input type to generate - Accept : &quot;date&quot;, &quot;datePeriod&quot;, &quot;dateTime&quot;, &quot;dateTimePeriod&quot;, &quot;time&quot;, &quot;timePeriod&quot;</li>
-<li>colors {object} : define colors used by component</li>
+<li>
+<p>inputId</p>
+<ul>
+<li>{string} : accepts alphanumeric characters and hyphen</li>
+<li>REQUIRED</li>
+</ul>
+</li>
+<li>
+<p>deadlines</p>
+<ul>
+<li>{object} : contains min and max attributes</li>
+<li>optional</li>
+<li>example : { max: 2022-02-02, min: 2020-01-01 }</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>label</p>
+<ul>
+<li>{string} : accepts alphanumeric characters, hyphen, space and apostrophe</li>
+<li>REQUIRED</li>
+</ul>
+</li>
+<li>
+<p>eventFunction</p>
+<ul>
+<li>{object} : contains function to apply to events. Input value is passed as first argument of custom event function</li>
+<li>optional</li>
+<li>example : { onChange: myCustomOnChangeFunction, onChange: myCustomOnClickFunction, onBlur: myCustomOnBlurFunction }</li>
+</ul>
+</li>
+<li>
+<p>htmlClass</p>
+<ul>
+<li>{object} : contains classes to apply to the container, to the input and to the error message</li>
+<li>optional</li>
+<li>example : { container: &quot;container-class&quot;, input: &quot;input-class&quot;, error: &quot;error-class&quot; }</li>
+</ul>
+</li>
+<li>
+<p>valueFormat</p>
+<ul>
+<li>{string} : output format of DatePicker input value.</li>
+<li>accept : &quot;array&quot;, &quot;dateObject&quot;, &quot;number&quot;, &quot;string&quot;</li>
+<li>default value : &quot;number&quot;</li>
+<li>optional</li>
+</ul>
+</li>
+<li>
+<p>type</p>
+<ul>
+<li>{string} : define input type to generate</li>
+<li>accept : &quot;date&quot;, &quot;datePeriod&quot;, &quot;dateTime&quot;, &quot;dateTimePeriod&quot;, &quot;time&quot;, &quot;timePeriod&quot;</li>
+<li>default value : &quot;dateTime&quot;</li>
+<li>optional</li>
+</ul>
+</li>
+<li>
+<p>colors</p>
+<ul>
+<li>{object} : define colors used by component</li>
+<li>default value : { dark: &quot;#302f2f&quot;, light: &quot;#f2f2ef&quot;}</li>
+<li>optional</li>
+<li>example : { dark: &quot;#302f2f&quot;, light: &quot;#f2f2ef&quot;, error: &quot;#e55a44&quot;, advice: &quot;#75B74E&quot;}</li>
+</ul>
+</li>
 </ul>
 <h4>3.3.3 Documenation</h4>
 <p>The documentation can be viewed by following the link below : <a href="https://alxbdo.github.io/RHDatePicker/docs/index.html">documentation</a></p></article>

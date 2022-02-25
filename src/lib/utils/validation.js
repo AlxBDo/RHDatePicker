@@ -2,13 +2,29 @@ import { datePattern, datePlaceholder, timePattern, timePlaceholder } from "./da
 import { datePickerParams } from "./datePickerParams";
 
 /**
- * Provides input and parameter check methods
+ * @typedef {object} validation 
+ * @description Provides input and parameter check methods 
+ * @property {array} error - Stores errors in array 
+ * @property {function} addError - Add an error object to error attribute 
+ * @property {object} allowedLength - Provides allowed lengths. 
+ * Contains dateInput, id, label attributes. 
+ * These attributes contain an object having the min and max attributes. 
+ * @property {object} allowedType - Provides allowed type (return of typeof). 
+ * Contains eventFuntion attribute 
+ * @property {function} checkColor - Checks that the color passed in parameter corresponds to the accepted format 
+ * @property {function} checkFormat - Checks that the requested format matches the accepted format 
+ * @property {function} checkId - Checks that id passed in parameter corresponds to the accepted format 
+ * @property {function} checkInputValue - Checks that input value passed in parameter corresponds to the accepted format
+ * @property {function} checkLabel - Checks that label passed in parameter corresponds to the accepted format 
+ * @property {function} checkLimits - Checks that deadlines passed in parameter corresponds to the accepted format 
+ * @property {function} checkString - Checks length and format of string parameter 
+ * @property {function} checkType - Checks if type is allowed 
+ * @property {function} clearError - clear error attribute and error message displayed 
+ * @property {object} formats - Provides format control functions and information 
+ * @property {function} regExpTest - Apply RegExp test function
  */
  export const validation = {
 
-    /**
-     * Stores errors in array
-     */
     error: [],
 
     /**
@@ -24,10 +40,6 @@ import { datePickerParams } from "./datePickerParams";
         return false
     },
  
-    /**
-     * Provides allowed lengths. Contains dateInput, id, label attributes. 
-     * These attributes contain an object having the min and max attributes
-     */
     allowedLength: {
         color: { max: 23, min: 3 },
         date: { max: 10, min: 10 },
@@ -37,9 +49,6 @@ import { datePickerParams } from "./datePickerParams";
         time: {max: 5, min: 5}
     }, 
 
-    /**
-     * Provides allowed type (return of typeof). Contains eventFuntion attributes
-     */
     allowedType: { eventFunction: "function" },
 
     /**
@@ -176,9 +185,6 @@ import { datePickerParams } from "./datePickerParams";
      */
     clearError: () => { validation.error = [] },
 
-    /**
-     * Provides format control functions and information
-     */
     formats: {
 
         /**

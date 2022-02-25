@@ -33,6 +33,28 @@ const App = () => {
         } 
     }
 
+    // contain event function param
+    const evenFunctionPeriod = { 
+        periodValues: { start: false, end: false }, 
+        getStringValue: (date) => new Intl.DateTimeFormat(
+            undefined, 
+            { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+            .format(date),
+        duration: () => Math.ceil(Math.abs(evenFunctionPeriod.periodValues.end - evenFunctionPeriod.periodValues.start) / (1000 * 60 * 60 * 24)),
+        onBlur : (e) => {
+            const periodMsgBox = document.getElementById("vacation-period")
+            if(!evenFunctionPeriod.periodValues.start || evenFunctionPeriod.periodValues.end){ 
+                periodMsgBox.textContent = ""
+                evenFunctionPeriod.periodValues.start = e 
+                evenFunctionPeriod.periodValues.end = false 
+            } else {  
+                evenFunctionPeriod.periodValues.end = e 
+                periodMsgBox.textContent = `Your next vacation is scheduled from ${evenFunctionPeriod.getStringValue(evenFunctionPeriod.periodValues.start)} 
+                to ${evenFunctionPeriod.getStringValue(evenFunctionPeriod.periodValues.end)}. Your leave will last ${evenFunctionPeriod.duration()} days`
+            }
+        } 
+    }
+
     // contain html class param
     const BDHtmlClass = {container: "example-ctn", error: "example-err"}
 
@@ -50,7 +72,7 @@ const App = () => {
                     eventFunction={eventFunction} 
                     htmlClass={BDHtmlClass} 
                     type={"date"}
-                    valueFormat={"dateObject"}
+                    valueFormat={"array"}
                 />
                 <p id="weekday-ctn">You were born on a <span id="test-weekday"></span></p>
             </div>
@@ -71,9 +93,11 @@ const App = () => {
                     inputId={"holidays-period-ipt"} 
                     label={"Choose end and start date of your next vacation"} 
                     htmlClass={BDHtmlClass} 
-                    type={"dateTimePeriod"}
+                    type={"dateTimePeriod"} 
+                    eventFunction={evenFunctionPeriod} 
+                    valueFormat={"dateObject"}
                 />
-                <p id="string-date"></p>
+                <p id="vacation-period"></p>
             </div>
         </TimeSelectorPage>
     )
