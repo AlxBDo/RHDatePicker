@@ -1,5 +1,5 @@
 # RHDatePicker 
-[![forthebadge](https://alxbdo.github.io/RHDatePicker/src/img/made-width-react.svg)](https://forthebadge.com) 
+[![forthebadge](https://alxbdo.github.io/RHDatePicker/src/img/made-with-react.svg)](https://forthebadge.com) 
 [![forthebadge](https://alxbdo.github.io/RHDatePicker/src/img/use-react-redux.svg)](https://forthebadge.com)
 
 
