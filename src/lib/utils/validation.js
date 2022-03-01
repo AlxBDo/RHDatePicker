@@ -24,7 +24,7 @@ import { datePickerParams } from "./datePickerParams";
  * @property {function} regExpTest - Apply RegExp test function
  */
  export const validation = {
-
+ 
     error: [],
 
     /**

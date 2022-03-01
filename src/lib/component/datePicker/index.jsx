@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { datePickerParams } from "../../utils/datePickerParams"
 import { validation } from "../../utils/validation" 
-import { DatePickerContainer, DatePickerInput } from "../../style"
+import { DatePickerContainer, DatePickerInput, style } from "../../style"
 import Error from "../error"
 import Calendar from "../calendar"
 import * as errorAction from "../../features/error"
@@ -121,6 +121,8 @@ const DatePicker = (props) => {
                             onClick={ eventFunctionHandler.click }
                             onBlur={ eventFunctionHandler.blur }
                             $long={datePickerParams.is[baseId].dateTime}
+                            $color={style.color()}
+                            $backgroundColor={style.backgroundColor()}
                             required 
                         />
                         <Calendar 
@@ -140,6 +142,8 @@ const DatePicker = (props) => {
                                 onClick={ eventFunctionHandler.click }
                                 onBlur={ eventFunctionHandler.blur }
                                 $long={datePickerParams.is[baseId].dateTime}
+                                $color={style.color()}
+                                $backgroundColor={style.backgroundColor()}
                                 required 
                             />
                         ) }

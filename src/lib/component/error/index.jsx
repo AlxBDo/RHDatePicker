@@ -6,7 +6,8 @@ import Dialog from "../dialog";
 import { AdviceBox, ErrorBox } from "../../style";
 import { datePickerParams } from "../../utils/datePickerParams";
 import { validation } from "../../utils/validation";
-import { selectError } from "../../utils/selectors";
+import { selectError } from "../../utils/selectors"; 
+import { style } from "../../style"
 
 /**
  * Display Dialog component containing error messages
@@ -56,9 +57,9 @@ function Error(props){
         get: (errorObj, key) => {
             if(errorObj.what && errorMessage[errorObj.why].problem && typeof errorMessage[errorObj.why].advice === "function"){
                 return(
-                    <ErrorBox key={key}>
+                    <ErrorBox key={key} $color={style.colors.error}>
                         {errorObj.what} {errorMessage[errorObj.why].problem} 
-                        <AdviceBox>{errorMessage[errorObj.why].advice(errorObj.what)}</AdviceBox>
+                        <AdviceBox $color={style.colors.advice}>{errorMessage[errorObj.why].advice(errorObj.what)}</AdviceBox>
                     </ErrorBox>
                 )
             }
@@ -90,12 +91,11 @@ function Error(props){
         } 
     
     };
-
     return(
         <Dialog 
             dialogBoxId={`${dialogBoxId}-err-msg`} 
             htmlClass={ `hrnet-dp-error ${htmlClass && htmlClass}` } 
-            displayBox={error.error[dialogBoxId] && error.status !== "empty" ? true : false}
+            displayBox={error.error[dialogBoxId] && error.status !== "empty" ? true : false} 
         >
             {error.error[dialogBoxId] && error.error[dialogBoxId].length > 0 
             && error.error[dialogBoxId].map((err, index) => err.what && (

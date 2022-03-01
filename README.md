@@ -1,9 +1,11 @@
+# RHDatePicker 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) 
 [![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com) 
 [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com) 
+[![forthebadge](https://alxbdo.github.io/RHDatePicker/src/img/use-npm.svg)](https://forthebadge.com) 
+[![forthebadge](https://alxbdo.github.io/RHDatePicker/src/img/use-react.svg)](https://forthebadge.com) 
+[![forthebadge](https://alxbdo.github.io/RHDatePicker/src/img/use-react-redux.svg)](https://forthebadge.com)
 
-
-# RHDatePicker 
 
 A library of React components created using `create-react-app` to make secure and customizable date picker.
 
@@ -15,7 +17,27 @@ RHDatePicker is a time picker displaying a label and an html input as well as a 
  * It manages dates, times and periods. 
  * Input value can be retrieved in number, string, array or Date object format. 
  * It retrieves the language and the theme defined to navigator in order to apply the input and output format as well as the colors used.
- 
+
+
+## Table of contents 
+
+* [Author](#1-author)
+* [Technologies](#2-technologies)
+* [Project](#3-project)
+    * [Prerequisites](#31-prerequisites) 
+    * [Installation](#32-installation) 
+    * [Use](#33-use)
+        * [Example](#331-example) 
+        * [Parameters](#332-parameters)
+            * [colors](#colors) 
+            * [deadlines](#deadlines) 
+            * [eventFunction](#eventfunction)
+            * [htmlClass](#htmlclass)
+            * [inputId](#inputid) 
+            * [label](#label) 
+            * [type](#type) 
+            * [valueFormat](#valueformat)
+
 
 ## 1. Author
 
@@ -53,93 +75,112 @@ Run the following command:
 
 ### 3.3 Use 
 
-
-#### 3.3.1 Example 
-
 For use, only "inputId" and "label" parameters are required. By default, "valueFormat" attribute is "number" and "type" attribute is "dateTime". 
 
 Input value can be retrieved using input id or name (equal to "inputId" argument), or a custom event function (see "eventFunction" argument). If "type" argument is a period (datePeriod, dateTimePeriod or timePeriod), a second input is generated. Its name and id correspond to "inputId" argument with the addition of the suffix "-end" (ex: "myInputId-end").
+
+
+#### 3.3.1 Example 
 
 Below is an example implementation of the RHDatePicker component. You can also see other examples in src/lib/examples/ .
 
 `import DatePicker from "rh-date-picker/dist/component/datePicker"`
 
-`<DatePicker` 
-
-`   inputId={"myInputId"}` 
-
-`   label={"my label text"}` 
-
-`   deadlines= {{ max: 2022-02-02, min: 2020-01-01 }}` 
-
-`   type={"dateTimePeriod"}` 
-
-`   eventFunction={{ onBlur: myFunction }}` 
-
-`   valueFormat={"dateObject"}`
-
-` />`
+`<DatePicker inputId={"myInputId"} label={"my label text"} />`
 
 
 #### 3.3.2 Parameters 
 
-Below is the list of parameters accepted by the DatePicker component : 
+Below is the list of parameters accepted by DatePicker component : 
+
+##### inputId 
+
+* {string} : accepts alphanumeric characters and hyphen 
+* REQUIRED 
 
 
-* inputId 
-    * {string} : accepts alphanumeric characters and hyphen 
-    * REQUIRED 
+##### deadlines 
+
+* {object} : contains min and max attributes 
+* optional 
+* example : 
+
+`const myDeadlines = { max: 2022-02-02, min: 2020-01-01 }` 
+
+`<DatePicker inputId={"myInputId"} label={"my label text"} deadlines={ myDeadlines } />` 
 
 
-* deadlines 
-    * {object} : contains min and max attributes 
-    * optional 
-    * example : { max: 2022-02-02, min: 2020-01-01 } 
+
+##### label 
+
+* {string} : accepts alphanumeric characters, hyphen, space and apostrophe 
+* REQUIRED 
 
 
-* label 
-    * {string} : accepts alphanumeric characters, hyphen, space and apostrophe 
-    * REQUIRED 
+##### eventFunction
+
+* {object} : contains function to apply to events. Input value is passed as first argument of custom event function (not for onClick function)
+* optional 
+* example :  
+
+`const myEventFunction = { onChange: myCustomOnChangeFunction, onClick: myCustomOnClickFunction, onBlur: myCustomOnBlurFunction }` 
+
+`<DatePicker inputId={"myInputId"} label={"my label text"} eventFunction={ myEventFucntion } />` 
 
 
-* eventFunction
-    * {object} : contains function to apply to events. Input value is passed as first argument of custom event function (not for onClick function)
-    * optional 
-    * example : { onChange: myCustomOnChangeFunction, onClick: myCustomOnClickFunction, onBlur: myCustomOnBlurFunction } 
+
+##### htmlClass 
+
+* {object} : contains classes to apply to the container, to the input and to the error message 
+* optional 
+* example :  
+
+`const myHtmlClass = { container: "container-class", input: "input-class", error: "error-class" }` 
+
+`<DatePicker inputId={"myInputId"} label={"my label text"} htmlClass={ myHtmlClass } />` 
 
 
-* htmlClass 
-    * {object} : contains classes to apply to the container, to the input and to the error message 
-    * optional 
-    * example : { container: "container-class", input: "input-class", error: "error-class" }
+
+##### valueFormat 
+
+* {string} : output format of DatePicker input value.  
+* default value : "number" 
+* accept : 
+    * "array" -> return array contains input value ( [YYYY, MM, DD] ), 
+    * "dateObject" -> return an instance of Date, 
+    * "number" -> return "YYYY/MM/DD", 
+    * "string" -> return date and / or time in local format. Use Intl.DateTimeFormat()
+* optional 
 
 
-* valueFormat 
-    * {string} : output format of DatePicker input value. 
-    * accept : "array", "dateObject", "number", "string" 
-    * default value : "number" 
-    * optional 
+
+##### type 
+
+* {string} : define input type to generate 
+* default value : "dateTime" 
+* accept : "date", "datePeriod", "dateTime", "dateTimePeriod", "time", "timePeriod" 
+* optional 
 
 
-* type 
-    * {string} : define input type to generate 
-    * accept : "date", "datePeriod", "dateTime", "dateTimePeriod", "time", "timePeriod" 
-    * default value : "dateTime" 
-    * optional 
+
+##### colors 
+
+* {object} : define colors used by component 
+* default value : { dark: "#302f2f", light: "#f2f2ef"}
+* optional 
+* example : 
+
+`const myColors = { dark: "#302f2f", light: "#f2f2ef", error: "#e55a44", advice: "#75B74E" }` 
+
+`<DatePicker inputId={"myInputId"} label={"my label text"} colors={ myColors } />`  
 
 
-* colors 
-    * {object} : define colors used by component 
-    * default value : { dark: "#302f2f", light: "#f2f2ef"}
-    * optional 
-    * example : { dark: "#302f2f", light: "#f2f2ef", error: "#e55a44", advice: "#75B74E"}  
 
-
-#### 3.3.3 Documenation
+## 4 Documenation
 
 The documentation can be viewed by following the link below : [documentation](https://alxbdo.github.io/RHDatePicker/docs/index.html) 
 
 
-#### 3.3.4 Npm package 
+## 5 Npm package 
 
 [See RHDatePicker npm package](https://www.npmjs.com/package/rh-date-picker)

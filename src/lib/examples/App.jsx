@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "../component/datePicker";
-import { TimeSelectorPage } from "../style"
+import { TimeSelectorPage, style } from "../style"
 import "../style/style.css"
 
 const App = () => {
@@ -59,7 +59,10 @@ const App = () => {
     const BDHtmlClass = {container: "example-ctn", error: "example-err"}
 
     const deadlines = {min: "01-01-2022", max: "17-02-2022"}
-    
+
+    const colors= { dark: "#383F51", light: "#DDDBF1", advice: "#93AD18", error: "#D81159" }
+    style.setColors(colors)
+
     return (
         <TimeSelectorPage>
             <h1>Date Picker Component Example</h1>
@@ -72,7 +75,8 @@ const App = () => {
                     eventFunction={eventFunction} 
                     htmlClass={BDHtmlClass} 
                     type={"date"}
-                    valueFormat={"array"}
+                    valueFormat={"array"} 
+                    colors={colors}
                 />
                 <p id="weekday-ctn">You were born on a <span id="test-weekday"></span></p>
             </div>
@@ -83,7 +87,8 @@ const App = () => {
                     label={"Choose date and time"} 
                     eventFunction={onBlurFunction} 
                     htmlClass={BDHtmlClass} 
-                    valueFormat={"string"}
+                    valueFormat={"string"} 
+                    colors={colors}
                 />
                 <p id="string-date"></p>
             </div>
@@ -95,7 +100,8 @@ const App = () => {
                     htmlClass={BDHtmlClass} 
                     type={"dateTimePeriod"} 
                     eventFunction={evenFunctionPeriod} 
-                    valueFormat={"dateObject"}
+                    valueFormat={"dateObject"} 
+                    colors={colors}
                 />
                 <p id="vacation-period"></p>
             </div>

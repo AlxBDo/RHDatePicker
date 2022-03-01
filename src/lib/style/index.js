@@ -82,8 +82,8 @@ export const style = {
      * Store page font and background colors
      */
     page: {
-        color: theme === "light" ? "#1e1e1e" : "#eaeaea",
-        bgColor: theme === "dark" ? "#1e1e1e" : "#eaeaea"
+        color: () => style.color(),
+        bgColor: () => style.backgroundColor()
     },
 
     /**
@@ -93,7 +93,7 @@ export const style = {
      * @param {string | boolean} advice 
      * @param {string | boolean} error 
      */
-    setColors: (dark, light, advice = false, error = false) => {
+    setColors: ({dark, light, advice = false, error = false}) => {
         style.colors.dark = dark  
         style.colors.light = light 
         if(advice){ style.colors.advice = advice }
@@ -112,7 +112,7 @@ const clickable = `cursor: pointer;
 
 
 export const AdviceBox = styled.p`
-    color: ${style.adviceColor()};
+    color: ${(props) => (props.$color) };
     font-size: smaller;
 `
 
@@ -276,8 +276,8 @@ export const DatePickerInput = styled.input`
     padding: 5px;
     margin: 1%;
     border-radius: 3px;
-    background-color: ${style.backgroundColor()}; 
-    color: ${style.color()};
+    background-color: ${(props) => ( props.$backgroundColor )};
+    color: ${(props) => (props.$color) };
     width: ${(props) =>  props.$long ? (`130px`) : (`95px`) }
 `
 
@@ -381,8 +381,8 @@ export const DialogBox = styled.div`
 `
 
 export const ErrorBox = styled.div`
-    color: ${style.errorColor()};
-    margin: 2% auto;
+    color: ${(props) => (props.$color) };
+    margin: 1% auto;
 `
 
 export const TimeSelectorPage = styled.div`

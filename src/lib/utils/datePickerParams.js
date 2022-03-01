@@ -110,9 +110,9 @@ export const datePickerParams = {
      * @param {object} htmlClass 
      * @param {string} dateFormat 
      * @param {string} type 
-     * @param {object} calendarColor 
+     * @param {object} colors 
      */
-    initComponentParams: (inputId, label, deadlines, eventFunction, htmlClass, dateFormat, type, calendarColor = false) => {
+    initComponentParams: (inputId, label, deadlines, eventFunction, htmlClass, dateFormat, type, colors = false) => {
         if(!datePickerParams.is[inputId]){
             const indexTime = type.indexOf("ime")
             const isTime = indexTime > 0
@@ -134,10 +134,10 @@ export const datePickerParams = {
             dateFormat)}
         if(!style.colors.dark){
             style.setColors(
-                validation.checkColor(calendarColor.dark, inputId), 
-                validation.checkColor(calendarColor.light, inputId),
-                calendarColor.advice && validation.checkColor(calendarColor.advice, inputId),
-                calendarColor.error && validation.checkColor(calendarColor.error, inputId)
+                validation.checkColor(colors.dark, inputId), 
+                validation.checkColor(colors.light, inputId),
+                colors.advice && validation.checkColor(colors.advice, inputId),
+                colors.error && validation.checkColor(colors.error, inputId)
             )
         }
     },
