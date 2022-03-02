@@ -23,6 +23,7 @@ function getCalendarOption(item, baseId) {
   return /*#__PURE__*/_react.default.createElement(_style.CalendarOption, {
     key: "".concat(baseId, "-opt-").concat(item.name),
     id: _datePickerParams.datePickerParams.id[baseId][getSelectItemId(item.name)],
+    "data-testid": "".concat(item.name, "-test"),
     $name: item.name,
     $type: item.type
   }, item.value && item.value);
@@ -174,7 +175,8 @@ function CalendarSelect(props) {
 
   return typeof list[0] === "object" ? /*#__PURE__*/_react.default.createElement(_style.CalendarBox, {
     $name: "option",
-    onClick: onClickFunction
+    onClick: onClickFunction,
+    "data-testid": "calendar-options-menu"
   }, list.map(function (item) {
     return getCalendarOption(item, baseId);
   })) : /*#__PURE__*/_react.default.createElement(_style.DateSelect, {
@@ -187,6 +189,7 @@ function CalendarSelect(props) {
     className: className
   }, spanOnClickFunction && /*#__PURE__*/_react.default.createElement(_style.CalendarOption, {
     id: "".concat(elementId, "-less-btn"),
+    "data-testid": "".concat(elementId, "-less-btn-test"),
     $name: "less",
     $type: "move-icon",
     onClick: function onClick() {
@@ -196,6 +199,7 @@ function CalendarSelect(props) {
     return getSpan(getSpanValue(Number.isInteger(item) ? item + index : item, maxValue, minValue), "".concat(elementId, "-option-").concat(index), selectedValue === item + index && true, spanOnClickFunction && updateDateSelectOnClickSpan);
   }), spanOnClickFunction && /*#__PURE__*/_react.default.createElement(_style.CalendarOption, {
     id: "".concat(elementId, "-more-btn"),
+    "data-testid": "".concat(elementId, "-more-btn-test"),
     $name: "more",
     $type: "move-icon",
     onClick: function onClick() {

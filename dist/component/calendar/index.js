@@ -35,34 +35,92 @@ var _date = require("../../utils/date");
 
 var _validation = require("../../utils/validation");
 
+/**
+ * iterates over elements with class selected-day and removes it
+ * @function 
+ */
 var deleteSelectedDay = function deleteSelectedDay() {
   return document.querySelectorAll(".selected-day").forEach(function (element) {
     element.classList.remove("selected-day");
   });
 };
+/**
+ * Checks that the current day, passed as a parameter, is included in the number of days of the month. Otherwise fix it
+ * @function 
+ * @param {number} currentDay 
+ * @param {number} monthLength 
+ * @param {number} startDay 
+ * @returns {number} dayNumber
+ */
+
 
 var getNumberDay = function getNumberDay(currentDay, monthLength, startDay) {
   return currentDay >= startDay + 1 && currentDay - startDay <= monthLength && parseInt(currentDay - startDay);
 };
 
+Calendar.defaultProp = {
+  displayBox: false
+};
+/**
+ * Display Calendar
+ * @component 
+ * @param {string} props.baseId - use to create calendar modal id
+ * @param {boolean} props.displayBox - true : element is diplayed 
+ * @returns {object} Dialog component
+ */
+
 function Calendar(props) {
   var baseId = props.baseId,
       displayBox = props.displayBox;
   var dispatch = (0, _reactRedux.useDispatch)();
+  /**
+   * Object containing methods to set the date and/or time
+   */
+
   var calendarDate = {
+    /**
+     * change isEndDate attribute value
+     * @method
+     * @memberof calendarDate
+     * @returns {boolean}
+     */
     changeIsEndDate: function changeIsEndDate() {
       return calendarDate.isEndDate = !calendarDate.isEndDate;
     },
+
+    /**
+     * Provide selected hour (start or end)
+     * @method
+     * @memberof calendarDate
+     * @param {string | boolean} typeDate 
+     * @returns {number} Hour
+     */
     getHours: function getHours() {
       var typeDate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       return typeDate === "start" ? selectedDate.start.hour ? parseInt(selectedDate.start.hour) : 12 : typeDate === "end" ? selectedDate.end.hour ? parseInt(selectedDate.end.hour) : 12 : calendarDate.hour;
     },
+
+    /**
+     * Provides selected minutes (start or end) in correct format
+     * @method
+     * @memberof calendarDate
+     * @param {string | boolean} unitOrDecimal - sets the desired minutes (unit or decimal)
+     * @param {string | boolean} typeDate - set type date : end or start
+     * @returns {number} minutes
+     */
     getMinutes: function getMinutes() {
       var unitOrDecimal = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       var typeDate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       var minutes = typeDate === "end" ? selectedDate.end.minute ? selectedDate.end.minute : 0 : typeDate === "start" ? selectedDate.start.minute ? selectedDate.start.minute : calendarDate.minute : calendarDate.minute;
       return !unitOrDecimal ? parseInt(minutes) : unitOrDecimal === "unit" ? minutes > 9 ? parseInt(String(minutes).substring(1)) : parseInt(minutes) : minutes > 9 ? parseInt(String(minutes).substring(0, 1)) : 0;
     },
+
+    /**
+     * Set and store date and his type
+     * @method 
+     * @memberof calendarDate 
+     * @param {object} selectedDate 
+     */
     initDate: function initDate(selectedDate) {
       if (_datePickerParams.datePickerParams.is[baseId].period) {
         _datePickerParams.datePickerParams.is[baseId].period = true;
@@ -80,15 +138,38 @@ function Calendar(props) {
         calendarDate.setTime(selectedDate.calendar);
       }
     },
+
+    /**
+     * Defines whether date is end or start date
+     * @method 
+     * @memberof calendarDate 
+     * @return {boolean} isEndDate
+     */
     isEndDate: function isEndDate() {
       return selectedDate.status === "pending" ? true : false;
     },
     nameSuffix: "",
+
+    /**
+     * Store date displayed by Calendar
+     * @method 
+     * @memberof calendarDate
+     * @param {object} date 
+     * @example { day: 01, month: 0, year: 2022} 
+     */
     setDate: function setDate(date) {
       calendarDate.day = date.day ? parseInt(date.day) : _date.currentDate.day;
       calendarDate.month = date.month ? parseInt(date.month) : _date.currentDate.month;
       calendarDate.year = date.year ? parseInt(date.year) : _date.currentDate.year;
     },
+
+    /**
+     * Store time displayed by Calendar
+     * @method 
+     * @memberof calendarDate
+     * @param {object} time 
+     * @example { hour: 01, minute: 00} 
+     */
     setTime: function setTime(time) {
       calendarDate.hour = time.hour ? parseInt(time.hour) : 12;
       calendarDate.minute = time.minute ? parseInt(time.minute) : 0;
@@ -127,19 +208,49 @@ function Calendar(props) {
     name: "next-month",
     type: "icon"
   }];
+  /**
+   * Object containing the methods to apply during a click 
+   */
+
   var click = {
+    /**
+     * Checks that the month parameter is between 1 and 12, otherwise assigns a new value (start or end of the interval)
+     * @method 
+     * @memberof click
+     * @param {number} month 
+     * @returns {number} month
+     */
     browseMonths: function browseMonths(month) {
       return month > 12 ? 1 : month < 1 ? 12 : month;
     },
+
+    /**
+     * Function to trigger when clicking on a day
+     * @method 
+     * @memberof click
+     * @param {object} e - event 
+     * @see click.fct
+     */
     days: function days(e) {
       return click.fct(e, "Day");
     },
+
+    /**
+     * Save the values, selected on click, and animate the calendar: opening, closing and moving in the sections. 
+     * Function to trigger when clicking on a day, month, year, hour or minute.
+     * @method 
+     * @memberof click
+     * @param {object} e - event 
+     */
     fct: function fct(e, name) {
-      dispatch(errorAction.clear(baseId));
+      // Delete error messages
+      dispatch(errorAction.clear(baseId)); // Get value
+
       var value = name === "Month" ? parseInt(_date.months.name.indexOf(e.target.textContent)) + 1 : name === "Minute" ? parseInt(e.target.getAttribute("id").indexOf("minutesuni") > 0 ? String(document.querySelector("div#".concat(_datePickerParams.datePickerParams.getTimeSelectId(baseId, "minutesDec", calendarDate.typeDate), " .selected-option")).textContent) + String(document.querySelector("div#".concat(_datePickerParams.datePickerParams.getTimeSelectId(baseId, "minutesUni", calendarDate.typeDate), " .selected-option")).textContent) : String(document.querySelector("div#".concat(_datePickerParams.datePickerParams.getTimeSelectId(baseId, "minutesDec", calendarDate.typeDate), " .selected-option")).textContent) + String(document.querySelector("div#".concat(_datePickerParams.datePickerParams.getTimeSelectId(baseId, "minutesUni", calendarDate.typeDate), " .selected-option")).textContent)) : name === "Hour" ? parseInt(document.querySelector("div#".concat(_datePickerParams.datePickerParams.getTimeSelectId(baseId, "hours", calendarDate.typeDate), " .selected-option")).textContent) : parseInt(e.target.textContent);
 
       if (Number.isInteger(value)) {
-        dispatch(selectedDateAction["setCalendar".concat(name)](value, baseId));
+        // Store value
+        dispatch(selectedDateAction["setCalendar".concat(name)](value, baseId)); // If day save all selected values ​​(month, year, hour, ...) and change type date or close calendar
 
         if (name === "Day") {
           dispatch(selectedDateAction.setDay(value, baseId, calendarDate.typeDate));
@@ -183,6 +294,15 @@ function Calendar(props) {
 
       dispatch(errorAction.getErrors(baseId));
     },
+
+    /**
+     * Provide value in correct format
+     * @method 
+     * @memberof click
+     * @param {string} day 
+     * @param {string} time 
+     * @returns {string} date
+     */
     getFormattedValue: function getFormattedValue(day) {
       var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       day = parseInt(day);
@@ -210,15 +330,46 @@ function Calendar(props) {
 
       return time ? date + " " + time : date;
     },
+
+    /**
+     * Function to trigger when clicking on a hour
+     * @method 
+     * @memberof click
+     * @param {object} e - event 
+     * @see click.fct
+     */
     hour: function hour(e) {
       return click.fct(e, "Hour");
     },
+
+    /**
+     * Function to trigger when clicking on a minute
+     * @method 
+     * @memberof click
+     * @param {object} e - event 
+     * @see click.fct
+     */
     minute: function minute(e) {
       return click.fct(e, "Minute");
     },
+
+    /**
+     * Function to trigger when clicking on a month
+     * @method 
+     * @memberof click
+     * @param {object} e - event 
+     * @see click.fct
+     */
     months: function months(e) {
       return click.fct(e, "Month");
     },
+
+    /**
+     * Triggers calendar menu actions
+     * @method 
+     * @memberof click
+     * @param {object} e - event 
+     */
     optionSelect: function optionSelect(e) {
       var item = e.target;
       deleteSelectedDay();
@@ -249,14 +400,34 @@ function Calendar(props) {
           return false;
       }
     },
+
+    /**
+     * Displays element corresponding to first parameter
+     * @method 
+     * @memberof click
+     * @param {string} elementId 
+     * @param {string} baseId 
+     */
     show: function show(elementId, baseId) {
       document.querySelector("#".concat(_datePickerParams.datePickerParams.id[baseId].modal, " .show")).classList.remove("show");
       document.getElementById(elementId).classList.add("show");
     },
+
+    /**
+     * Function to trigger when clicking on a year
+     * @method 
+     * @memberof click
+     * @param {object} e - event 
+     * @see click.fct
+     */
     years: function years(e) {
       return click.fct(e, "Year");
     }
   };
+  /**
+   * Displays the selected date on the calendar
+   * @param {object} e - event
+   */
 
   function displaySelectedDay() {
     var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
@@ -291,6 +462,12 @@ function Calendar(props) {
       });
     }
   }
+  /**
+   * Highlights the day of the week corresponding to the hovered day of the month
+   * @param {number} weekdayNumber 
+   * @param {boolean} highlight 
+   */
+
 
   function showCorrespondingWeekday(weekdayNumber) {
     var highlight = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
@@ -314,7 +491,8 @@ function Calendar(props) {
   }), /*#__PURE__*/_react.default.createElement(_style.CalendarBox, {
     $name: "display",
     id: _datePickerParams.datePickerParams.id[baseId].calendarDisplayBox,
-    className: "date-ctn"
+    className: "date-ctn",
+    "data-testid": "date-section-test"
   }, /*#__PURE__*/_react.default.createElement(_style.DateSelect, {
     $name: "days",
     className: "show",
@@ -383,6 +561,7 @@ function Calendar(props) {
     selectedValue: calendarDate.getMinutes("unit", "start"),
     onClickFunction: click.minute
   }))), /*#__PURE__*/_react.default.createElement("div", {
+    "data-testid": "time-section-test",
     style: {
       display: calendarDate.typeHour === "start" && "none"
     }

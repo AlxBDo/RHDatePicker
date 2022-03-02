@@ -13,8 +13,6 @@ var _toolkit = require("@reduxjs/toolkit");
 
 var _date = require("../utils/date");
 
-var _validation = require("../utils/validation");
-
 var dateObject = {
   day: false,
   month: false,
@@ -24,6 +22,11 @@ var timeObject = {
   hour: false,
   minute: false
 };
+/**
+ * @param {object} draft 
+ * @param {string} id 
+ * @param {string} type - accept date, datePeriod, dateTime, dateTimePeriod, time, timePeriod  
+ */
 
 function setInitialDateState(draft, id, type) {
   var timeAttributes = type.indexOf("date") >= 0 ? type.indexOf("ime") >= 0 ? (0, _objectSpread2.default)((0, _objectSpread2.default)({}, dateObject), timeObject) : dateObject : timeObject;
@@ -50,11 +53,38 @@ var initialState = {
   status: "empty",
   dates: {}
 };
+/**
+ * @typedef {object} selectedDate 
+ * @component 
+ * @description Redux component in charge of selected dates state - 
+ * state : { status: {string}, dates: {object} } - 
+ * state.dates : { selectedDate1Id, selectedDate2Id, ... }
+ * state.dates.selectedDate1Id : { day: {number}, month: {number}, year: {number}, hour: {number}, minute: {number} } 
+ * @property {function} init - Initializes selected dates state of element corresponding to id passed as parameter
+ * @property {function} initCalendar - Initializes calendars state of element corresponding to id passed as parameter
+ * @property {function} setCalendarDay - Set day displayed to calendar 
+ * @property {function} setCalendarHour - Set hour displayed to calendar
+ * @property {function} setCalendarMinute - Set minute displayed to calendar
+ * @property {function} setCalendarMonth - Set month displayed to calendar
+ * @property {function} setCalendarYear - Set year displayed to calendar
+ * @property {function} setDay - Set selected day 
+ * @property {function} setHour - Set selected hour 
+ * @property {function} setMinute - Set selected minute 
+ * @property {function} setMonth - Set selected month 
+ * @property {function} setYear - Set selected year
+ */
 
 var _createSlice = (0, _toolkit.createSlice)({
   name: "selectedDate",
   initialState: initialState,
   reducers: {
+    /**
+     * Initializes selected dates state of element corresponding to id passed as parameter
+     * @memberof selectedDate 
+     * @param {string} id 
+     * @param {string} type - accept date, datePeriod, dateTime, dateTimePeriod, time, timePeriod 
+     * @example `selectedDateAction.init( {string} id, {string} type )` 
+     */
     init: {
       prepare: function prepare(id, type) {
         return {
@@ -74,6 +104,14 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Initializes calendars state of element corresponding to id passed as parameter
+     * @memberof selectedDate 
+     * @memberof selectedDate.initCalendar
+     * @param {string} id 
+     * @example `selectedDateAction.initCalendar( {string} id )` 
+     */
     initCalendar: {
       prepare: function prepare(id) {
         return {
@@ -95,33 +133,14 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
-    set: {
-      prepare: function prepare(date, inputId) {
-        return {
-          payload: {
-            date: date,
-            inputId: inputId
-          }
-        };
-      },
-      reducer: function reducer(draft, action) {
-        var dateTemp = action.payload.date;
 
-        if (!_validation.validation.checkInputValue(dateTemp)) {
-          return;
-        }
-
-        var inputId = action.payload.inputId;
-        var dateSplited = dateTemp.split("-");
-        draft.dates[inputId] = {
-          status: "selected",
-          day: dateSplited[2],
-          month: dateSplited[1],
-          year: dateSplited[0]
-        };
-        return;
-      }
-    },
+    /**
+     * Set day displayed to calendar
+     * @memberof selectedDate 
+     * @param {number} day 
+     * @param {string} inputId 
+     * @example `selectedDateAction.setCalendarDay( {string} id, {number} day )` 
+     */
     setCalendarDay: {
       prepare: function prepare(day, inputId) {
         return {
@@ -134,7 +153,7 @@ var _createSlice = (0, _toolkit.createSlice)({
       reducer: function reducer(draft, action) {
         var day = parseInt(action.payload.day);
 
-        if (day < 1 && day > 31) {
+        if (day < 1 || day > 31) {
           return;
         }
 
@@ -143,6 +162,14 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Set hour displayed to calendar
+     * @memberof selectedDate 
+     * @param {number} hour 
+     * @param {string} inputId 
+     * @example `selectedDateAction.setCalendarHour( {string} id, {number} hour )` 
+     */
     setCalendarHour: {
       prepare: function prepare(hour, inputId) {
         return {
@@ -155,7 +182,7 @@ var _createSlice = (0, _toolkit.createSlice)({
       reducer: function reducer(draft, action) {
         var hour = parseInt(action.payload.hour);
 
-        if (hour < 0 && hour >= 24) {
+        if (hour < 0 || hour >= 24) {
           return;
         }
 
@@ -164,6 +191,14 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Set minutes displayed to calendar
+     * @memberof selectedDate 
+     * @param {number} minute 
+     * @param {string} inputId 
+     * @example `selectedDateAction.setCalendarMinute( {string} id, {number} minute )`
+     */
     setCalendarMinute: {
       prepare: function prepare(minute, inputId) {
         return {
@@ -176,7 +211,7 @@ var _createSlice = (0, _toolkit.createSlice)({
       reducer: function reducer(draft, action) {
         var minute = parseInt(action.payload.minute);
 
-        if (minute < 0 && minute > 59) {
+        if (minute < 0 || minute > 59) {
           return;
         }
 
@@ -185,6 +220,14 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Set month displayed to calendar
+     * @memberof selectedDate 
+     * @param {number} month 
+     * @param {string} inputId 
+     * @example `selectedDateAction.setCalendarMonth( {string} id, {number} month )` 
+     */
     setCalendarMonth: {
       prepare: function prepare(month, inputId) {
         return {
@@ -197,7 +240,7 @@ var _createSlice = (0, _toolkit.createSlice)({
       reducer: function reducer(draft, action) {
         var month = parseInt(action.payload.month);
 
-        if (month < 1 && month > 12) {
+        if (month < 1 || month > 12) {
           return;
         }
 
@@ -206,6 +249,14 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Set year displayed to calendar
+     * @memberof selectedDate 
+     * @param {number} year 
+     * @param {string} inputId 
+     * @example `selectedDateAction.setCalendarYear( {string} id, {number} year )` 
+     */
     setCalendarYear: {
       prepare: function prepare(year, inputId) {
         return {
@@ -218,7 +269,7 @@ var _createSlice = (0, _toolkit.createSlice)({
       reducer: function reducer(draft, action) {
         var year = parseInt(action.payload.year);
 
-        if (year < (0, _date.getLimitYear)("min") && year > (0, _date.getLimitYear)("max")) {
+        if (year < (0, _date.getLimitYear)("min") || year > (0, _date.getLimitYear)("max")) {
           return;
         }
 
@@ -227,6 +278,15 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Set selected day
+     * @memberof selectedDate 
+     * @param {number} day 
+     * @param {string} inputId 
+     * @param {string | boolean} typeDate - accept start, end or false 
+     * @example `selectedDateAction.setDay( {string} id, {number} day, {string | boolean} typeDate )` 
+     */
     setDay: {
       prepare: function prepare(day, inputId, typeDate) {
         return {
@@ -240,7 +300,7 @@ var _createSlice = (0, _toolkit.createSlice)({
       reducer: function reducer(draft, action) {
         var day = parseInt(action.payload.day);
 
-        if (day < 1 && day > 31) {
+        if (day < 1 || day > 31) {
           return;
         }
 
@@ -267,6 +327,15 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Set selected hour
+     * @memberof selectedDate 
+     * @param {number} hour 
+     * @param {string} inputId 
+     * @param {string | boolean} typeDate - accept start, end or false 
+     * @example `selectedDateAction.setHour( {string} id, {number} hour, {string | boolean} typeDate )` 
+     */
     setHour: {
       prepare: function prepare(hour, inputId, typeDate) {
         return {
@@ -280,7 +349,7 @@ var _createSlice = (0, _toolkit.createSlice)({
       reducer: function reducer(draft, action) {
         var hour = parseInt(action.payload.hour);
 
-        if (hour < 0 && hour >= 24) {
+        if (hour < 0 || hour >= 24) {
           return;
         }
 
@@ -305,6 +374,15 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Set selected minute
+     * @memberof selectedDate 
+     * @param {number} minute 
+     * @param {string} inputId 
+     * @param {string | boolean} typeDate - accept start, end or false 
+     * @example `selectedDateAction.setMinute( {string} id, {number} minute, {string | boolean} typeDate )` 
+     */
     setMinute: {
       prepare: function prepare(minute, inputId, typeDate) {
         return {
@@ -318,7 +396,7 @@ var _createSlice = (0, _toolkit.createSlice)({
       reducer: function reducer(draft, action) {
         var minute = parseInt(action.payload.minute);
 
-        if (minute < 0 && minute > 59) {
+        if (minute < 0 || minute > 59) {
           return;
         }
 
@@ -343,6 +421,15 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Set selected Month
+     * @memberof selectedDate 
+     * @param {number} month 
+     * @param {string} inputId 
+     * @param {string | boolean} typeDate - accept start, end or false 
+     * @example `selectedDateAction.setMonth( {string} id, {number} month, {string | boolean} typeDate )` 
+     */
     setMonth: {
       prepare: function prepare(month, inputId, typeDate) {
         return {
@@ -356,7 +443,7 @@ var _createSlice = (0, _toolkit.createSlice)({
       reducer: function reducer(draft, action) {
         var month = parseInt(action.payload.month);
 
-        if (month < 1 && month > 12) {
+        if (month < 1 || month > 12) {
           return;
         }
 
@@ -381,6 +468,15 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Set selected year
+     * @memberof selectedDate 
+     * @param {number} year 
+     * @param {string} inputId 
+     * @param {string | boolean} typeDate - accept start, end or false 
+     * @example `selectedDateAction.setYear( {string} id, {number} year, {string | boolean} typeDate )` 
+     */
     setYear: {
       prepare: function prepare(year, inputId, typeDate) {
         return {
@@ -394,7 +490,7 @@ var _createSlice = (0, _toolkit.createSlice)({
       reducer: function reducer(draft, action) {
         var year = parseInt(action.payload.year);
 
-        if (year < (0, _date.getLimitYear)("min") && year > (0, _date.getLimitYear)("max")) {
+        if (year < (0, _date.getLimitYear)("min") || year > (0, _date.getLimitYear)("max")) {
           return;
         }
 

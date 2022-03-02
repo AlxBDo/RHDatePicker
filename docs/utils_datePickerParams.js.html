@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Calendar.html">Calendar</a></li><li><a href="CalendarSelect.html">CalendarSelect</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dialog.html">Dialog</a></li><li><a href="Error.html">Error</a></li><li><a href="error_.html">error</a></li><li><a href="params.html">params</a></li><li><a href="selectedDate.html">selectedDate</a></li><li><a href="TimeSelect.html">TimeSelect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#currentDate">currentDate</a></li><li><a href="global.html#currentTime">currentTime</a></li><li><a href="global.html#datePattern">datePattern</a></li><li><a href="global.html#datePlaceholder">datePlaceholder</a></li><li><a href="global.html#deleteSelectedDay">deleteSelectedDay</a></li><li><a href="global.html#getCalendarOption">getCalendarOption</a></li><li><a href="global.html#getErrors">getErrors</a></li><li><a href="global.html#getIsDefaultObject">getIsDefaultObject</a></li><li><a href="global.html#getLimitYear">getLimitYear</a></li><li><a href="global.html#getNumberDay">getNumberDay</a></li><li><a href="global.html#getSelectItemId">getSelectItemId</a></li><li><a href="global.html#getSpan">getSpan</a></li><li><a href="global.html#getSpanValue">getSpanValue</a></li><li><a href="global.html#months">months</a></li><li><a href="global.html#moveDateSelectList">moveDateSelectList</a></li><li><a href="global.html#onWheelFunction">onWheelFunction</a></li><li><a href="global.html#setInitialDateState">setInitialDateState</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#theme">theme</a></li><li><a href="global.html#transformToNumber">transformToNumber</a></li><li><a href="global.html#updateDateSelectList">updateDateSelectList</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Calendar.html">Calendar</a></li><li><a href="CalendarSelect.html">CalendarSelect</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dialog.html">Dialog</a></li><li><a href="Error.html">Error</a></li><li><a href="error_.html">error</a></li><li><a href="params.html">params</a></li><li><a href="selectedDate.html">selectedDate</a></li><li><a href="TimeSelect.html">TimeSelect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#currentDate">currentDate</a></li><li><a href="global.html#currentTime">currentTime</a></li><li><a href="global.html#datePattern">datePattern</a></li><li><a href="global.html#datePlaceholder">datePlaceholder</a></li><li><a href="global.html#deleteSelectedDay">deleteSelectedDay</a></li><li><a href="global.html#getCalendarOption">getCalendarOption</a></li><li><a href="global.html#getErrors">getErrors</a></li><li><a href="global.html#getIsDefaultObject">getIsDefaultObject</a></li><li><a href="global.html#getLimitYear">getLimitYear</a></li><li><a href="global.html#getNumberDay">getNumberDay</a></li><li><a href="global.html#getSelectItemId">getSelectItemId</a></li><li><a href="global.html#getSpan">getSpan</a></li><li><a href="global.html#getSpanValue">getSpanValue</a></li><li><a href="global.html#months">months</a></li><li><a href="global.html#moveDateSelectList">moveDateSelectList</a></li><li><a href="global.html#onWheelFunction">onWheelFunction</a></li><li><a href="global.html#setInitialDateState">setInitialDateState</a></li><li><a href="global.html#theme">theme</a></li><li><a href="global.html#transformToNumber">transformToNumber</a></li><li><a href="global.html#updateDateSelectList">updateDateSelectList</a></li></ul></div>
                 
             </nav>
         </div>
@@ -178,7 +178,8 @@ export const datePickerParams = {
     format: {},
 
     /**
-     * Provides time select id
+     * Provides time select id 
+     * @memberof datePickerParams 
      * @param {string} baseId - DatePicker input id
      * @param {string} selectName - time select name (is equivalent to id) 
      * @param {string | boolean} startOrEnd - defines if it is an end time, a start time or neither 
@@ -194,6 +195,7 @@ export const datePickerParams = {
     
     /**
      * Initializes the attributes containing the component parameters
+     * @memberof datePickerParams 
      * @param {string} inputId 
      * @param {string} label 
      * @param {object} deadlines 
@@ -235,6 +237,7 @@ export const datePickerParams = {
 
     /**
      * Initializes the html ids necessary for the operation of the component
+     * @memberof datePickerParams 
      * @param {string} baseId - DatePicker input id
      * @param {boolean} isPeriod 
      */
@@ -272,6 +275,7 @@ export const datePickerParams = {
 
     /**
      * Execute the functions corresponding to the eventName parameter
+     * @memberof datePickerParams 
      * @param {object} e - event
      * @param {string} eventName 
      * @param {string} baseId - DatePicker input id
@@ -280,6 +284,7 @@ export const datePickerParams = {
 
     /**
      * Check and store the event functions passed as a parameter of the DatePicker component
+     * @memberof datePickerParams 
      * @param {string} baseId - DatePicker input id
      * @param {object} eventFunction 
      */
@@ -300,6 +305,7 @@ export const datePickerParams = {
  
     /**
      * Check and store html class passed as a parameter of the DatePicker component
+     * @memberof datePickerParams 
      * @param {string} baseId - DatePicker input id
      * @param {object} htmlClass 
      */
@@ -307,12 +313,14 @@ export const datePickerParams = {
 
     /**
      * Check and store the input id passed as a parameter of the DatePicker component
+     * @memberof datePickerParams 
      * @param {string} id 
      */
     setInputId(id){ this.id.input = validation.checkId(id, "paramError") ? id : "paramError" },    
 
     /**
      * Check and store the input label passed as a parameter of the DatePicker component
+     * @memberof datePickerParams 
      * @param {string} baseId - DatePicker input id
      * @param {string} label 
      */

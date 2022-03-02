@@ -21,6 +21,14 @@ var _validation = require("../../utils/validation");
 
 var _selectors = require("../../utils/selectors");
 
+/**
+ * Display Dialog component containing error messages
+ * @component 
+ * @param {object} props 
+ * @param {string} props.dialogBoxId - use for html attribute id 
+ * @param {string} props.htmlClass - html class(es) to assign to component className attribute 
+ * @returns {object} Dialog component
+ */
 function Error(props) {
   var dialogBoxId = props.dialogBoxId,
       htmlClass = props.htmlClass;
@@ -64,8 +72,11 @@ function Error(props) {
     get: function get(errorObj, key) {
       if (errorObj.what && errorMessage[errorObj.why].problem && typeof errorMessage[errorObj.why].advice === "function") {
         return /*#__PURE__*/_react.default.createElement(_style.ErrorBox, {
-          key: key
-        }, errorObj.what, " ", errorMessage[errorObj.why].problem, /*#__PURE__*/_react.default.createElement(_style.AdviceBox, null, errorMessage[errorObj.why].advice(errorObj.what)));
+          key: key,
+          $color: _style.style.colors.error
+        }, errorObj.what, " ", errorMessage[errorObj.why].problem, /*#__PURE__*/_react.default.createElement(_style.AdviceBox, {
+          $color: _style.style.colors.advice
+        }, errorMessage[errorObj.why].advice(errorObj.what)));
       }
     },
     outOfBounds: {

@@ -39,7 +39,7 @@ Calendar.propTypes = {
 Calendar.defaultProp = {
     displayBox: false
 }
-
+ 
 
 /**
  * Display Calendar

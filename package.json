@@ -1,7 +1,7 @@
 {
   "name": "rh-date-picker",
   "description": "Secure and customizable date picker creator",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [

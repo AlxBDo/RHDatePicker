@@ -16,11 +16,25 @@ var initialState = {
   display: {},
   checked: []
 };
+/**
+ * @typedef {object} params 
+ * @component 
+ * @description Redux component in charge of params state - state : { status: {string}, display: {object}, checked: {array} }
+ * @property {function} init - Initializes state params of element corresponding to id passed as parameter 
+ * @property {function} setDisplay - Manages display state of element corresponding to id passed in 1st parameters 
+ * @property {function} updateDisplay - Update display state of element corresponding to id passed in 1st parameters 
+ */
 
 var _createSlice = (0, _toolkit.createSlice)({
   name: "params",
   initialState: initialState,
   reducers: {
+    /**
+     * Initializes state params of element corresponding to id passed as parameter 
+     * @memberof params 
+     * @param {string} id 
+     * @example `paramsAction.init( {string} id )`
+     */
     init: {
       prepare: function prepare(id) {
         return {
@@ -40,6 +54,14 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Manages display state of element corresponding to id passed in 1st parameters
+     * @memberof params 
+     * @param {string} id 
+     * @param {boolean} value - true : element is displayed 
+     * @example `paramsAction.setDisplay( {string} id, {boolean} value )`
+     */
     setDisplay: {
       prepare: function prepare(id) {
         var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -56,6 +78,14 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Update display state of element corresponding to id passed in 1st parameters
+     * @memberof params 
+     * @param {string} id 
+     * @param {boolean} value - true : element is displayed 
+     * @example `paramsAction.updatetDisplay( {string} id, {boolean} value )`
+     */
     updateDisplay: {
       prepare: function prepare(id, value) {
         return {

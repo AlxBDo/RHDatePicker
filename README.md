@@ -1,5 +1,5 @@
 # RHDatePicker 
-[![forthebadge](https://alxbdo.github.io/RHDatePicker/src/img/made-width-react.svg)](https://forthebadge.com) 
+[![forthebadge](https://alxbdo.github.io/RHDatePicker/src/img/made-with-react.svg)](https://forthebadge.com) 
 [![forthebadge](https://alxbdo.github.io/RHDatePicker/src/img/use-react-redux.svg)](https://forthebadge.com)
 
 
@@ -32,7 +32,9 @@ RHDatePicker is a time picker displaying a label and an html input as well as a 
             * [inputId](#inputid) 
             * [label](#label) 
             * [type](#type) 
-            * [valueFormat](#valueformat)
+            * [valueFormat](#valueformat) 
+* [Documentation](#4-documenation) 
+* [NPM Package](#5-npm-package)
 
 
 ## 1. Author

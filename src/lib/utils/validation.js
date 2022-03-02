@@ -29,6 +29,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * Add an error object to error attribute
+     * @memberof validation 
      * @param {string} what - What is the problem element ?
      * @param {*} why - Why it throws an error ?
      * @param {*} output - Where should it show error message ?
@@ -53,6 +54,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * Checks that the color passed in parameter corresponds to the accepted format
+     * @memberof validation 
      * @param {string} color 
      * @param {string} output - error box id
      * @returns {boolean} checkResult
@@ -62,6 +64,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * Checks that the requested format matches the accepted format
+     * @memberof validation 
      * @param {string} format 
      * @returns {boolean}
      */
@@ -69,6 +72,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * Checks that id passed in parameter corresponds to the accepted format
+     * @memberof validation 
      * @param {string} datePickerId 
      * @param {string} output - error box id
      * @returns {boolean} checkResult
@@ -78,6 +82,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * Checks that input value passed in parameter corresponds to the accepted format
+     * @memberof validation 
      * @param {string} value - date format : YYYY-MM-DD 
      * @param {string} output - error box id
      * @param {string} type - accept date, dateTime, ...
@@ -90,6 +95,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * Checks that label passed in parameter corresponds to the accepted format
+     * @memberof validation 
      * @param {string} datePickerLabel
      * @param {string} output - error box id
      * @returns {boolean} checkResult
@@ -99,6 +105,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * Checks that deadlines passed in parameter corresponds to the accepted format
+     * @memberof validation 
      * @param {string} date
      * @param {object} limits - deadlines object  
      * @param {boolean} strictValidation - true : apply strict validation
@@ -134,6 +141,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * Checks length and format of string parameter
+     * @memberof validation 
      * @param {string} string 
      * @param {string} stringName - accept dateInput, id or label 
      * @param {string} output - error box id
@@ -168,6 +176,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * Checks if type is allowed
+     * @memberof validation 
      * @param {string} itemToCheck 
      * @param {string} itemName
      * @param {string} output - error box id
@@ -182,6 +191,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * clear error attribute and error message displayed
+     * @memberof validation 
      */
     clearError: () => { validation.error = [] },
 
@@ -189,10 +199,10 @@ import { datePickerParams } from "./datePickerParams";
 
         /**
          * Provide expected formats as an object 
+         * @memberof validation 
          * @param {string} type - accept date, time, ...
          * @param {string} outputFormat - corresponding to DatePicker parameter
          * @returns {object} formatObject
-         * @see validation.formats.getObject
          */
         get: (type, outputFormat = "number") => {
             let langOpt = 0
@@ -219,7 +229,8 @@ import { datePickerParams } from "./datePickerParams";
         },
 
         /**
-         * Provide formats object
+         * Provide formats object 
+         * @memberof validation 
          * @param {string} output 
          * @param {string} pattern 
          * @param {string} placeholder 
@@ -230,7 +241,8 @@ import { datePickerParams } from "./datePickerParams";
         getObject: (output, pattern, placeholder, regExp, expectedLenght) => { return { output, pattern, placeholder, regExp, expectedLenght }},
         
         /**
-         * Provide options object
+         * Provide options object 
+         * @memberof validation 
          * @param {boolean} time 
          * @returns {object} optionsObject
          */
@@ -240,12 +252,14 @@ import { datePickerParams } from "./datePickerParams";
         },
 
         /**
-         * Store language defined to navigator
+         * Store language defined to navigator 
+         * @memberof validation 
          */
         lang: navigator.language.substring(0,2),
 
         /**
-         * Stores functions to get input value correctly formatted
+         * Stores functions to get input value correctly formatted 
+         * @memberof validation 
          */
         output: {
 
@@ -377,7 +391,8 @@ import { datePickerParams } from "./datePickerParams";
         },
 
         /**
-         * Stores input pattern corresponding to the expected format
+         * Stores input pattern corresponding to the expected format 
+         * @memberof validation 
          */
         pattern: {
             date: datePattern, 
@@ -391,7 +406,8 @@ import { datePickerParams } from "./datePickerParams";
         }, 
 
         /**
-         * Stores input placeholder corresponding to the expected format
+         * Stores input placeholder corresponding to the expected format 
+         * @memberof validation 
          */
         placeholder: {
             date: datePlaceholder, 
@@ -405,7 +421,8 @@ import { datePickerParams } from "./datePickerParams";
         },
 
         /**
-         * Stores regExp parameter to control the expected format
+         * Stores regExp parameter to control the expected format 
+         * @memberof validation 
          */
         regExp: {
             date: [/^\d{4}-\d{2}-\d{2}$/, /^\d{2}-\d{2}-\d{4}$/, /^\d{1}-\d{1}-\d{4}$/, /^\d{1}.\d{1}.\d{4}$/], 
@@ -421,6 +438,7 @@ import { datePickerParams } from "./datePickerParams";
 
     /**
      * Applies the test function of regExp
+     * @memberof validation 
      * @param {string} string - value to check
      * @param {string} stringName 
      * @param {string} output 

@@ -13,6 +13,13 @@ var _toolkit = require("@reduxjs/toolkit");
 
 var _validation = require("../utils/validation");
 
+/**
+ * Retrieves, in validation object, errors corresponding to id passed in parameter and adds them to error state 
+ * @function 
+ * @param {string} inputId - input id 
+ * @see errorAction.add 
+ * @see validation
+ */
 var getErrors = function getErrors(inputId) {
   return function (dispatch) {
     if (_validation.validation.error.length > 0) {
@@ -30,12 +37,32 @@ var initialState = {
   status: "empty",
   error: {}
 };
+/**
+ * @typedef {object} error 
+ * @description Redux component in charge of react Error component state - state : { status: {string}, error: {object} } 
+ * @component 
+ * @property {function} add - Add an error 
+ * @property {function} clear - Remove errors encountered by a component 
+ */
 
 var _createSlice = (0, _toolkit.createSlice)({
   name: "error",
   initialState: initialState,
   reducers: {
+    /**
+     * Add an error to error state 
+     * @memberof error
+     * @param {object} errorObject - contains output, what and why attributes 
+     * @example `errorAction.add( errorObject = { what: "date", why: "tooShort", output: "inputId"} )` 
+     */
     add: {
+      /**
+       * @param {object} errorObject 
+       * @param {string} errorObject.output - output box id 
+       * @param {string} errorObject.what - element concerned by the error 
+       * @param {string} errorObject.why - why an error is thrown
+       * @memberof error.add
+       */
       prepare: function prepare(errorObject) {
         return {
           payload: {
@@ -55,7 +82,17 @@ var _createSlice = (0, _toolkit.createSlice)({
         return;
       }
     },
+
+    /**
+     * Remove errors encountered by a component 
+     * @memberof error 
+     * @example `errorAction.clear("inputId")` 
+     */
     clear: {
+      /**
+       * @param {string} id - component id concerned by error(s) 
+       * @memberof param.clear
+       */
       prepare: function prepare(id) {
         return {
           payload: {

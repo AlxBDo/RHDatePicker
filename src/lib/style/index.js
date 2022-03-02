@@ -1,44 +1,65 @@
 import styled from "styled-components";
-
 import homeIcoDarkMode from "../assets/home-darkMode.png" 
 import homeIcoLightMode from "../assets/home-lightMode.png" 
 import arrowIcoDarkMode from "../assets/arrow-darkMode.png" 
 import arrowIcoLightMode from "../assets/arrow-lightMode.png" 
 import moveIcoDarkMode from "../assets/move-darkMode.png"
 import moveIcoLightMode from "../assets/move-lightMode.png"
+ 
 
 /**
  * Contains navigator theme 
- * @example "light"
+ * @example "return light"
  */
 export const theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light"
 
 /**
- * Provides the color, the background-color and the calendar icons corresponding to the theme 
+ * @typedef {object} style 
+ * @description Provides the color, the background-color and the calendar icons corresponding to the theme 
+ * @property {function} adviceColor - Provides advice message font color 
+ * @property {function} backgroundColor - Provides background color 
+ * @property {function} color - Provides font color
+ * @property {object} colors - Store advice, dark, error, light and defaults fonts colors 
+ * @property {function} errorColor - Provides error message font color 
+ * @property {object} icons - Store icons  
+ * @property {object} page - Store page font and background colors 
+ * @property {function} setColors - Set font colors : dark and light theme, advice and error message
  */
 export const style = {
 
     /**
      * Provides advice message font color 
-     * @returns {string}
+     * @memberof style 
+     * @function
+     * @returns {string} adviceColor
      */
     adviceColor: () => style.colors.advice ?? style.colors.default.advice,
 
     /**
-     * Provides background color 
-     * @returns {string}
+     * Provides background color  
+     * @memberof style 
+     * @function 
+     * @returns {string} backgroundColor
      */
     backgroundColor: () => style.colors[theme] ? style.colors[theme] : style.colors.default[theme],
 
     /**
-     * Provides font color 
-     * @returns {string}
+     * Provides font color  
+     * @memberof style 
+     * @function 
+     * @returns {string} color 
      */
     color: () => style.colors.light ? style.colors[theme === "light" ? "dark" : "light"] 
                 : style.colors.default[theme === "light" ? "dark" : "light"],
 
     /**
-     * Store advice, dark, error, light and defaults fonts colors
+     * Store advice, dark, error, light and defaults fonts colors 
+     * @memberof style 
+     * @property {string} advice - advice font color 
+     * @property {string} dark - font color use for dark theme 
+     * @property {string} error - error font color 
+     * @property {string} light - font color use for ligth theme 
+     * @property {object} default - contains colors to use if they have not been defined by the user. 
      */
     colors: {
         advice: undefined,
@@ -49,13 +70,19 @@ export const style = {
     },
 
     /**
-     * Provides error message font color 
+     * Provides error message font color  
+     * @memberof style 
+     * @function
      * @returns {string}
      */
     errorColor: () => style.colors.error ?? style.colors.default.error,
 
     /**
      * Store icons 
+     * @memberof style 
+     * @property {function} arrow - Provide arrow icon 
+     * @property {function} home - Provide home icon  
+     * @property {function} move - Provide move icon  
      */
     icons: {
 
@@ -79,7 +106,10 @@ export const style = {
     },
 
     /**
-     * Store page font and background colors
+     * Store page font and background colors  
+     * @memberof style 
+     * @property {function} color - Provide font color
+     * @property {function} bgColor - Provide background color 
      */
     page: {
         color: () => style.color(),
@@ -87,7 +117,8 @@ export const style = {
     },
 
     /**
-     * Set font colors : dark and light theme, advice and error message
+     * Set font colors : dark and light theme, advice and error message  
+     * @memberof style 
      * @param {string} dark 
      * @param {string} light 
      * @param {string | boolean} advice 
@@ -227,8 +258,13 @@ export const CalendarSection = styled.section`
             align-content: baseline;
         };
         div.time-separator {
-            margin-top: -15px;
             margin-left: 5px;
+            @media(max-width : 499px){ 
+                margin-top: -15px;
+            }
+            @media(min-width : 500px){ 
+                margin-top: 7px;
+            }
         }
         p {
             width: 100%;
@@ -343,7 +379,9 @@ export const DateSelect = styled.div`
                 }
                 `
             case "year": 
-                return `overflow: auto;`
+                return `overflow: auto;
+                    scrollbar-width: thin;
+                    scrollbar-color: #383F51 #DDDBF1;`
             default: 
                 return `
                     flex-direction: column;`;

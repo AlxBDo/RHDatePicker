@@ -11,6 +11,21 @@ var _react = _interopRequireDefault(require("react"));
 
 var _style = require("../../style");
 
+/**
+ * Display DialogBox component 
+ * @component 
+ * @param {object} props
+ * @param {object} props.children 
+ * @param {string} props.dialogBoxId - define html attribute id 
+ * @param {object} props.htmlClass - contains html classes to assign to component className attribute 
+ * @param {boolean} displayBox - true is display 
+ * @param {boolean} isModal - true is modal 
+ * @param {string} color - define color 
+ * @param {string} backgroundColor - define backgroundColor 
+ * @param {string} name - use to styled component definition 
+ * @param {boolean} longSize - true is long 
+ * @returns {object} DialogBox
+ */
 function Dialog(props) {
   var children = props.children,
       dialogBoxId = props.dialogBoxId,
@@ -29,12 +44,13 @@ function Dialog(props) {
     $name: name && name,
     $isDisplay: displayBox,
     $isModal: isModal,
-    $longSize: longSize
+    $longSize: longSize,
+    "data-testid": dialogBoxId.indexOf("-calendar-modal") > 0 && "date-picker-calendar"
   }, children && children);
 }
 
 Dialog.defaultProps = {
-  isDisplay: false,
+  displayBox: false,
   isModal: false
 };
 var _default = Dialog;

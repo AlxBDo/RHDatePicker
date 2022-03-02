@@ -87,7 +87,8 @@ export const datePickerParams = {
     format: {},
 
     /**
-     * Provides time select id
+     * Provides time select id 
+     * @memberof datePickerParams 
      * @param {string} baseId - DatePicker input id
      * @param {string} selectName - time select name (is equivalent to id) 
      * @param {string | boolean} startOrEnd - defines if it is an end time, a start time or neither 
@@ -103,6 +104,7 @@ export const datePickerParams = {
     
     /**
      * Initializes the attributes containing the component parameters
+     * @memberof datePickerParams 
      * @param {string} inputId 
      * @param {string} label 
      * @param {object} deadlines 
@@ -144,6 +146,7 @@ export const datePickerParams = {
 
     /**
      * Initializes the html ids necessary for the operation of the component
+     * @memberof datePickerParams 
      * @param {string} baseId - DatePicker input id
      * @param {boolean} isPeriod 
      */
@@ -181,6 +184,7 @@ export const datePickerParams = {
 
     /**
      * Execute the functions corresponding to the eventName parameter
+     * @memberof datePickerParams 
      * @param {object} e - event
      * @param {string} eventName 
      * @param {string} baseId - DatePicker input id
@@ -189,6 +193,7 @@ export const datePickerParams = {
 
     /**
      * Check and store the event functions passed as a parameter of the DatePicker component
+     * @memberof datePickerParams 
      * @param {string} baseId - DatePicker input id
      * @param {object} eventFunction 
      */
@@ -209,6 +214,7 @@ export const datePickerParams = {
  
     /**
      * Check and store html class passed as a parameter of the DatePicker component
+     * @memberof datePickerParams 
      * @param {string} baseId - DatePicker input id
      * @param {object} htmlClass 
      */
@@ -216,12 +222,14 @@ export const datePickerParams = {
 
     /**
      * Check and store the input id passed as a parameter of the DatePicker component
+     * @memberof datePickerParams 
      * @param {string} id 
      */
     setInputId(id){ this.id.input = validation.checkId(id, "paramError") ? id : "paramError" },    
 
     /**
      * Check and store the input label passed as a parameter of the DatePicker component
+     * @memberof datePickerParams 
      * @param {string} baseId - DatePicker input id
      * @param {string} label 
      */

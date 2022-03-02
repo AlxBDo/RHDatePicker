@@ -53,6 +53,36 @@ var App = function App() {
         document.getElementById("string-date").textContent = "";
       }
     }
+  }; // contain event function param
+
+  var evenFunctionPeriod = {
+    periodValues: {
+      start: false,
+      end: false
+    },
+    getStringValue: function getStringValue(date) {
+      return new Intl.DateTimeFormat(undefined, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }).format(date);
+    },
+    duration: function duration() {
+      return Math.ceil(Math.abs(evenFunctionPeriod.periodValues.end - evenFunctionPeriod.periodValues.start) / (1000 * 60 * 60 * 24));
+    },
+    onBlur: function onBlur(e) {
+      var periodMsgBox = document.getElementById("vacation-period");
+
+      if (!evenFunctionPeriod.periodValues.start || evenFunctionPeriod.periodValues.end) {
+        periodMsgBox.textContent = "";
+        evenFunctionPeriod.periodValues.start = e;
+        evenFunctionPeriod.periodValues.end = false;
+      } else {
+        evenFunctionPeriod.periodValues.end = e;
+        periodMsgBox.textContent = "Your next vacation is scheduled from ".concat(evenFunctionPeriod.getStringValue(evenFunctionPeriod.periodValues.start), " \n                to ").concat(evenFunctionPeriod.getStringValue(evenFunctionPeriod.periodValues.end), ". Your leave will last ").concat(evenFunctionPeriod.duration(), " days");
+      }
+    }
   }; // contain html class param
 
   var BDHtmlClass = {
@@ -63,6 +93,15 @@ var App = function App() {
     min: "01-01-2022",
     max: "17-02-2022"
   };
+  var colors = {
+    dark: "#383F51",
+    light: "#DDDBF1",
+    advice: "#93AD18",
+    error: "#D81159"
+  };
+
+  _style.style.setColors(colors);
+
   return /*#__PURE__*/_react.default.createElement(_style.TimeSelectorPage, null, /*#__PURE__*/_react.default.createElement("h1", null, "Date Picker Component Example"), /*#__PURE__*/_react.default.createElement("div", {
     id: "example1",
     className: "example"
@@ -73,7 +112,8 @@ var App = function App() {
     eventFunction: eventFunction,
     htmlClass: BDHtmlClass,
     type: "date",
-    valueFormat: "dateObject"
+    valueFormat: "array",
+    colors: colors
   }), /*#__PURE__*/_react.default.createElement("p", {
     id: "weekday-ctn"
   }, "You were born on a ", /*#__PURE__*/_react.default.createElement("span", {
@@ -86,7 +126,8 @@ var App = function App() {
     label: "Choose date and time",
     eventFunction: onBlurFunction,
     htmlClass: BDHtmlClass,
-    valueFormat: "string"
+    valueFormat: "string",
+    colors: colors
   }), /*#__PURE__*/_react.default.createElement("p", {
     id: "string-date"
   })), /*#__PURE__*/_react.default.createElement("div", {
@@ -96,9 +137,12 @@ var App = function App() {
     inputId: "holidays-period-ipt",
     label: "Choose end and start date of your next vacation",
     htmlClass: BDHtmlClass,
-    type: "dateTimePeriod"
+    type: "dateTimePeriod",
+    eventFunction: evenFunctionPeriod,
+    valueFormat: "dateObject",
+    colors: colors
   }), /*#__PURE__*/_react.default.createElement("p", {
-    id: "string-date"
+    id: "vacation-period"
   })));
 };
 

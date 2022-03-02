@@ -13,6 +13,14 @@ var _validation = require("./validation");
 
 var _style = require("../style");
 
+/**
+ * Provides object to define "is" attribute
+ * @param {boolean} isDate 
+ * @param {boolean} isDateTime 
+ * @param {boolean} isPeriod 
+ * @param {boolean} isTime 
+ * @returns {object} 
+ */
 var getIsDefaultObject = function getIsDefaultObject(isDate, isDateTime, isPeriod, isTime) {
   return {
     date: isDate,
@@ -21,24 +29,51 @@ var getIsDefaultObject = function getIsDefaultObject(isDate, isDateTime, isPerio
     time: isTime
   };
 };
+/**
+ * @typedef {object} datePickerParams
+ * @description Store necessary informations and functions to execute DatePicker component
+ * @property {object} id - Store id 
+ * @property {object} is - Store "is" object. Contains date, dateTime, period and time attributes. 
+ * @example `datePickerParams.is = { date: true, dateTime: false, period: true, time: false }`
+ * @property {object} deadlines - Store deadlines applied to the DatePicker component 
+ * @example `datePickerParams.deadlines = { max: 2022-02-24, min: 2022-01-01 }` 
+ * @property {function} addId - Add ids to "id" attribute 
+ * @property {object} eventFunction - Stores functions to be executed when events are triggered 
+ * @property {object} format - Store format of input and output values 
+ * @property {function} getTimeSelectId - Provide time select id 
+ * @property {object} htmlClass - Stores html class provided as a parameter of DatePicker component. Use to define className 
+ * @property {object} label - Store input label provided as a parameter of DatePicker component. Use to define label text 
+ * @property {function} initComponentParams - Initializes the attributes containing the component parameters 
+ * @property {function} initIdHtml - Initializes the html ids necessary to component operations 
+ * @property {function} listen - Execute the functions corresponding to the eventName parameter 
+ * @property {function} setEventFunction - Check and store the event functions passed as a parameter of the DatePicker component 
+ * @property {function} setHtmlClass - Check and store html class passed as a parameter of the DatePicker component 
+ * @property {function} setInputId - Check and store the input id passed as a parameter of the DatePicker component
+ * @property {function} setLabel - Check and store the input label passed as a parameter of the DatePicker component
+*/
+
 
 var datePickerParams = {
-  /**
-   * store id
-   */
   id: {},
   is: {},
   deadlines: {},
 
   /**
-   * store a new id
-   * @param {string} name 
-   * @param {string} value 
+   * Add ids to "id" attribute
+   * @param {string} baseId - DatePicker input id 
+   * @param {object} idObject 
+   * @example { hoursStartSelect: {string}, ... }
    */
   addId: function addId(baseId, idObject) {
     return datePickerParams.id[baseId] = idObject;
   },
   eventFunction: {
+    /**
+     * Checks the value received and executes the function, provided as a DatePicker parameter, corresponding to the triggered event
+     * @param {string} baseId - DatePicker input id
+     * @param {string | number} value 
+     * @param {string} eventFunctionName 
+     */
     execute: function execute(baseId, value, eventFunctionName) {
       _validation.validation.clearError();
 
@@ -59,6 +94,15 @@ var datePickerParams = {
     }
   },
   format: {},
+
+  /**
+   * Provides time select id 
+   * @memberof datePickerParams 
+   * @param {string} baseId - DatePicker input id
+   * @param {string} selectName - time select name (is equivalent to id) 
+   * @param {string | boolean} startOrEnd - defines if it is an end time, a start time or neither 
+   * @returns {string} timeSelectId
+   */
   getTimeSelectId: function getTimeSelectId(baseId, selectName) {
     var startOrEnd = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
     return datePickerParams.id[baseId]["".concat(selectName).concat(startOrEnd ? startOrEnd.substring(0, 1).toUpperCase() + startOrEnd.substring(1) : "", "Select")];
@@ -67,14 +111,19 @@ var datePickerParams = {
   label: {},
 
   /**
-   * initializes the attributes containing the component parameters
+   * Initializes the attributes containing the component parameters
+   * @memberof datePickerParams 
    * @param {string} inputId 
    * @param {string} label 
+   * @param {object} deadlines 
    * @param {object} eventFunction 
    * @param {object} htmlClass 
+   * @param {string} dateFormat 
+   * @param {string} type 
+   * @param {object} colors 
    */
   initComponentParams: function initComponentParams(inputId, label, deadlines, eventFunction, htmlClass, dateFormat, type) {
-    var calendarColor = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
+    var colors = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
 
     if (!datePickerParams.is[inputId]) {
       var indexTime = type.indexOf("ime");
@@ -93,12 +142,15 @@ var datePickerParams = {
     }, _validation.validation.formats.get(datePickerParams.is[inputId].dateTime ? "dateTime" : datePickerParams.is[inputId].date ? "date" : "time", dateFormat));
 
     if (!_style.style.colors.dark) {
-      _style.style.setColors(_validation.validation.checkColor(calendarColor.dark, inputId), _validation.validation.checkColor(calendarColor.light, inputId), calendarColor.advice && _validation.validation.checkColor(calendarColor.advice, inputId), calendarColor.error && _validation.validation.checkColor(calendarColor.error, inputId));
+      _style.style.setColors(_validation.validation.checkColor(colors.dark, inputId), _validation.validation.checkColor(colors.light, inputId), colors.advice && _validation.validation.checkColor(colors.advice, inputId), colors.error && _validation.validation.checkColor(colors.error, inputId));
     }
   },
 
   /**
-   * initializes the html ids necessary for the operation of the component
+   * Initializes the html ids necessary for the operation of the component
+   * @memberof datePickerParams 
+   * @param {string} baseId - DatePicker input id
+   * @param {boolean} isPeriod 
    */
   initIdHtml: function initIdHtml(baseId, isPeriod) {
     var timeId = isPeriod ? {
@@ -129,16 +181,20 @@ var datePickerParams = {
   },
 
   /**
-   * execute the functions corresponding to the eventName parameter
-   * @param {event} e 
+   * Execute the functions corresponding to the eventName parameter
+   * @memberof datePickerParams 
+   * @param {object} e - event
    * @param {string} eventName 
+   * @param {string} baseId - DatePicker input id
    */
   listen: function listen(e, eventName, baseId) {
     return datePickerParams.eventFunction.execute(baseId, e.target.value, eventName);
   },
 
   /**
-   * check and store the event functions passed as a parameter of the DatePicker component
+   * Check and store the event functions passed as a parameter of the DatePicker component
+   * @memberof datePickerParams 
+   * @param {string} baseId - DatePicker input id
    * @param {object} eventFunction 
    */
   setEventFunction: function setEventFunction(baseId, eventFunction) {
@@ -160,7 +216,9 @@ var datePickerParams = {
   },
 
   /**
-   * check and store html class passed as a parameter of the DatePicker component
+   * Check and store html class passed as a parameter of the DatePicker component
+   * @memberof datePickerParams 
+   * @param {string} baseId - DatePicker input id
    * @param {object} htmlClass 
    */
   setHtmlClass: function setHtmlClass(baseId, htmlClass) {
@@ -170,7 +228,8 @@ var datePickerParams = {
   },
 
   /**
-   * check and store the input id passed as a parameter of the DatePicker component
+   * Check and store the input id passed as a parameter of the DatePicker component
+   * @memberof datePickerParams 
    * @param {string} id 
    */
   setInputId: function setInputId(id) {
@@ -178,7 +237,9 @@ var datePickerParams = {
   },
 
   /**
-   * check and store the input label passed as a parameter of the DatePicker component
+   * Check and store the input label passed as a parameter of the DatePicker component
+   * @memberof datePickerParams 
+   * @param {string} baseId - DatePicker input id
    * @param {string} label 
    */
   setLabel: function setLabel(baseId, label) {

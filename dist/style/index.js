@@ -25,24 +25,67 @@ var _moveLightMode = _interopRequireDefault(require("../assets/move-lightMode.pn
 
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12;
 
+/**
+ * Contains navigator theme 
+ * @example "return light"
+ */
 var theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
 /**
- * Provides the color, the background-color and the calendar icons corresponding to the theme
+ * @typedef {object} style 
+ * @description Provides the color, the background-color and the calendar icons corresponding to the theme 
+ * @property {function} adviceColor - Provides advice message font color 
+ * @property {function} backgroundColor - Provides background color 
+ * @property {function} color - Provides font color
+ * @property {object} colors - Store advice, dark, error, light and defaults fonts colors 
+ * @property {function} errorColor - Provides error message font color 
+ * @property {object} icons - Store icons  
+ * @property {object} page - Store page font and background colors 
+ * @property {function} setColors - Set font colors : dark and light theme, advice and error message
  */
 
 exports.theme = theme;
 var style = {
+  /**
+   * Provides advice message font color 
+   * @memberof style 
+   * @function
+   * @returns {string} adviceColor
+   */
   adviceColor: function adviceColor() {
     var _style$colors$advice;
 
     return (_style$colors$advice = style.colors.advice) !== null && _style$colors$advice !== void 0 ? _style$colors$advice : style.colors.default.advice;
   },
+
+  /**
+   * Provides background color  
+   * @memberof style 
+   * @function 
+   * @returns {string} backgroundColor
+   */
   backgroundColor: function backgroundColor() {
     return style.colors[theme] ? style.colors[theme] : style.colors.default[theme];
   },
+
+  /**
+   * Provides font color  
+   * @memberof style 
+   * @function 
+   * @returns {string} color 
+   */
   color: function color() {
     return style.colors.light ? style.colors[theme === "light" ? "dark" : "light"] : style.colors.default[theme === "light" ? "dark" : "light"];
   },
+
+  /**
+   * Store advice, dark, error, light and defaults fonts colors 
+   * @memberof style 
+   * @property {string} advice - advice font color 
+   * @property {string} dark - font color use for dark theme 
+   * @property {string} error - error font color 
+   * @property {string} light - font color use for ligth theme 
+   * @property {object} default - contains colors to use if they have not been defined by the user. 
+   */
   colors: {
     advice: undefined,
     dark: undefined,
@@ -55,29 +98,82 @@ var style = {
       advice: "#75B74E"
     }
   },
+
+  /**
+   * Provides error message font color  
+   * @memberof style 
+   * @function
+   * @returns {string}
+   */
   errorColor: function errorColor() {
     var _style$colors$error;
 
     return (_style$colors$error = style.colors.error) !== null && _style$colors$error !== void 0 ? _style$colors$error : style.colors.default.error;
   },
+
+  /**
+   * Store icons 
+   * @memberof style 
+   * @property {function} arrow - Provide arrow icon 
+   * @property {function} home - Provide home icon  
+   * @property {function} move - Provide move icon  
+   */
   icons: {
+    /**
+     * Provides arrow icon
+     * @returns {string}
+     */
     arrow: function arrow() {
       return theme === "light" ? _arrowLightMode.default : _arrowDarkMode.default;
     },
+
+    /**
+     * Provides home icon
+     * @returns {string}
+     */
     home: function home() {
       return theme === "light" ? _homeLightMode.default : _homeDarkMode.default;
     },
+
+    /**
+     * Provides move icon
+     * @returns {string}
+     */
     move: function move() {
       return theme === "light" ? _moveLightMode.default : _moveDarkMode.default;
     }
   },
+
+  /**
+   * Store page font and background colors  
+   * @memberof style 
+   * @property {function} color - Provide font color
+   * @property {function} bgColor - Provide background color 
+   */
   page: {
-    color: theme === "light" ? "#1e1e1e" : "#eaeaea",
-    bgColor: theme === "dark" ? "#1e1e1e" : "#eaeaea"
+    color: function color() {
+      return style.color();
+    },
+    bgColor: function bgColor() {
+      return style.backgroundColor();
+    }
   },
-  setColors: function setColors(dark, light) {
-    var advice = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    var error = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+  /**
+   * Set font colors : dark and light theme, advice and error message  
+   * @memberof style 
+   * @param {string} dark 
+   * @param {string} light 
+   * @param {string | boolean} advice 
+   * @param {string | boolean} error 
+   */
+  setColors: function setColors(_ref) {
+    var dark = _ref.dark,
+        light = _ref.light,
+        _ref$advice = _ref.advice,
+        advice = _ref$advice === void 0 ? false : _ref$advice,
+        _ref$error = _ref.error,
+        error = _ref$error === void 0 ? false : _ref$error;
     style.colors.dark = dark;
     style.colors.light = light;
 
@@ -93,7 +189,9 @@ var style = {
 exports.style = style;
 var clickable = "cursor: pointer;\n                    &:hover {\n                        background-color: ".concat(style.color(), ";\n                        color: ").concat(style.backgroundColor(), ";\n                        border-radius: 22px;\n                        text-shadow: 0px -1px 1px ").concat(theme === "dark" ? "black" : "lightgrey", ";\n                        box-shadow: inset 0px 0px 3px ").concat(theme === "dark" ? "black" : "lightgrey", ";\n                    }");
 
-var AdviceBox = _styledComponents.default.p(_templateObject || (_templateObject = (0, _taggedTemplateLiteral2.default)(["\n    color: ", ";\n    font-size: smaller;\n"])), style.adviceColor());
+var AdviceBox = _styledComponents.default.p(_templateObject || (_templateObject = (0, _taggedTemplateLiteral2.default)(["\n    color: ", ";\n    font-size: smaller;\n"])), function (props) {
+  return props.$color;
+});
 
 exports.AdviceBox = AdviceBox;
 
@@ -121,7 +219,7 @@ var CalendarOption = _styledComponents.default.span(_templateObject5 || (_templa
 
 exports.CalendarOption = CalendarOption;
 
-var CalendarSection = _styledComponents.default.section(_templateObject6 || (_templateObject6 = (0, _taggedTemplateLiteral2.default)(["\n    text-align: center;\n    display: flex;\n    flex-direction: ", ";\n    flex-wrap: ", ";\n    overflow: hidden;\n    max-height: 320px;\n    &:first-of-type {\n        width: 270px;\n    }\n    div.time-separator {\n        align-self: center;\n        font-size: xxx-large;\n    }\n    div:not(.time-select) {\n        display: flex;\n        flex-direction: row;\n    };\n    &.time-period{\n        overflow: hidden;\n        div:not(.time-select, .minutes-ctn) {\n            height: 50%;\n            overflow: hidden;\n            flex-wrap: wrap;\n            justify-content: center;\n            align-items: baseline;\n            align-content: baseline;\n        };\n        div.time-separator {\n            margin-top: -15px;\n            margin-left: 5px;\n        }\n        p {\n            width: 100%;\n            margin: 0px auto;\n            padding: 0;\n            height: 15px;\n            font-size: small;\n            border-radius: 5px;\n            ", "\n        };\n    };\n    ", "\n}\n"])), function (props) {
+var CalendarSection = _styledComponents.default.section(_templateObject6 || (_templateObject6 = (0, _taggedTemplateLiteral2.default)(["\n    text-align: center;\n    display: flex;\n    flex-direction: ", ";\n    flex-wrap: ", ";\n    overflow: hidden;\n    max-height: 320px;\n    &:first-of-type {\n        width: 270px;\n    }\n    div.time-separator {\n        align-self: center;\n        font-size: xxx-large;\n    }\n    div:not(.time-select) {\n        display: flex;\n        flex-direction: row;\n    };\n    &.time-period{\n        overflow: hidden;\n        div:not(.time-select, .minutes-ctn) {\n            height: 50%;\n            overflow: hidden;\n            flex-wrap: wrap;\n            justify-content: center;\n            align-items: baseline;\n            align-content: baseline;\n        };\n        div.time-separator {\n            margin-left: 5px;\n            @media(max-width : 499px){ \n                margin-top: -15px;\n            }\n            @media(min-width : 500px){ \n                margin-top: 7px;\n            }\n        }\n        p {\n            width: 100%;\n            margin: 0px auto;\n            padding: 0;\n            height: 15px;\n            font-size: small;\n            border-radius: 5px;\n            ", "\n        };\n    };\n    ", "\n}\n"])), function (props) {
   return props.$flexDirection || "column";
 }, function (props) {
   return props.$flexWrap || "nowrap";
@@ -135,7 +233,11 @@ var DatePickerContainer = _styledComponents.default.div(_templateObject7 || (_te
 
 exports.DatePickerContainer = DatePickerContainer;
 
-var DatePickerInput = _styledComponents.default.input(_templateObject8 || (_templateObject8 = (0, _taggedTemplateLiteral2.default)(["\n    text-align: center;\n    border: 1px solid;\n    padding: 5px;\n    margin: 1%;\n    border-radius: 3px;\n    background-color: ", "; \n    color: ", ";\n    width: ", "\n"])), style.backgroundColor(), style.color(), function (props) {
+var DatePickerInput = _styledComponents.default.input(_templateObject8 || (_templateObject8 = (0, _taggedTemplateLiteral2.default)(["\n    text-align: center;\n    border: 1px solid;\n    padding: 5px;\n    margin: 1%;\n    border-radius: 3px;\n    background-color: ", ";\n    color: ", ";\n    width: ", "\n"])), function (props) {
+  return props.$backgroundColor;
+}, function (props) {
+  return props.$color;
+}, function (props) {
   return props.$long ? "130px" : "95px";
 });
 
@@ -159,7 +261,7 @@ var DateSelect = _styledComponents.default.div(_templateObject9 || (_templateObj
       return "\n                    flex-direction: column;\n                    span:not(:nth-of-type(4), :nth-of-type(6), .selected-option) {\n                    font-size: x-small;\n                }\n                ";
 
     case "year":
-      return "overflow: auto;";
+      return "overflow: auto;\n                    scrollbar-width: thin;\n                    scrollbar-color: #383F51 #DDDBF1;";
 
     default:
       return "\n                    flex-direction: column;";
@@ -184,7 +286,9 @@ var DialogBox = _styledComponents.default.div(_templateObject10 || (_templateObj
 
 exports.DialogBox = DialogBox;
 
-var ErrorBox = _styledComponents.default.div(_templateObject11 || (_templateObject11 = (0, _taggedTemplateLiteral2.default)(["\n    color: ", ";\n    margin: 2% auto;\n"])), style.errorColor());
+var ErrorBox = _styledComponents.default.div(_templateObject11 || (_templateObject11 = (0, _taggedTemplateLiteral2.default)(["\n    color: ", ";\n    margin: 1% auto;\n"])), function (props) {
+  return props.$color;
+});
 
 exports.ErrorBox = ErrorBox;
 
