@@ -5,7 +5,7 @@ import arrowIcoDarkMode from "../assets/arrow-darkMode.png"
 import arrowIcoLightMode from "../assets/arrow-lightMode.png" 
 import moveIcoDarkMode from "../assets/move-darkMode.png"
 import moveIcoLightMode from "../assets/move-lightMode.png"
- 
+
 
 /**
  * Contains navigator theme 
@@ -421,6 +421,9 @@ export const DialogBox = styled.div`
 export const ErrorBox = styled.div`
     color: ${(props) => (props.$color) };
     margin: 1% auto;
+    width: 50%;
+    min-width: 250px;
+    max-width: 350px;
 `
 
 export const TimeSelectorPage = styled.div`

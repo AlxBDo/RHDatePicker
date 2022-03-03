@@ -19,14 +19,21 @@
 .example-ctn label, div.date-picker-input { 
     width: 40%; 
     min-width: 200px;
+    margin-bottom: 2%;
 }
 .example-err {
 	color: red;
 	margin: 5% 0;
 	font-weight: bold;
     width: 100%;
-    text-align: center; 
     display: none;
+}
+.example-err div::before {
+	content: "😕";
+	font-size: xx-large;
+	margin: 0 10px 0 -45px;
+	text-align: right;
+	float: left;
 }
 .example-err p {
 	margin: 5px 0;
@@ -37,13 +44,13 @@
 .example {
     max-width: 550px;
     margin: 5% auto;
-    border: 3px solid #75b74e;
+    border: 3px solid #313747;
     border-radius: 5px;
 }
 
 .example:last-of-type { margin-bottom: 265px; }
   
-.example p {
+.example p:not(.hrnet-dp-error p) {
     text-align: center;
     margin: 5%;
     font-size: larger;
@@ -57,9 +64,17 @@
     text-align: center;
 }
 
+h1 {
+	color: #E1CE7A;
+	border-bottom: 3px solid;
+	padding-bottom: 15px;
+	text-shadow: 2px 2px 2px #303644;
+	box-shadow: 0px 2px 0px #303644;
+}
+
 h2 {
-    background-color: #75b74e;
-    color: white;
+    background-color: #E1CE7A;
+    color: #303644;
     padding: 2% 5%;
     text-align: left;
     margin: 0 0 5%;

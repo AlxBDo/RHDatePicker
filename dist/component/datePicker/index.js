@@ -67,6 +67,7 @@ var DatePicker = function DatePicker(props) {
   var dispatch = (0, _reactRedux.useDispatch)();
   var params = (0, _reactRedux.useSelector)((0, _selectors.selectParams)());
   var selectedDate = (0, _reactRedux.useSelector)((0, _selectors.selectSelectedDate)(baseId));
+  var error = (0, _reactRedux.useSelector)((0, _selectors.selectError)());
 
   if (baseId !== "paramError" && _datePickerParams.datePickerParams.label[baseId]) {
     if (!params.checked.includes(inputId)) {
@@ -74,7 +75,7 @@ var DatePicker = function DatePicker(props) {
       dispatch(paramsAction.setDisplay(_datePickerParams.datePickerParams.id[baseId].modal, false));
     }
 
-    if (selectedDate.status === "default" && !selectedDate.day) {
+    if (selectedDate.status !== "default" && !selectedDate.day) {
       dispatch(selectedDateAction.init(baseId, type));
     }
   }
@@ -93,11 +94,15 @@ var DatePicker = function DatePicker(props) {
      * @param {string} eventName - accept onBlur, onChange or onClick 
      */
     paramsFunction: function paramsFunction(e, eventName) {
-      dispatch(errorAction.clear(baseId));
+      if (eventName === "onChange") {
+        dispatch(errorAction.clear(baseId));
+      }
 
-      _datePickerParams.datePickerParams.listen(e, eventName, baseId);
+      if (!error.error[baseId]) {
+        _datePickerParams.datePickerParams.listen(e, eventName, baseId);
 
-      dispatch(errorAction.getErrors(baseId));
+        dispatch(errorAction.getErrors(baseId));
+      }
     },
 
     /**
@@ -132,13 +137,10 @@ var DatePicker = function DatePicker(props) {
       eventFunctionHandler.paramsFunction(e, "onClick");
     }
   };
-  (0, _react.useEffect)(function () {
-    dispatch(errorAction.getErrors(baseId));
-  }, []);
   return /*#__PURE__*/_react.default.createElement(_style.DatePickerContainer, null, baseId !== "paramError" && _datePickerParams.datePickerParams.label[baseId] && /*#__PURE__*/_react.default.createElement("div", {
     className: _datePickerParams.datePickerParams.htmlClass[baseId].container && _datePickerParams.datePickerParams.htmlClass[baseId].container
   }, /*#__PURE__*/_react.default.createElement("label", {
-    role: "label",
+    "data-testid": "date-picker-label",
     htmlFor: baseId
   }, _datePickerParams.datePickerParams.label[baseId]), /*#__PURE__*/_react.default.createElement("div", {
     className: "date-picker-input"

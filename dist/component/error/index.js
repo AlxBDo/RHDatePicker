@@ -2,12 +2,14 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _reactRedux = require("react-redux");
 
@@ -21,6 +23,8 @@ var _validation = require("../../utils/validation");
 
 var _selectors = require("../../utils/selectors");
 
+var errorAction = _interopRequireWildcard(require("../../features/error"));
+
 /**
  * Display Dialog component containing error messages
  * @component 
@@ -30,6 +34,7 @@ var _selectors = require("../../utils/selectors");
  * @returns {object} Dialog component
  */
 function Error(props) {
+  var dispatch = (0, _reactRedux.useDispatch)();
   var dialogBoxId = props.dialogBoxId,
       htmlClass = props.htmlClass;
   var error = (0, _reactRedux.useSelector)((0, _selectors.selectError)());
@@ -110,6 +115,9 @@ function Error(props) {
       }
     }
   };
+  (0, _react.useEffect)(function () {
+    dispatch(errorAction.getErrors(dialogBoxId));
+  }, []);
   return /*#__PURE__*/_react.default.createElement(_dialog.default, {
     dialogBoxId: "".concat(dialogBoxId, "-err-msg"),
     htmlClass: "hrnet-dp-error ".concat(htmlClass && htmlClass),

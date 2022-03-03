@@ -31,7 +31,7 @@ var selectParams = function selectParams() {
 
 exports.selectParams = selectParams;
 var defaultSelectedDate = {
-  status: "default"
+  status: "empty"
 };
 
 var selectSelectedDate = function selectSelectedDate(inputId) {

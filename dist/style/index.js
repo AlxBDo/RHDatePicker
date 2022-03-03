@@ -286,7 +286,7 @@ var DialogBox = _styledComponents.default.div(_templateObject10 || (_templateObj
 
 exports.DialogBox = DialogBox;
 
-var ErrorBox = _styledComponents.default.div(_templateObject11 || (_templateObject11 = (0, _taggedTemplateLiteral2.default)(["\n    color: ", ";\n    margin: 1% auto;\n"])), function (props) {
+var ErrorBox = _styledComponents.default.div(_templateObject11 || (_templateObject11 = (0, _taggedTemplateLiteral2.default)(["\n    color: ", ";\n    margin: 1% auto;\n    width: 50%;\n    min-width: 250px;\n    max-width: 350px;\n"])), function (props) {
   return props.$color;
 });
 

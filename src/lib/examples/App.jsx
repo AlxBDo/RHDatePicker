@@ -60,7 +60,7 @@ const App = () => {
 
     const deadlines = {min: "01-01-2022", max: "17-02-2022"}
 
-    const colors= { dark: "#383F51", light: "#DDDBF1", advice: "#93AD18", error: "#D81159" }
+    const colors= { dark: "#383F51", light: "#DDDBF1", advice: "#A6ECE0", error: "#F9627D" }
     style.setColors(colors)
 
     return (

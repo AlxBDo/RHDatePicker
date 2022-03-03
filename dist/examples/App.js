@@ -96,8 +96,8 @@ var App = function App() {
   var colors = {
     dark: "#383F51",
     light: "#DDDBF1",
-    advice: "#93AD18",
-    error: "#D81159"
+    advice: "#A6ECE0",
+    error: "#F9627D"
   };
 
   _style.style.setColors(colors);

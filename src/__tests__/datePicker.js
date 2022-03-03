@@ -52,7 +52,7 @@ describe("DatePicker to date format", () => {
 
         render(datePickerTest(datePickerId)) 
 
-        const label = screen.getByRole("label") 
+        const label = screen.getByTestId("date-picker-label") 
         const ipt = screen.getByTestId("date-picker-input")
         const calendar = screen.getByTestId("date-picker-calendar")
         const errorBox = document.getElementById(`${datePickerId}-err-msg`)

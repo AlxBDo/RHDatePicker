@@ -107,7 +107,7 @@ const DatePicker = (props) => {
         <DatePickerContainer>
             { (baseId !== "paramError" && datePickerParams.label[baseId]) && (
                 <div className={ datePickerParams.htmlClass[baseId].container && datePickerParams.htmlClass[baseId].container }>
-                    <label role={"label"} htmlFor={baseId}>{datePickerParams.label[baseId]}</label> 
+                    <label data-testid="date-picker-label"  htmlFor={baseId}>{datePickerParams.label[baseId]}</label> 
                     <div className="date-picker-input">
                         <DatePickerInput 
                             type="text"
