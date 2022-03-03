@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Dialog from "../dialog";
 import { AdviceBox, ErrorBox } from "../../style";
 import { datePickerParams } from "../../utils/datePickerParams";
 import { validation } from "../../utils/validation";
 import { selectError } from "../../utils/selectors"; 
+import * as errorAction from "../../features/error"
 import { style } from "../../style"
 
 /**
@@ -19,6 +20,7 @@ import { style } from "../../style"
  */
 function Error(props){
 
+    const dispatch = useDispatch()
     const { dialogBoxId, htmlClass} = props
     const error = useSelector(selectError()); 
 
@@ -91,6 +93,11 @@ function Error(props){
         } 
     
     };
+
+    useEffect( () => {
+        dispatch(errorAction.getErrors(dialogBoxId))
+    }, [])
+
     return(
         <Dialog 
             dialogBoxId={`${dialogBoxId}-err-msg`} 

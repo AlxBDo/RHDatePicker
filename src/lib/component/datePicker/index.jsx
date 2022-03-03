@@ -7,6 +7,7 @@ import { DatePickerContainer, DatePickerInput, style } from "../../style"
 import Error from "../error"
 import Calendar from "../calendar"
 import * as errorAction from "../../features/error"
+import { selectError } from "../../utils/selectors"
 import { selectParams } from "../../utils/selectors"
 import * as paramsAction from "../../features/params"
 import { selectSelectedDate } from "../../utils/selectors" 
@@ -39,13 +40,14 @@ const DatePicker = (props) => {
     const dispatch = useDispatch()
     const params = useSelector(selectParams())
     const selectedDate = useSelector(selectSelectedDate(baseId))
+    const error = useSelector(selectError())
     
     if(baseId !== "paramError" && datePickerParams.label[baseId]){
         if(!params.checked.includes(inputId)){ 
             dispatch(paramsAction.init(inputId)) 
             dispatch(paramsAction.setDisplay(datePickerParams.id[baseId].modal, false))
         } 
-        if(selectedDate.status === "default" && !selectedDate.day) {
+        if(selectedDate.status !== "default" && !selectedDate.day) {
             dispatch(selectedDateAction.init(baseId, type))
         }
     }
@@ -54,7 +56,7 @@ const DatePicker = (props) => {
      * contains the functions to be executed following the events
      */
     const eventFunctionHandler = {
-
+ 
         /**
          * Executes the functions provided by the eventFunction parameter of the DatePicker component 
          * as well as those for controlling the format of the input value
@@ -64,9 +66,11 @@ const DatePicker = (props) => {
          * @param {string} eventName - accept onBlur, onChange or onClick 
          */
         paramsFunction : (e, eventName) => {
-            dispatch(errorAction.clear(baseId))
-            datePickerParams.listen(e, eventName, baseId)
-            dispatch(errorAction.getErrors(baseId))
+            if(eventName === "onChange"){ dispatch(errorAction.clear(baseId)) }
+            if(!error.error[baseId]){
+                datePickerParams.listen(e, eventName, baseId)
+                dispatch(errorAction.getErrors(baseId))
+            }
         },
 
         /**
@@ -98,10 +102,6 @@ const DatePicker = (props) => {
         },
 
     }
-
-    useEffect( () => {
-        dispatch(errorAction.getErrors(baseId))
-    }, [])
     
     return(
         <DatePickerContainer>

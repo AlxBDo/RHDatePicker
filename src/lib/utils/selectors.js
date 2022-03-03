@@ -8,7 +8,7 @@ export const selectParams = () => (state) => {
     return state.params ?? defaultParams
 }
 
-const defaultSelectedDate = { status: "default" }
+const defaultSelectedDate = { status: "empty" }
 
 export const selectSelectedDate = (inputId) => (state) => {
     return state.selectedDate.dates[inputId] ?? defaultSelectedDate

@@ -23,23 +23,26 @@ describe("DatePicker to date format", () => {
     })
 
     test("Should display an error because input value format is wrong", async () => {
-
+ 
         render(datePickerTest(datePickerId)) 
 
         const ipt = screen.getByTestId("date-picker-input")
         const errorBox = document.getElementById(`${datePickerId}-err-msg`)
 
-        expect(errorBox.textContent).toEqual("")
-
-        ipt.value = "valueTooShort"
+        fireEvent.change(
+            ipt, 
+            { target : { value: "valueTooShort" } }
+        )
         fireEvent.blur(ipt)
 
         expect(errorBox.textContent).toEqual("dateTime is too short !Its length must be 16 characters.")
 
-        ipt.value = "valueTestIsTooLongString"
+        fireEvent.change(
+            ipt, 
+            { target : { value: "valueTestIsTooLongString" } }
+        )
         fireEvent.blur(ipt)
-        const msgError = `dateTime is in wrong format !Date and time must be separeted by a space and consist of numbers separeted by hyphens (for date) 
-        or double point (for time) : YYYY-MM-DD HH:MM .`
+        
         
         expect(errorBox.textContent).toEqual("dateTime is too long !Its length must be 16 characters.")
 
