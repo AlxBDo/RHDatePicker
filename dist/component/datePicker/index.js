@@ -1,15 +1,17 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
+var _interopRequireWildcard3 = require("@babel/runtime/helpers/interopRequireWildcard").default;
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _interopRequireWildcard2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/interopRequireWildcard"));
+
+var _react = _interopRequireWildcard3(require("react"));
 
 var _reactRedux = require("react-redux");
 
@@ -19,18 +21,24 @@ var _validation = require("../../utils/validation");
 
 var _style = require("../../style");
 
-var _error = _interopRequireDefault(require("../error"));
-
-var _calendar = _interopRequireDefault(require("../calendar"));
-
-var errorAction = _interopRequireWildcard(require("../../features/error"));
+var errorAction = _interopRequireWildcard3(require("../../features/error"));
 
 var _selectors = require("../../utils/selectors");
 
-var paramsAction = _interopRequireWildcard(require("../../features/params"));
+var paramsAction = _interopRequireWildcard3(require("../../features/params"));
 
-var selectedDateAction = _interopRequireWildcard(require("../../features/selectedDate"));
+var selectedDateAction = _interopRequireWildcard3(require("../../features/selectedDate"));
 
+var Error = /*#__PURE__*/(0, _react.lazy)(function () {
+  return Promise.resolve().then(function () {
+    return (0, _interopRequireWildcard2.default)(require("../error"));
+  });
+});
+var Calendar = /*#__PURE__*/(0, _react.lazy)(function () {
+  return Promise.resolve().then(function () {
+    return (0, _interopRequireWildcard2.default)(require("../calendar"));
+  });
+});
 /**
  * Display label, input and calendar. Controls input format and formats output value. 
  * @component 
@@ -49,6 +57,7 @@ var selectedDateAction = _interopRequireWildcard(require("../../features/selecte
  * @example `colors = { dark: "#302f2f", light: "#f2f2ef", error: "#e55a44", advice: "#75B74E"}`  
  * @returns {object}
  */
+
 var DatePicker = function DatePicker(props) {
   var inputId = props.inputId,
       label = props.label,
@@ -75,7 +84,7 @@ var DatePicker = function DatePicker(props) {
       dispatch(paramsAction.setDisplay(_datePickerParams.datePickerParams.id[baseId].modal, false));
     }
 
-    if (selectedDate.status !== "default" && !selectedDate.day) {
+    if (selectedDate.status === "empty" && !selectedDate.day) {
       dispatch(selectedDateAction.init(baseId, type));
     }
   }
@@ -159,11 +168,13 @@ var DatePicker = function DatePicker(props) {
     $color: _style.style.color(),
     $backgroundColor: _style.style.backgroundColor(),
     required: true
-  }), /*#__PURE__*/_react.default.createElement(_calendar.default, {
+  }), /*#__PURE__*/_react.default.createElement(_react.Suspense, {
+    fallback: /*#__PURE__*/_react.default.createElement("div", null, "Loading Calendar...")
+  }, /*#__PURE__*/_react.default.createElement(Calendar, {
     baseId: baseId,
     displayBox: params.display[_datePickerParams.datePickerParams.id[baseId].modal],
     type: type
-  }), _datePickerParams.datePickerParams.is[baseId].period && /*#__PURE__*/_react.default.createElement(_style.DatePickerInput, {
+  })), _datePickerParams.datePickerParams.is[baseId].period && /*#__PURE__*/_react.default.createElement(_style.DatePickerInput, {
     type: "text",
     id: "".concat(baseId, "-end"),
     name: "".concat(baseId, "-end"),
@@ -177,10 +188,12 @@ var DatePicker = function DatePicker(props) {
     $color: _style.style.color(),
     $backgroundColor: _style.style.backgroundColor(),
     required: true
-  }))), /*#__PURE__*/_react.default.createElement(_error.default, {
+  }))), /*#__PURE__*/_react.default.createElement(_react.Suspense, {
+    fallback: /*#__PURE__*/_react.default.createElement("div", null, "Loading Error...")
+  }, /*#__PURE__*/_react.default.createElement(Error, {
     dialogBoxId: baseId,
     htmlClass: _datePickerParams.datePickerParams.htmlClass[baseId].error && _datePickerParams.datePickerParams.htmlClass[baseId].error
-  }));
+  })));
 };
 
 DatePicker.defaultProps = {

@@ -1,15 +1,17 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
+var _interopRequireWildcard3 = require("@babel/runtime/helpers/interopRequireWildcard").default;
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _interopRequireWildcard2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/interopRequireWildcard"));
+
+var _react = _interopRequireWildcard3(require("react"));
 
 var _reactRedux = require("react-redux");
 
@@ -22,8 +24,6 @@ var _datePickerParams = require("../../utils/datePickerParams");
 var _validation = require("../../utils/validation");
 
 var _selectors = require("../../utils/selectors");
-
-var errorAction = _interopRequireWildcard(require("../../features/error"));
 
 /**
  * Display Dialog component containing error messages
@@ -116,7 +116,11 @@ function Error(props) {
     }
   };
   (0, _react.useEffect)(function () {
-    dispatch(errorAction.getErrors(dialogBoxId));
+    Promise.resolve().then(function () {
+      return (0, _interopRequireWildcard2.default)(require("../../features/error"));
+    }).then(function (errorAction) {
+      return dispatch(errorAction.getErrors(dialogBoxId));
+    });
   }, []);
   return /*#__PURE__*/_react.default.createElement(_dialog.default, {
     dialogBoxId: "".concat(dialogBoxId, "-err-msg"),

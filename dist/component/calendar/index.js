@@ -1,6 +1,6 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
+var _interopRequireWildcard3 = require("@babel/runtime/helpers/interopRequireWildcard").default;
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 
@@ -9,23 +9,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _interopRequireWildcard2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/interopRequireWildcard"));
+
+var _react = _interopRequireWildcard3(require("react"));
 
 var _reactRedux = require("react-redux");
 
-var paramsAction = _interopRequireWildcard(require("../../features/params"));
+var paramsAction = _interopRequireWildcard3(require("../../features/params"));
 
-var selectedDateAction = _interopRequireWildcard(require("../../features/selectedDate"));
+var selectedDateAction = _interopRequireWildcard3(require("../../features/selectedDate"));
 
-var errorAction = _interopRequireWildcard(require("../../features/error"));
+var errorAction = _interopRequireWildcard3(require("../../features/error"));
 
 var _selectors = require("../../utils/selectors");
 
 var _dialog = _interopRequireDefault(require("../dialog"));
 
 var _CalendarSelect = _interopRequireDefault(require("./CalendarSelect"));
-
-var _TimeSelect = _interopRequireDefault(require("./TimeSelect"));
 
 var _style = require("../../style");
 
@@ -35,10 +35,16 @@ var _date = require("../../utils/date");
 
 var _validation = require("../../utils/validation");
 
+var TimeSelect = /*#__PURE__*/(0, _react.lazy)(function () {
+  return Promise.resolve().then(function () {
+    return (0, _interopRequireWildcard2.default)(require("./TimeSelect"));
+  });
+});
 /**
  * iterates over elements with class selected-day and removes it
  * @function 
  */
+
 var deleteSelectedDay = function deleteSelectedDay() {
   return document.querySelectorAll(".selected-day").forEach(function (element) {
     element.classList.remove("selected-day");
@@ -536,60 +542,68 @@ function Calendar(props) {
     $name: "timeSection",
     $flexWrap: _datePickerParams.datePickerParams.is[baseId].period && "wrap",
     className: _datePickerParams.datePickerParams.is[baseId].period ? "time-period" : null
-  }, _datePickerParams.datePickerParams.is[baseId].period && /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "Start"), /*#__PURE__*/_react.default.createElement(_TimeSelect.default, {
+  }, _datePickerParams.datePickerParams.is[baseId].period && /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "Start"), /*#__PURE__*/_react.default.createElement(_react.Suspense, {
+    fallback: /*#__PURE__*/_react.default.createElement("div", null, "Loading Time Select Component")
+  }, /*#__PURE__*/_react.default.createElement(TimeSelect, {
     baseId: baseId,
     maxValue: 23,
     name: "hoursStart",
     reduceSize: true,
     selectedValue: calendarDate.getHours("start"),
     onClickFunction: click.hour
-  }), /*#__PURE__*/_react.default.createElement("div", {
+  })), /*#__PURE__*/_react.default.createElement("div", {
     className: "time-separator"
   }, ":"), /*#__PURE__*/_react.default.createElement("div", {
     className: "minutes-ctn"
-  }, /*#__PURE__*/_react.default.createElement(_TimeSelect.default, {
+  }, /*#__PURE__*/_react.default.createElement(_react.Suspense, {
+    fallback: /*#__PURE__*/_react.default.createElement("div", null, "Loading Time Select Component")
+  }, /*#__PURE__*/_react.default.createElement(TimeSelect, {
     baseId: baseId,
     maxValue: 5,
     name: "minutesDecStart",
     reduceSize: true,
     selectedValue: calendarDate.getMinutes("deci", "start"),
     onClickFunction: click.minute
-  }), /*#__PURE__*/_react.default.createElement(_TimeSelect.default, {
+  }), /*#__PURE__*/_react.default.createElement(TimeSelect, {
     baseId: baseId,
     name: "minutesUniStart",
     reduceSize: true,
     selectedValue: calendarDate.getMinutes("unit", "start"),
     onClickFunction: click.minute
-  }))), /*#__PURE__*/_react.default.createElement("div", {
+  })))), /*#__PURE__*/_react.default.createElement("div", {
     "data-testid": "time-section-test",
     style: {
       display: calendarDate.typeHour === "start" && "none"
     }
-  }, _datePickerParams.datePickerParams.is[baseId].period && /*#__PURE__*/_react.default.createElement("p", null, "End"), /*#__PURE__*/_react.default.createElement(_TimeSelect.default, {
+  }, _datePickerParams.datePickerParams.is[baseId].period && /*#__PURE__*/_react.default.createElement("p", null, "End"), /*#__PURE__*/_react.default.createElement(_react.Suspense, {
+    fallback: /*#__PURE__*/_react.default.createElement("div", null, "Loading Time Select Component")
+  }, /*#__PURE__*/_react.default.createElement(TimeSelect, {
     baseId: baseId,
     maxValue: 23,
     name: "hours".concat(calendarDate.nameSuffix),
     reduceSize: _datePickerParams.datePickerParams.is[baseId].period,
     selectedValue: calendarDate.getHours(_datePickerParams.datePickerParams.is[baseId].period && "end"),
     onClickFunction: click.hour
-  }), /*#__PURE__*/_react.default.createElement("div", {
+  })), /*#__PURE__*/_react.default.createElement("div", {
     className: "time-separator"
   }, ":"), /*#__PURE__*/_react.default.createElement("div", {
     className: "minutes-ctn"
-  }, /*#__PURE__*/_react.default.createElement(_TimeSelect.default, {
+  }, /*#__PURE__*/_react.default.createElement(_react.Suspense, {
+    fallback: /*#__PURE__*/_react.default.createElement("div", null, "Loading Time Select Component")
+  }, /*#__PURE__*/_react.default.createElement(TimeSelect, {
     baseId: baseId,
     maxValue: 5,
     name: "minutesDec".concat(calendarDate.nameSuffix),
     reduceSize: _datePickerParams.datePickerParams.is[baseId].period,
     selectedValue: calendarDate.getMinutes("deci", _datePickerParams.datePickerParams.is[baseId].period && "end"),
     onClickFunction: click.minute
-  }), /*#__PURE__*/_react.default.createElement(_TimeSelect.default, {
+  }), /*#__PURE__*/_react.default.createElement(TimeSelect, {
     baseId: baseId,
     name: "minutesUni".concat(calendarDate.nameSuffix),
     reduceSize: _datePickerParams.datePickerParams.is[baseId].period,
     selectedValue: calendarDate.getMinutes("unit", _datePickerParams.datePickerParams.is[baseId].period && "end"),
     onClickFunction: click.minute
-  })))));
+  }))))));
 }
 
 var _default = Calendar;

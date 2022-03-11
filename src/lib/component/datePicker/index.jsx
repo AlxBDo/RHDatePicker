@@ -1,17 +1,19 @@
-import React, { useEffect } from "react" 
+import React, { lazy, Suspense } from "react" 
 import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { datePickerParams } from "../../utils/datePickerParams"
 import { validation } from "../../utils/validation" 
 import { DatePickerContainer, DatePickerInput, style } from "../../style"
-import Error from "../error"
-import Calendar from "../calendar"
 import * as errorAction from "../../features/error"
 import { selectError } from "../../utils/selectors"
 import { selectParams } from "../../utils/selectors"
 import * as paramsAction from "../../features/params"
 import { selectSelectedDate } from "../../utils/selectors" 
 import * as selectedDateAction from "../../features/selectedDate"
+ 
+const Error = lazy( () => import("../error") )
+const Calendar = lazy( () => import("../calendar") )
+
 
 /**
  * Display label, input and calendar. Controls input format and formats output value. 
@@ -47,7 +49,7 @@ const DatePicker = (props) => {
             dispatch(paramsAction.init(inputId)) 
             dispatch(paramsAction.setDisplay(datePickerParams.id[baseId].modal, false))
         } 
-        if(selectedDate.status !== "default" && !selectedDate.day) {
+        if(selectedDate.status === "empty" && !selectedDate.day) {
             dispatch(selectedDateAction.init(baseId, type))
         }
     }
@@ -125,11 +127,13 @@ const DatePicker = (props) => {
                             $backgroundColor={style.backgroundColor()}
                             required 
                         />
-                        <Calendar 
-                            baseId={baseId}
-                            displayBox={params.display[datePickerParams.id[baseId].modal]} 
-                            type={type} 
-                        />
+                        <Suspense fallback={<div>Loading Calendar...</div>}>
+                            <Calendar 
+                                baseId={baseId}
+                                displayBox={params.display[datePickerParams.id[baseId].modal]} 
+                                type={type} 
+                            />
+                        </Suspense>
                         { datePickerParams.is[baseId].period && (
                             <DatePickerInput 
                                 type="text" 
@@ -150,10 +154,12 @@ const DatePicker = (props) => {
                     </div>
                 </div>
             ) }
-            <Error 
-                dialogBoxId={baseId} 
-                htmlClass={datePickerParams.htmlClass[baseId].error && datePickerParams.htmlClass[baseId].error}
-            />
+            <Suspense fallback={<div>Loading Error...</div>}>
+                <Error 
+                    dialogBoxId={baseId} 
+                    htmlClass={datePickerParams.htmlClass[baseId].error && datePickerParams.htmlClass[baseId].error}
+                />
+            </Suspense>
         </DatePickerContainer>
     )
 

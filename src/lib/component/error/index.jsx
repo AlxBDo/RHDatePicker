@@ -7,7 +7,6 @@ import { AdviceBox, ErrorBox } from "../../style";
 import { datePickerParams } from "../../utils/datePickerParams";
 import { validation } from "../../utils/validation";
 import { selectError } from "../../utils/selectors"; 
-import * as errorAction from "../../features/error"
 import { style } from "../../style"
 
 /**
@@ -95,7 +94,7 @@ function Error(props){
     };
 
     useEffect( () => {
-        dispatch(errorAction.getErrors(dialogBoxId))
+        import("../../features/error").then( errorAction => dispatch(errorAction.getErrors(dialogBoxId)) )
     }, [])
 
     return(

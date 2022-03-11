@@ -1,4 +1,4 @@
-import React from "react"
+import React, {lazy, Suspense} from "react"
 import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import * as paramsAction from "../../features/params"
@@ -7,11 +7,12 @@ import * as errorAction from "../../features/error"
 import { selectSelectedDate } from "../../utils/selectors";
 import Dialog from "../dialog";
 import CalendarSelect from "./CalendarSelect";
-import TimeSelect from "./TimeSelect"
 import { CalendarBox, CalendarList, CalendarListItem, CalendarSection, DateSelect, style } from "../../style"
 import { datePickerParams } from "../../utils/datePickerParams"
 import { weekdays, months, getLimitYear, transformToNumber, currentDate } from "../../utils/date";
 import { validation } from "../../utils/validation";
+
+const TimeSelect = lazy( () => import("./TimeSelect") )
 
 /**
  * iterates over elements with class selected-day and removes it
@@ -147,7 +148,7 @@ function Calendar(props){
     }
 
     const selectedDate = useSelector(selectSelectedDate(baseId))
-
+    
     if(!calendarDate.day){ calendarDate.initDate(selectedDate) }
 
     const calendarMonthSelected = calendarDate.month - 1
@@ -441,61 +442,69 @@ function Calendar(props){
                     {datePickerParams.is[baseId].period && (
                     <div>
                         <p>Start</p>
-                        <TimeSelect 
-                            baseId={baseId} 
-                            maxValue={23} 
-                            name={`hoursStart`} 
-                            reduceSize={true}
-                            selectedValue={calendarDate.getHours("start")} 
-                            onClickFunction={click.hour}
-                        />
+                        <Suspense fallback={<div>Loading Time Select Component</div>}> 
+                            <TimeSelect 
+                                baseId={baseId} 
+                                maxValue={23} 
+                                name={`hoursStart`} 
+                                reduceSize={true}
+                                selectedValue={calendarDate.getHours("start")} 
+                                onClickFunction={click.hour}
+                            />
+                        </Suspense>
                         <div className="time-separator">:</div>
                         <div className="minutes-ctn">
-                            <TimeSelect 
-                                baseId={baseId} 
-                                maxValue={5} 
-                                name={`minutesDecStart`}  
-                                reduceSize={true}
-                                selectedValue={calendarDate.getMinutes("deci", "start")} 
-                                onClickFunction={click.minute}
-                            />
-                            <TimeSelect 
-                                baseId={baseId} 
-                                name={`minutesUniStart`}  
-                                reduceSize={true}
-                                selectedValue={calendarDate.getMinutes("unit", "start")} 
-                                onClickFunction={click.minute} 
-                            />
+                            <Suspense fallback={<div>Loading Time Select Component</div>}>
+                                <TimeSelect 
+                                    baseId={baseId} 
+                                    maxValue={5} 
+                                    name={`minutesDecStart`}  
+                                    reduceSize={true}
+                                    selectedValue={calendarDate.getMinutes("deci", "start")} 
+                                    onClickFunction={click.minute}
+                                />
+                                <TimeSelect 
+                                    baseId={baseId} 
+                                    name={`minutesUniStart`}  
+                                    reduceSize={true}
+                                    selectedValue={calendarDate.getMinutes("unit", "start")} 
+                                    onClickFunction={click.minute} 
+                                />
+                            </Suspense>
                         </div>
                     </div>
                     )}
                     <div data-testid="time-section-test" style={{display: calendarDate.typeHour === "start" && "none"}}>
-                        {datePickerParams.is[baseId].period && (<p>End</p>)}
-                        <TimeSelect 
-                            baseId={baseId} 
-                            maxValue={23} 
-                            name={`hours${calendarDate.nameSuffix}`} 
-                            reduceSize={datePickerParams.is[baseId].period}
-                            selectedValue={calendarDate.getHours(datePickerParams.is[baseId].period && "end")} 
-                            onClickFunction={click.hour}
-                        />
+                        {datePickerParams.is[baseId].period && (<p>End</p>)} 
+                        <Suspense fallback={<div>Loading Time Select Component</div>}> 
+                            <TimeSelect 
+                                baseId={baseId} 
+                                maxValue={23} 
+                                name={`hours${calendarDate.nameSuffix}`} 
+                                reduceSize={datePickerParams.is[baseId].period}
+                                selectedValue={calendarDate.getHours(datePickerParams.is[baseId].period && "end")} 
+                                onClickFunction={click.hour}
+                            />
+                        </Suspense>
                         <div className="time-separator">:</div>
                         <div className="minutes-ctn">
-                            <TimeSelect 
-                                baseId={baseId} 
-                                maxValue={5} 
-                                name={`minutesDec${calendarDate.nameSuffix}`} 
-                                reduceSize={datePickerParams.is[baseId].period}
-                                selectedValue={calendarDate.getMinutes("deci", datePickerParams.is[baseId].period && "end")} 
-                                onClickFunction={click.minute}
-                            />
-                            <TimeSelect 
-                                baseId={baseId} 
-                                name={`minutesUni${calendarDate.nameSuffix}`} 
-                                reduceSize={datePickerParams.is[baseId].period}
-                                selectedValue={calendarDate.getMinutes("unit", datePickerParams.is[baseId].period && "end")} 
-                                onClickFunction={click.minute} 
-                            />
+                            <Suspense fallback={<div>Loading Time Select Component</div>}> 
+                                <TimeSelect 
+                                    baseId={baseId} 
+                                    maxValue={5} 
+                                    name={`minutesDec${calendarDate.nameSuffix}`} 
+                                    reduceSize={datePickerParams.is[baseId].period}
+                                    selectedValue={calendarDate.getMinutes("deci", datePickerParams.is[baseId].period && "end")} 
+                                    onClickFunction={click.minute}
+                                />
+                                <TimeSelect 
+                                    baseId={baseId} 
+                                    name={`minutesUni${calendarDate.nameSuffix}`} 
+                                    reduceSize={datePickerParams.is[baseId].period}
+                                    selectedValue={calendarDate.getMinutes("unit", datePickerParams.is[baseId].period && "end")} 
+                                    onClickFunction={click.minute} 
+                                />
+                            </Suspense>
                         </div>
                     </div>
                 </CalendarSection>
