@@ -89,19 +89,22 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { useEffect } from "react" 
+            <pre class="prettyprint source linenums"><code>import React, { lazy, Suspense } from "react" 
 import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { datePickerParams } from "../../utils/datePickerParams"
 import { validation } from "../../utils/validation" 
 import { DatePickerContainer, DatePickerInput, style } from "../../style"
-import Error from "../error"
-import Calendar from "../calendar"
 import * as errorAction from "../../features/error"
+import { selectError } from "../../utils/selectors"
 import { selectParams } from "../../utils/selectors"
 import * as paramsAction from "../../features/params"
 import { selectSelectedDate } from "../../utils/selectors" 
 import * as selectedDateAction from "../../features/selectedDate"
+ 
+const Error = lazy( () => import("../error") )
+const Calendar = lazy( () => import("../calendar") )
+
 
 /**
  * Display label, input and calendar. Controls input format and formats output value. 
@@ -130,13 +133,14 @@ const DatePicker = (props) => {
     const dispatch = useDispatch()
     const params = useSelector(selectParams())
     const selectedDate = useSelector(selectSelectedDate(baseId))
+    const error = useSelector(selectError())
     
     if(baseId !== "paramError" &amp;&amp; datePickerParams.label[baseId]){
         if(!params.checked.includes(inputId)){ 
             dispatch(paramsAction.init(inputId)) 
             dispatch(paramsAction.setDisplay(datePickerParams.id[baseId].modal, false))
         } 
-        if(selectedDate.status === "default" &amp;&amp; !selectedDate.day) {
+        if(selectedDate.status === "empty" &amp;&amp; !selectedDate.day) {
             dispatch(selectedDateAction.init(baseId, type))
         }
     }
@@ -145,7 +149,7 @@ const DatePicker = (props) => {
      * contains the functions to be executed following the events
      */
     const eventFunctionHandler = {
-
+ 
         /**
          * Executes the functions provided by the eventFunction parameter of the DatePicker component 
          * as well as those for controlling the format of the input value
@@ -155,9 +159,11 @@ const DatePicker = (props) => {
          * @param {string} eventName - accept onBlur, onChange or onClick 
          */
         paramsFunction : (e, eventName) => {
-            dispatch(errorAction.clear(baseId))
-            datePickerParams.listen(e, eventName, baseId)
-            dispatch(errorAction.getErrors(baseId))
+            if(eventName === "onChange"){ dispatch(errorAction.clear(baseId)) }
+            if(!error.error[baseId]){
+                datePickerParams.listen(e, eventName, baseId)
+                dispatch(errorAction.getErrors(baseId))
+            }
         },
 
         /**
@@ -189,16 +195,12 @@ const DatePicker = (props) => {
         },
 
     }
-
-    useEffect( () => {
-        dispatch(errorAction.getErrors(baseId))
-    }, [])
     
     return(
         &lt;DatePickerContainer>
             { (baseId !== "paramError" &amp;&amp; datePickerParams.label[baseId]) &amp;&amp; (
                 &lt;div className={ datePickerParams.htmlClass[baseId].container &amp;&amp; datePickerParams.htmlClass[baseId].container }>
-                    &lt;label role={"label"} htmlFor={baseId}>{datePickerParams.label[baseId]}&lt;/label> 
+                    &lt;label data-testid="date-picker-label"  htmlFor={baseId}>{datePickerParams.label[baseId]}&lt;/label> 
                     &lt;div className="date-picker-input">
                         &lt;DatePickerInput 
                             type="text"
@@ -216,11 +218,13 @@ const DatePicker = (props) => {
                             $backgroundColor={style.backgroundColor()}
                             required 
                         />
-                        &lt;Calendar 
-                            baseId={baseId}
-                            displayBox={params.display[datePickerParams.id[baseId].modal]} 
-                            type={type} 
-                        />
+                        &lt;Suspense fallback={&lt;div>Loading Calendar...&lt;/div>}>
+                            &lt;Calendar 
+                                baseId={baseId}
+                                displayBox={params.display[datePickerParams.id[baseId].modal]} 
+                                type={type} 
+                            />
+                        &lt;/Suspense>
                         { datePickerParams.is[baseId].period &amp;&amp; (
                             &lt;DatePickerInput 
                                 type="text" 
@@ -241,10 +245,12 @@ const DatePicker = (props) => {
                     &lt;/div>
                 &lt;/div>
             ) }
-            &lt;Error 
-                dialogBoxId={baseId} 
-                htmlClass={datePickerParams.htmlClass[baseId].error &amp;&amp; datePickerParams.htmlClass[baseId].error}
-            />
+            &lt;Suspense fallback={&lt;div>Loading Error...&lt;/div>}>
+                &lt;Error 
+                    dialogBoxId={baseId} 
+                    htmlClass={datePickerParams.htmlClass[baseId].error &amp;&amp; datePickerParams.htmlClass[baseId].error}
+                />
+            &lt;/Suspense>
         &lt;/DatePickerContainer>
     )
 

@@ -89,9 +89,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from "react";
+            <pre class="prettyprint source linenums"><code>import React, { useEffect } from "react";
 import PropTypes from "prop-types"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Dialog from "../dialog";
 import { AdviceBox, ErrorBox } from "../../style";
@@ -110,6 +110,7 @@ import { style } from "../../style"
  */
 function Error(props){
 
+    const dispatch = useDispatch()
     const { dialogBoxId, htmlClass} = props
     const error = useSelector(selectError()); 
 
@@ -182,6 +183,11 @@ function Error(props){
         } 
     
     };
+
+    useEffect( () => {
+        import("../../features/error").then( errorAction => dispatch(errorAction.getErrors(dialogBoxId)) )
+    }, [])
+
     return(
         &lt;Dialog 
             dialogBoxId={`${dialogBoxId}-err-msg`} 

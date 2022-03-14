@@ -5,7 +5,7 @@
 
 A library of React components created using `create-react-app` to make secure and customizable date picker.
 
-![ScreenShot](https://alxbdo.github.io/RHDatePicker/src/img/DatePickerPresentations.gif)
+![ScreenShot](https://alxbdo.github.io/RHDatePicker/src/img/DatePickerPresentation.gif)
 
 RHDatePicker is a time picker displaying a label and an html input as well as a clickable calendar. 
  * It manages dates, times and periods. 
